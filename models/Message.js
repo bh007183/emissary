@@ -1,5 +1,5 @@
 module.exports = function(sequelize, DataTypes){
-    const Message = sequelize.define("Room", {
+    const Message = sequelize.define("Message", {
         message:{
             type: DataTypes.STRING,
             allowNull: false

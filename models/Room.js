@@ -11,6 +11,7 @@ module.exports = function(sequelize, DataTypes){
     })
     
     Room.associate = function(models){
+        Room.hasMany(models.Message)
         Room.belongsToMany(models.User, {through: "roomToUser", onDelete: "cascade", hooks: true})
     }
 
