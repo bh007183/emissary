@@ -2,6 +2,7 @@ const bcrypt = require("bcrypt")
 const salt = 10
 module.exports = function(sequelize, DataTypes){
     const User = sequelize.define("User",{
+        
         firstName: {
             type: DataTypes.STRING,
             allowNull: false
@@ -12,14 +13,28 @@ module.exports = function(sequelize, DataTypes){
         },
         email: {
             type: DataTypes.STRING,
+            allowNull: false,
             validate:{
-                allowNull: false,
-                unique: true,
                 isEmail: {
                     msg: "Must be valid email."
-                }
+                },
+                isUnique: function(value, next){
+                    User.findOne({
+                      where : {
+                        email:value
+                      }
+                    }).then(function(result){
+                      if(result === null){
+                        return next()
+                      }else{
+                        return next('Email already in use')
+                      }
+                    }).catch(err =>{
+                        return next()
+                    })
             }
         },
+    },
         password: {
             type: DataTypes.STRING,
             validate:{
@@ -34,7 +49,9 @@ module.exports = function(sequelize, DataTypes){
     })
     User.beforeCreate(async (user) => {
         const hashed = await bcrypt.hashSync(user.password, salt)
-        this.password = hashed
+        
+        user.password = hashed
+        
     })
     User.associate = function(models){
         User.hasMany(models.Message)

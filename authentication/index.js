@@ -1,6 +1,6 @@
 const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken")
-const db = require("./models")
+const db = require("../models")
 
 module.exports = {
 
@@ -40,7 +40,7 @@ module.exports = {
         
     },
 
-    verifyToken: function(req){
+    verifyToken: async function(req){
         let token = false
         if(!req.headers){
             token = false
