@@ -16,28 +16,29 @@ module.exports = {
             throw new Error(`${err.message}`)
         }
         if(findEmail){
+            const data = findEmail.dataValues
             try{
-                const match = await bcrypt.compare(password, findEmail.password)
+                const match = await bcrypt.compare(password, data.password)
                 if(match){
                     try{
-                        return await jwt.sign({email: findEmail.email, id: findEmail.id}, process.env.JSON_RIO, {expiresIn: '1h'})
-
+                        let resData = await jwt.sign({email: data.email, id: data.id}, process.env.JSON_RIO, {expiresIn: '1h'})
+                        return {
+                            token: resData,
+                            user: data.firstName
+                        }
                     }catch(err){
-                        console.log(err)
+
                         throw new Error(`${err}`)
                     }
                 }else{
                     throw new Error("Invalid Login Credentials")
                 }
-
             }catch(err){
                 throw new Error(`${err.message}`)
             }
-            
         }else{
             throw new Error("Invalid Login Credentials")
         }
-        
     },
 
     verifyToken: async function(req){
@@ -52,14 +53,16 @@ module.exports = {
         if(!token){
             throw new Error('You must login to access account.')
         }else{
-            try{
-                let valid = await jwt.verify(token, process.env.JSON_RIO)
-                console.log(valid)
+            
+                let valid = await jwt.verify(token, process.env.JSON_RIO, (err, token)=>{
+                    if(err){
+                        throw new Error('Session expired. Please log in.')
+                    }else{
+                        return token
+                    }
+                })
                 return valid.id
-
-            }catch(err){
-                throw new Error(err.message)
-            }
+            
             
         }
 
