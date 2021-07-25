@@ -32,14 +32,14 @@ module.exports = function(sequelize, DataTypes){
         }
 
     })
-    User.beforeCreate(async (user, obtions) => {
+    User.beforeCreate(async (user) => {
         const hashed = await bcrypt.hashSync(user.password, salt)
         this.password = hashed
     })
     User.associate = function(models){
         User.hasMany(models.Message)
         User.belongsToMany(models.Room, {through: "roomToUser", constraints: true, onDelete: 'cascade', hooks: true})
-        User.belongsToMany(User, {as: "Friends", through: "userToUser", constraints: true, onDelete: "cascade", hooks:true})
+        User.belongsToMany(User, {as: "Friends", through: "UserToUser", constraints: true, onDelete: "cascade", hooks:true})
     }
     return User
 }
