@@ -27,7 +27,7 @@ module.exports = function(sequelize, DataTypes){
                       if(result === null){
                         return next()
                       }else{
-                        return next('Email already in use')
+                        return next('There is already an account associated with this email address.')
                       }
                     }).catch(err =>{
                         return next()
