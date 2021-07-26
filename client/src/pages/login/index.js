@@ -5,24 +5,26 @@ import {useDispatch, useSelector} from "react-redux"
 import "./style.css";
 import Error from "../../components/errorAlert/Error"
 import BounceButton from "../../components/accountCreated";
-import {Link} from "react-router-dom"
+import {loginApi} from "../../store/userActions"
+import {Link, Redirect} from "react-router-dom"
 
 export default function Login() {
     const dispatch = useDispatch()
     const apiError = useSelector(state => state.Store.User.Error)
-    const apiSuccess = useSelector(state => state.Store.User.Success)
+    const route = useSelector(state => state.Store.User.Route)
     const [login, setLogin] = useState({
         email: "",
         password: "",
       });
       const handleSubmit = (event) => {
         event.preventDefault()
-        dispatch()
+        dispatch(loginApi(login))
     }
     return (
         <main id="loginMain">
+            {route ? <Redirect push to="/userDashBoard"/> : <></>}
         {apiError ? <Error message={apiError}/> : <></>}
-        {apiSuccess ? <BounceButton/> : <></>}
+        
       <header id="entryHeader">
         <div className="centerFlex">
           <h4

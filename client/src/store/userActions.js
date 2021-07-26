@@ -6,7 +6,8 @@ const slice = createSlice({
     initialState: {
         FirstName: "",
         Success:"",
-        Error: ""
+        Error: "",
+        Route: null
     },
     reducers: {
         setName: (User, action) => {
@@ -24,11 +25,19 @@ const slice = createSlice({
         },
         clearSuccess: (User, action) => {
             User.Success = ""
+        },
+        clearRoute: (User, action) => {
+            User.Route = null
+        },
+        loginSuccess: (User, action) => {
+            localStorage.setItem("token", action.payload.token)
+            User.Route = true
+            User.FirstName = action.payload.user
         }
     },
     
 })
-export const {setName, apiCallSuccess, apiCallError, clearError, clearSuccess} = slice.actions
+export const {setName, apiCallSuccess, apiCallError, clearError, clearSuccess, loginSuccess, clearRoute} = slice.actions
 export default slice.reducer
 
 export const createUser = (user) => apiStart({
@@ -36,6 +45,14 @@ export const createUser = (user) => apiStart({
     method: "POST",
     data: user,
     onSuccess: apiCallSuccess.type,
+    onError: apiCallError.type
+
+})
+export const loginApi = (login) => apiStart({
+    url: "http://localhost:8080/api/login",
+    method: "POST",
+    data: login,
+    onSuccess: loginSuccess.type,
     onError: apiCallError.type
 
 })
