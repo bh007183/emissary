@@ -5,12 +5,13 @@ import {createUser} from "../../store/userActions"
 import "./style.css";
 import Error from "../../components/errorAlert/Error"
 import BounceButton from "../../components/accountCreated";
+import {Link} from "react-router-dom"
 
 export default function EntryPoint() {
     const dispatch = useDispatch()
     const apiError = useSelector(state => state.Store.User.Error)
     const apiSuccess = useSelector(state => state.Store.User.Success)
-    const button = useRef(false)
+   
   const [createAccount, setAccount] = useState({
     firstName: "",
     lastName: "",
@@ -77,14 +78,22 @@ export default function EntryPoint() {
             ></input>
           </div>
           <div
-            style={{
+            
+          >
+            <button style={{
               position: "absolute",
               bottom: "0",
               left: "50%",
               transform: "translate(-50%, -90%)",
-            }}
-          >
-            <button>Create</button>
+            }}>Create</button>
+            <Link style={{
+              position: "absolute",
+              bottom: "0px",
+              left: "5px",
+              
+            }}to="/">
+                <p style={{fontSize: "10px"}}>back to login</p>
+            </Link>
           </div>
         </form>
       </section>
