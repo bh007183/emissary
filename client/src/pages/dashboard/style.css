@@ -1,0 +1,58 @@
+#dashBoard{
+    display: grid;
+    grid-template-columns: 4;
+    height: 100vh;
+    /* background-color: black; */
+}
+#roomColumn{
+    grid-column: 1;
+    background-color: rgb(70, 66, 66);
+    border-width: 0px 4px 0px 0px;
+   
+    border-style: solid;
+}
+#messageController{
+    grid-column: 2/4;
+    background-color: rgb(48, 44, 44);
+    position: relative;
+}
+
+
+#formContainer{
+    min-height: 150px;
+    background-color: rgb(2, 36, 36);
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+#input{
+    overflow: auto;
+    resize: none;
+    background-color: rgb(77, 77, 77);
+   border: none;
+   color: white;
+   width: 99%;
+}
+textarea:focus {outline: none; }
+#messageBar{
+    border-width: 1px 1px 1px 1px;
+    border-color: gray;
+    border-style: solid;
+    background-color: rgb(77, 77, 77);
+    width: 91%;
+}
+#formBar{
+    width: 100%; 
+}
+
+
+@media only screen and (max-width: 700px){
+    #messageController{
+        display: none;
+    }
+
+}
