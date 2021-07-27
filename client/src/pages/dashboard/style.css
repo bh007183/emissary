@@ -20,13 +20,14 @@
 
 #formContainer{
     min-height: 150px;
-    background-color: rgb(2, 36, 36);
+    background-color: rgb(15, 17, 17);
     position: absolute;
     bottom: 0;
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
+    
     
 }
 #input{
@@ -36,17 +37,20 @@
    border: none;
    color: white;
    width: 99%;
+   border-radius: 10px;
 }
 textarea:focus {outline: none; }
-#messageBar{
+#messageForm{
     border-width: 1px 1px 1px 1px;
     border-color: gray;
     border-style: solid;
     background-color: rgb(77, 77, 77);
     width: 91%;
+    border-radius: 10px;
 }
 #formBar{
     width: 100%; 
+    border-radius: 10px;
 }
 
 

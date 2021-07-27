@@ -4,14 +4,38 @@ import { clearRoute } from "../../store/userActions";
 import "./style.css";
 import SendIcon from '@material-ui/icons/Send';
 import IconButton from '@material-ui/core/IconButton';
+import { io } from "socket.io-client";
+
+
+let socket;
+
+
+
 
 export default function UserDash() {
   const dispatch = useDispatch();
-
+  
   useEffect(() => {
     dispatch(clearRoute());
     console.log("test");
+    socket = io("http://localhost:8080", {
+        auth: {
+            token: localStorage.getItem("token")
+        }
+    })
+    socket.connect()
+    
+    socket.on("hello", async (socket) => {
+        console.log(socket)
+      });
+
+    socket.on("connect", (data)=> {
+        console.log("client Connected")
+    })
+    
   }, []);
+
+
 
   const handleKeyDown = (e) =>{
     e.target.style.height = 'inherit';
@@ -20,10 +44,12 @@ export default function UserDash() {
 
   return (
     <div id="dashBoard">
-      <div id="roomColumn">hey</div>
+      <div id="roomColumn">
+
+      </div>
       <div id="messageController">
         <div id="formContainer">
-          <form id="messageBar">
+          <form id="messageForm">
              
             <textarea
               id="input"
@@ -40,8 +66,6 @@ export default function UserDash() {
             </div>
           </form>
           </div>
-     
-        ho
       </div>
     </div>
   );

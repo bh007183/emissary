@@ -1,4 +1,4 @@
-import logo from './logo.svg';
+
 import './App.css';
 import EntryPoint from "./pages/entryPoint/EntryPoint"
 import Login from "./pages/login"
