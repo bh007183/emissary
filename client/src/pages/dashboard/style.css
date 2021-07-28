@@ -69,14 +69,14 @@ textarea:focus {outline: none; }
     border-width: 0px 2px 0px 0px;
     border-right-style: solid;
     border-color: black;
-    color:rgb(134, 141, 148);
+    
 }
 #profile{
     grid-column: 12;
     display: flex;
     justify-content: center;
     align-items: center;
-    color: rgb(134, 141, 148);
+    /*  */
 }
 #search{
     grid-column: 6/8;

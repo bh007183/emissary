@@ -1,4 +1,5 @@
 const express = require("express")
+const nano = require("nanoid")
 const app = express()
 const db = require("./models")
 const cors = require("cors")
@@ -22,26 +23,14 @@ app.use(express.urlencoded({extended: true}))
 
    
 io.use(require("./routes/initialSocketConnection"))
+
 io.on("disconnect", (reason) => {
     console.log(reason)
   });
 
-// app.post("/test/login", async (req, res)=> {
-//     try{
-//         const test = await login(req.body)
-//         res.status(200).json(test)
-//     }catch(err){
-//         res.status(400).send(err.message)
-//     }
-// })
-// app.get("/token", async (req, res)=> {
-//     try{
-//         const userId = await verifyToken(req)
-//         res.status(200).json(test)
-//     }catch(err){
-//         res.status(400).send(err.message)
-//     }
-// })
+
+
+
 app.use(require("./routes/apiUserRoutes"))
 // app.use(require("./routes/initialSocketConnection"))
 

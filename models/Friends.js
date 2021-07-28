@@ -4,11 +4,20 @@ module.exports = function(sequelize, DataTypes){
         socketId:{
             type: DataTypes.STRING,
             allowNull: false
+        },
+        friendRequestAccepted: {
+            type: DataTypes.BOOLEAN,
+            defaultValue: false
         }
 
-    })
-    UserToUser.beforeCreate(async (user) => {
-        this.socketId = nano.nanoid()
-    })
+
+    }
+    )
+    // UserToUser.beforeCreate(async (user) => {
+    //     console.log("laosdfoalksdfjaosdhfniqfibaweifcaonisdfiufiuashnxifuahneiuqiwauexhohuew")
+    //     let socketId = await nano.nanoid()
+    //     console.log(socketId)
+    //     user.socketId = socketId
+    // })
    return UserToUser
 }

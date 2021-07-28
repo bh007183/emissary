@@ -41,13 +41,20 @@ export default function UserDash() {
     <>
       <div id="navbar">
         <div id="newConvo" className="centerFlex">
+          <IconButton>
           <AddIcon />
+
+          </IconButton>
+          
         </div>
         
         <div id="search" className="centerFlex">
           <input id="searchInput" placeholder="Search Friends" ></input>
         </div>
-        <div id="profile" className="centerFlex"><AccountCircleIcon/></div>
+        <div id="profile" className="centerFlex">
+          <IconButton>
+          <AccountCircleIcon/></IconButton>
+          </div>
       </div>
 
       <div id="dashBoard">

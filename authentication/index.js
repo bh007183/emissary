@@ -43,17 +43,38 @@ module.exports = {
 
     verifyToken: async function(req){
         let token = req
-        // if(!req.headers){
-        //     token = false
-        // }else if(!req.headers.authorization){
-        //     token = false
-        // }else{
-        //     token = req.headers.authorization.split(" ")[1]
-        // }
         if(!token){
             throw new Error('You must login to access account.')
         }else{
             
+                let valid = await jwt.verify(token, process.env.JSON_RIO, (err, token)=>{
+                    if(err){
+                        throw new Error('Session expired. Please log in.')
+                    }else{
+                        return token
+                    }
+                })
+                return valid.id
+            
+            
+        }
+
+        
+
+    },
+    RestVerifyToken: async function(req){
+        let token = false
+        if(!req.headers){
+            token = false
+        }else if(!req.headers.authorization){
+            token = false
+        }else{
+            token = req.headers.authorization.split(" ")[1]
+        }
+        
+        if(!token){
+            throw new Error('You must login to access account.')
+        }else{
                 let valid = await jwt.verify(token, process.env.JSON_RIO, (err, token)=>{
                     if(err){
                         throw new Error('Session expired. Please log in.')
