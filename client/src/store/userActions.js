@@ -21,13 +21,13 @@ const slice = createSlice({
             console.log(action.payload)
             User.Error = action.payload
         },
-        clearError: (User, action) => {
+        clearError: (User) => {
             User.Error = ""
         },
-        clearSuccess: (User, action) => {
+        clearSuccess: (User) => {
             User.Success = ""
         },
-        clearRoute: (User, action) => {
+        clearRoute: (User) => {
             User.Route = null
         },
         loginSuccess: (User, action) => {
@@ -36,8 +36,9 @@ const slice = createSlice({
             User.FirstName = action.payload.user
         },
         setFriends: (User, action) => {
-            console.log(action.payload)
+            console.log(User.Friends)
             User.Friends = action.payload
+            console.log(User.Friends)
         }
 
     },

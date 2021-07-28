@@ -3,8 +3,8 @@ import handleChange from "../../helper/handleChange";
 import {useDispatch, useSelector} from "react-redux"
 import {createUser} from "../../store/userActions"
 import "./style.css";
-import Error from "../../components/errorAlert/Error"
-import BounceButton from "../../components/accountCreated";
+import Error from "../../components/ErrorAlert/Error"
+import BounceButton from "../../components/AccountCreated";
 import {Link} from "react-router-dom"
 
 export default function EntryPoint() {

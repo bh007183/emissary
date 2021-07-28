@@ -27,16 +27,12 @@ export default function UserDash() {
     });
     socket.connect();
 
-    socket.on("hello", async (socket) => {
-      console.log(socket);
-    });
 
     socket.on("connect", (data) => {
       console.log("client Connected");
     });
 
     socket.on("Friends", async(friends)=>{
-      // console.log(friends)
         dispatch(setFriends(friends))
     })
 
