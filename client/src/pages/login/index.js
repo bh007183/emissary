@@ -3,8 +3,8 @@ import React, { useState, useRef } from "react";
 import handleChange from "../../helper/handleChange";
 import {useDispatch, useSelector} from "react-redux"
 import "./style.css";
-import Error from "../../components/errorAlert/Error"
-import BounceButton from "../../components/accountCreated";
+import Error from "../../components/ErrorAlert/Error"
+import BounceButton from "../../components/AccountCreated";
 import {loginApi} from "../../store/userActions"
 import {Link, Redirect} from "react-router-dom"
 
