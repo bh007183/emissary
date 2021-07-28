@@ -1,13 +1,13 @@
 #dashBoard{
     display: grid;
-    grid-template-columns: 4;
-    height: 100vh;
+    grid-template-columns: repeat(3, 1fr);
+    height: 92vh;
     /* background-color: black; */
 }
 #roomColumn{
     grid-column: 1;
     background-color: rgb(70, 66, 66);
-    border-width: 0px 4px 0px 0px;
+    border-width: 0px 2px 0px 0px;
    
     border-style: solid;
 }
@@ -51,6 +51,43 @@ textarea:focus {outline: none; }
 #formBar{
     width: 100%; 
     border-radius: 10px;
+}
+
+#navbar{
+    height: 8vh;
+    background-color: rgb(36, 31, 31);
+    
+    display: grid;
+    grid-template-columns: repeat(12, 1fr)
+  
+}
+#newConvo{
+    grid-column: 4/5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-width: 0px 2px 0px 0px;
+    border-right-style: solid;
+    border-color: black;
+    color:rgb(134, 141, 148);
+}
+#profile{
+    grid-column: 12;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: rgb(134, 141, 148);
+}
+#search{
+    grid-column: 6/8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  
+     
+}
+#searchInput{
+    background-color: rgb(77, 77, 77);
 }
 
 
