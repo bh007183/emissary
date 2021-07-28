@@ -32,7 +32,7 @@ io.on("disconnect", (reason) => {
 
 
 app.use(require("./routes/apiUserRoutes"))
-// app.use(require("./routes/initialSocketConnection"))
+
 
 db.sequelize.sync({force: false}).then(function(){
     httpServer.listen(PORT, function(){

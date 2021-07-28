@@ -13,11 +13,5 @@ module.exports = function(sequelize, DataTypes){
 
     }
     )
-    // UserToUser.beforeCreate(async (user) => {
-    //     console.log("laosdfoalksdfjaosdhfniqfibaweifcaonisdfiufiuashnxifuahneiuqiwauexhohuew")
-    //     let socketId = await nano.nanoid()
-    //     console.log(socketId)
-    //     user.socketId = socketId
-    // })
    return UserToUser
 }

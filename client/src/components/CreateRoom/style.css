@@ -1,0 +1,33 @@
+#userController{
+    grid-column: 2/4;
+    background-color: rgb(48, 44, 44);
+    position: relative;
+}
+#friendSearch{
+    grid-row: 2/4;
+    height: 60px;
+    background-color: rgb(41, 37, 37);
+    border-width: 1px; 
+    border-color: rgb(63, 63, 63);
+    border-style: solid;
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    
+}
+#searchFriendInput{
+   grid-column: 2/13;
+   background-color: rgb(41, 37, 37);
+   border: none;
+}
+#findFriendTextBlock{
+    position: absolute;
+    top: 75%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+}
+
+#searchForFriendButton{
+    background-color: rgb(41, 37, 37);
+    
+}

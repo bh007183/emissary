@@ -19,3 +19,18 @@ code {
   display: flex;
   justify-content: center;
 }
+
+.centerAndAlignFlex{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.white{
+  color: rgb(187, 187, 187);
+}
+
+textarea:focus,
+input:focus {
+    outline: none;
+}

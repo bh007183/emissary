@@ -2,11 +2,15 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { clearRoute } from "../../store/userActions";
 import "./style.css";
-import SendIcon from "@material-ui/icons/Send";
+import Menu from "@material-ui/core/Menu";
+import MenuItem from "@material-ui/core/MenuItem";
 import IconButton from "@material-ui/core/IconButton";
 import AddIcon from "@material-ui/icons/Add";
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import { io } from "socket.io-client";
+import ReadWrite from "../../components/ReadWrite";
+import CreateRoom from "../../components/CreateRoom";
+import {setFriends} from "../../store/userActions"
 
 let socket;
 
@@ -30,11 +34,24 @@ export default function UserDash() {
     socket.on("connect", (data) => {
       console.log("client Connected");
     });
+
+    socket.on("Friends", async(friends)=>{
+      // console.log(friends)
+        dispatch(setFriends(friends))
+    })
+
+
   }, []);
 
-  const handleKeyDown = (e) => {
-    e.target.style.height = "inherit";
-    e.target.style.height = `${Math.min(e.target.scrollHeight, 80)}px`;
+  const [anchorEl, setAnchorEl] = useState(null);
+
+  const handleClick = (event) => {
+    console.log(event.currentTarget);
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
   };
 
   return (
@@ -42,40 +59,35 @@ export default function UserDash() {
       <div id="navbar">
         <div id="newConvo" className="centerFlex">
           <IconButton>
-          <AddIcon />
-
+            <AddIcon />
           </IconButton>
-          
         </div>
-        
+
         <div id="search" className="centerFlex">
-          <input id="searchInput" placeholder="Search Friends" ></input>
+          <input id="searchInput" placeholder="Search Friends"></input>
         </div>
         <div id="profile" className="centerFlex">
           <IconButton>
-          <AccountCircleIcon/></IconButton>
-          </div>
+            <AccountCircleIcon onClick={handleClick} />
+          </IconButton>
+          <Menu
+            // id="simple-menu"
+            anchorEl={anchorEl}
+            keepMounted
+            open={Boolean(anchorEl)}
+            onClose={handleClose}
+          >
+            <MenuItem onClick={handleClose}>Profile</MenuItem>
+            <MenuItem onClick={handleClose}>My account</MenuItem>
+            <MenuItem onClick={handleClose}>Logout</MenuItem>
+          </Menu>
+        </div>
       </div>
 
       <div id="dashBoard">
         <div id="roomColumn"></div>
-        <div id="messageController">
-          <div id="formContainer">
-            <form id="messageForm">
-              <textarea
-                id="input"
-                placeholder="type here..."
-                rows="2"
-                onKeyUp={handleKeyDown}
-              ></textarea>
-              <div id="formBar">
-                <IconButton>
-                  <SendIcon />
-                </IconButton>
-              </div>
-            </form>
-          </div>
-        </div>
+        {/* <ReadWrite/> */}
+        <CreateRoom />
       </div>
     </>
   );

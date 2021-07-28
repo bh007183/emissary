@@ -19,11 +19,22 @@ module.exports = async function (socket, next) {
     });
     console.log(userResponse);
 
-    let friends = await userResponse.getFriends().catch((err) => {
+    let friends = await userResponse.getFriends({
+      attributes: {
+        exclude: [
+          "password",
+          "UserToUser",
+          "createdAt",
+          "updatedAt"
+        ]
+      }
+    }).catch((err) => {
       console.log(err);
       // socket.emit("Error", err)
     });
+    console.log(friends)
     if (friends.length) {
+      socket.emit("Friends", friends)
       let roomIds = await friends.filter((friend) => friend.socketId);
       await socket.join(roomIds);
 
@@ -41,6 +52,7 @@ module.exports = async function (socket, next) {
   } catch (err) {
     console.log(err.message);
   }
+  
 
   next();
 };

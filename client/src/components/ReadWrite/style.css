@@ -1,0 +1,50 @@
+
+
+
+#formBar{
+    width: 100%; 
+    border-radius: 10px;
+}
+#messageForm{
+    border-width: 1px 1px 1px 1px;
+    border-color: gray;
+    border-style: solid;
+    background-color: rgb(77, 77, 77);
+    width: 91%;
+    border-radius: 10px;
+}
+#input{
+    overflow: auto;
+    resize: none;
+    background-color: rgb(77, 77, 77);
+   border: none;
+   color: white;
+   width: 99%;
+   border-radius: 10px;
+}
+#formContainer{
+    min-height: 150px;
+    background-color: rgb(15, 17, 17);
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    
+}
+#messageController{
+    grid-column: 2/4;
+    background-color: rgb(48, 44, 44);
+    position: relative;
+}
+
+
+
+@media only screen and (max-width: 700px){
+    #messageController{
+        display: none;
+    }
+
+}

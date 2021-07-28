@@ -6,6 +6,10 @@ module.exports = function(sequelize, DataTypes){
         name:{
             type: DataTypes.STRING,
             allowNull: false
+        },
+        socketId:{
+            type: DataTypes.STRING ,
+            unique: true
         }
 
     })

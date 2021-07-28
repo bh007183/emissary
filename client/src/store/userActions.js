@@ -7,7 +7,8 @@ const slice = createSlice({
         FirstName: "",
         Success:"",
         Error: "",
-        Route: null
+        Route: null,
+        Friends: []
     },
     reducers: {
         setName: (User, action) => {
@@ -33,11 +34,16 @@ const slice = createSlice({
             localStorage.setItem("token", action.payload.token)
             User.Route = true
             User.FirstName = action.payload.user
+        },
+        setFriends: (User, action) => {
+            console.log(action.payload)
+            User.Friends = action.payload
         }
+
     },
     
 })
-export const {setName, apiCallSuccess, apiCallError, clearError, clearSuccess, loginSuccess, clearRoute} = slice.actions
+export const {setName, apiCallSuccess, apiCallError, clearError, clearSuccess, loginSuccess, clearRoute, setFriends} = slice.actions
 export default slice.reducer
 
 export const createUser = (user) => apiStart({
