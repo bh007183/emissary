@@ -20,7 +20,7 @@ export default function UserDash() {
   const dispatch = useDispatch();
   
   const component = useSelector(state => state.Store.Component.Rendered)
-
+// Socket Initiator and Listener
   useEffect(() => {
     dispatch(clearRoute());
     console.log("test");
@@ -38,6 +38,15 @@ export default function UserDash() {
 
     socket.on("Friends", async(friends)=>{
         dispatch(setFriends(friends))
+    })
+    socket.on("RoomCreated", function(NewRoom){
+      console.log(NewRoom)
+    })
+    socket.on("Error", function(Err){
+      console.log(Err)
+    })
+    socket.on("SetRooms", function(Rooms){
+      console.log(Rooms)
     })
 
 
@@ -57,9 +66,9 @@ export default function UserDash() {
   const componentSwitch = () => {
     switch (component) {
       case "ReadWrite":
-        return <ReadWrite/>
+        return <ReadWrite socket={socket}/>
       case "CreateRoom":
-        return <CreateRoom/>
+        return <CreateRoom socket={socket}/>
       case "AddConnect":
         return <AddConnect/>
       
@@ -69,9 +78,10 @@ export default function UserDash() {
   const setCurrentComponent = (event) => {
     dispatch(setComponent("CreateRoom"))
   }
-
+  
   return (
     <>
+    
       <div id="navbar">
         <div id="newConvo" className="centerFlex">
           <IconButton onClick={setCurrentComponent}>

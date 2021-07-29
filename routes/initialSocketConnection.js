@@ -14,8 +14,7 @@ module.exports = async function (socket, next) {
         exclude: ["password"],
       },
     }).catch((err) => {
-      console.log(err);
-      // socket.emit("Error", err)
+      socket.emit("Error", err)
     });
     console.log(userResponse);
 
@@ -29,8 +28,7 @@ module.exports = async function (socket, next) {
         ]
       }
     }).catch((err) => {
-      console.log(err);
-      // socket.emit("Error", err)
+      socket.emit("Error", err)
     });
     console.log(friends)
     if (friends.length) {
@@ -45,12 +43,11 @@ module.exports = async function (socket, next) {
       socket.emit("Error", "HAHAHA YOU HAVE NO FRIENDS!!!!");
     }
     let rooms = await userResponse.getRooms().catch((err) => {
-      console.log(err);
-      // socket.emit("Error", err)
+      socket.emit("Error", err)
     });
-    console.log(rooms);
+    socket.emit("SetRooms", rooms)
   } catch (err) {
-    console.log(err.message);
+    socket.emit("Error", err)
   }
   
 

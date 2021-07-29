@@ -23,10 +23,12 @@ app.use(express.urlencoded({extended: true}))
 
    
 io.use(require("./routes/initialSocketConnection"))
+io.use(require("./routes/createRoomSocket"))
 
 io.on("disconnect", (reason) => {
     console.log(reason)
   });
+
 
 
 

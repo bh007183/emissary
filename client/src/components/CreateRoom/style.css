@@ -160,3 +160,10 @@
         transition: 0s
       }
       
+      #createRoom{
+          background-color: rgb(46, 136, 10);
+          color: white;
+          cursor: pointer;
+          border-radius: 3px;
+
+      }

@@ -3,12 +3,17 @@ import "./style.css";
 import { useSelector, useDispatch } from "react-redux";
 import {setComponent} from "../../store/componentActions"
 
-export default function CreateRoom() {
+export default function CreateRoom(props) {
   const dispatch = useDispatch();
 
   const [friends, setFriend] = useState([]);
   const [selected, setSelected] = useState([]);
   const friendArray = useSelector((state) => state.Store.User.Friends);
+
+  useEffect(() => {
+    
+    
+  }, [])
 
   const handleSearch = async (event) => {
     let value = event.target.value;
@@ -49,6 +54,12 @@ export default function CreateRoom() {
     }
   };
 
+  const handleCreateRoom = (event) => {
+    
+    props.socket.emit("create",selected)
+    
+  }
+
   const handleRemoveSelected = (event) => {
     setSelected(selected.filter((friend) => friend.id !== event.target.value));
   };
@@ -81,6 +92,7 @@ export default function CreateRoom() {
           id="searchFriendInput"
           placeholder="Name"
         ></input>
+        <button id="createRoom" onClick={handleCreateRoom}>CreateRoom</button>
       </div>
       <div id="dropDownContainer">
         {friends.map((person) => (
@@ -100,7 +112,7 @@ export default function CreateRoom() {
           Not seeing the right person?
         </p>
         <div className="centerFlex">
-          <button onClick={setCurrentComponent} className="glow-on-hover">Add friend</button>
+          <button onClick={setCurrentComponent} className="glow-on-hover">Send Connection Request</button>
         </div>
       </div>
     </div>
