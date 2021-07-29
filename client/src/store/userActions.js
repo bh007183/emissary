@@ -1,4 +1,5 @@
 import {createSlice} from "@reduxjs/toolkit"
+
 import {apiStart} from "./apiActions"
 
 const slice = createSlice({
@@ -8,7 +9,8 @@ const slice = createSlice({
         Success:"",
         Error: "",
         Route: null,
-        Friends: []
+        Friends: [],
+        ConnectionSearchResults: []
     },
     reducers: {
         setName: (User, action) => {
@@ -18,7 +20,6 @@ const slice = createSlice({
             User.Success = action.payload
         },
         apiCallError: (User, action) => {
-            console.log(action.payload)
             User.Error = action.payload
         },
         clearError: (User) => {
@@ -36,15 +37,16 @@ const slice = createSlice({
             User.FirstName = action.payload.user
         },
         setFriends: (User, action) => {
-            console.log(User.Friends)
             User.Friends = action.payload
-            console.log(User.Friends)
+        },
+        setConnectionSearchResults: (User, action)=>{
+            User.ConnectionSearchResults = action.payload
         }
 
     },
     
 })
-export const {setName, apiCallSuccess, apiCallError, clearError, clearSuccess, loginSuccess, clearRoute, setFriends} = slice.actions
+export const {setName, apiCallSuccess, apiCallError, clearError, clearSuccess, loginSuccess, clearRoute, setFriends, setConnectionSearchResults} = slice.actions
 export default slice.reducer
 
 export const createUser = (user) => apiStart({
@@ -60,6 +62,28 @@ export const loginApi = (login) => apiStart({
     method: "POST",
     data: login,
     onSuccess: loginSuccess.type,
+    onError: apiCallError.type
+
+})
+
+export const findConnection = (connection) => apiStart({
+    url: "http://localhost:8080/api/findConnection/" + connection,
+    headers: {
+        authorization: `Bearer ${localStorage.getItem("token")}`
+    },
+    onSuccess: setConnectionSearchResults.type,
+    onError: apiCallError.type
+
+})
+
+export const addFriend = (id) => apiStart({
+    url: "http://localhost:8080/api/addFriend",
+    headers: {
+        authorization: `Bearer ${localStorage.getItem("token")}`
+    },
+    method: "put",
+    data: {friendId: id},
+    onSuccess: apiCallSuccess.type,
     onError: apiCallError.type
 
 })

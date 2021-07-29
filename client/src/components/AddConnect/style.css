@@ -1,0 +1,64 @@
+#AddFriendContainer {
+  grid-column: 2/4;
+  background-color: rgb(48, 44, 44);
+  position: relative;
+}
+#addConnectionSearch {
+  grid-row: 2/4;
+  height: 60px;
+  background-color: rgb(41, 37, 37);
+  border-width: 1px;
+  border-color: rgb(63, 63, 63);
+  border-style: solid;
+  display: flex;
+}
+#searchConnectionInput {
+  background-color: rgb(41, 37, 37);
+  border: none;
+  font-size: 1.5em;
+  width: 80%;
+  max-width: 80%;
+}
+#searchButton {
+  background-color: #414141;
+
+  width: 100px;
+}
+#dropDownContainer2 {
+  position: absolute;
+  top: 58px;
+  right: 20px;
+  width: 90%;
+  max-height: 40vh;
+  overflow: hidden;
+  background-color: rgb(70, 70, 70);
+  border-radius: 10px;
+}
+
+/* select button on click*/
+.selectPerson2 {
+  background-color: rgb(58, 58, 58);
+  border: none;
+  font-size: 20px;
+  color: #ffffff;
+  width: 100%;
+  text-align: center;
+  -webkit-transition-duration: 0.4s; /* Safari */
+  transition-duration: 0.4s;
+  overflow: hidden;
+  cursor: pointer;
+  padding: 10px;
+}
+
+.selectPerson2:active {
+  background-color: #424242;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
+
+#messageContainer{
+  position: absolute;
+  top: 75%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

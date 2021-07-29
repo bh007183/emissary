@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./style.css";
 import { useSelector, useDispatch } from "react-redux";
+import {setComponent} from "../../store/componentActions"
 
 export default function CreateRoom() {
   const dispatch = useDispatch();
@@ -28,43 +29,48 @@ export default function CreateRoom() {
       })
     );
   };
-  const handleSelected = (event) => {
-    let flag = false
-    for(let i = 0; i < selected.length; i++){
-        if(event.target.value === selected[i].id){
-             flag = true
-             break;
-        }
-    }
-      
-     if(!flag){
-        setSelected([
-            ...selected,
-            { id: event.target.value, name: event.target.innerText },
-          ]);
-     }
-        
 
-      
-      
-    
-  };
-  const handleRemoveSelected = event => {
-     
-      
-      setSelected((selected.filter(friend => friend.id !== event.target.value)))
+  const setCurrentComponent = (event) => {
+    dispatch(setComponent("AddConnect"))
   }
+  const handleSelected = (event) => {
+    let flag = false;
+    for (let i = 0; i < selected.length; i++) {
+      if (event.target.value === selected[i].id) {
+        flag = true;
+        break;
+      }
+    }
+    if (!flag) {
+      setSelected([
+        ...selected,
+        { id: event.target.value, name: event.target.innerText },
+      ]);
+    }
+  };
+
+  const handleRemoveSelected = (event) => {
+    setSelected(selected.filter((friend) => friend.id !== event.target.value));
+  };
 
   return (
     <div id="userController">
       <div id="friendSearch">
-        <p className="centerAndAlignFlex white" style={{ width: "60px"}}>To:</p>
+        <p className="centerAndAlignFlex white" style={{ width: "60px" }}>
+          To:
+        </p>
 
         <div id="selecties">
           {selected.map((selected) => (
-            <div className="centerAndAlignFlex white selected">
+            <div key={selected.id}className="centerAndAlignFlex white selected">
               <div>{selected.name}</div>
-              <button onClick={handleRemoveSelected} value={selected.id} className="removeSelected">x</button>
+              <button
+                onClick={handleRemoveSelected}
+                value={selected.id}
+                className="removeSelected"
+              >
+                x
+              </button>
             </div>
           ))}
         </div>
@@ -74,7 +80,6 @@ export default function CreateRoom() {
           className="white"
           id="searchFriendInput"
           placeholder="Name"
-          
         ></input>
       </div>
       <div id="dropDownContainer">
@@ -95,7 +100,7 @@ export default function CreateRoom() {
           Not seeing the right person?
         </p>
         <div className="centerFlex">
-          <button className="glow-on-hover">Add friend</button>
+          <button onClick={setCurrentComponent} className="glow-on-hover">Add friend</button>
         </div>
       </div>
     </div>

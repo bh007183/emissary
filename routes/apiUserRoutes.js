@@ -2,6 +2,7 @@ const router = require("express").Router()
 const db = require("../models")
 const nano = require("nanoid")
 const {login, RestVerifyToken} = require("../authentication")
+const { Op } = require("sequelize");
 router.post("/api/createUser", async (req, res)=> {
     try{
         await db.User.create(req.body)
@@ -24,18 +25,94 @@ router.post("/api/login", async (req, res)=> {
 })
 
 router.put("/api/addFriend", async (req, res)=> {
-    const userId = await RestVerifyToken(token);
+    
     const socketId = nano.nanoid()
     try{
+        const userId = await RestVerifyToken(req);
         await db.UserToUser.create({
             socketId: socketId,
             UserId: userId,
             FriendId: req.body.friendId,
           })
+          res.status(200).send("Connection request sent!")
     }catch(err){
         console.log(err)
         res.status(404).send(err.message)
     }
+
+})
+router.get("/api/findConnection/:name", async (req, res)=> {
+    let inspect = req.params.name.split(" ").filter(item => item !== "")
+    let firstName = inspect[0]
+    let lastName = inspect[1]
+    
+    if(lastName){
+        try{
+            const userId = await RestVerifyToken(req);
+            const data = await db.User.findAll({
+                where: {
+                    firstName: {
+                        [Op.substring]: firstName
+                    },
+                    lastName: {
+                        [Op.substring]: lastName
+                    }
+                },
+                attributes: {
+                    exclude: [
+                      "password",
+                      "UserToUser",
+                      "createdAt",
+                      "updatedAt"
+                    ]
+                  }
+            })
+            if(data.length){
+                console.log(data)
+                res.status(200).json(data)
+            }else{
+                console.log(data)
+                res.status(200).json(["No Matching Results."])
+            }
+        }catch(err){
+            console.log(err)
+            res.status(404).send(err.message)
+        }
+
+    }else{
+        try{
+            const userId = await RestVerifyToken(req);
+            console.log(userId)
+            const data = await db.User.findAll({
+                where: {
+                    firstName: {
+                        [Op.substring]: firstName
+                    }
+                },
+                attributes: {
+                    exclude: [
+                      "password",
+                      "UserToUser",
+                      "createdAt",
+                      "updatedAt"
+                    ]
+                  }
+            })
+            if(data.length){
+                console.log(data)
+                res.status(200).json(data)
+            }else{
+                console.log(data)
+                res.status(200).json(["No Matching Results."])
+            }
+        }catch(err){
+            console.log(err)
+            res.status(404).send(err.message)
+        }
+
+
+    }
+    
 
 })
 

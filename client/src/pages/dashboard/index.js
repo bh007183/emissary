@@ -11,11 +11,15 @@ import { io } from "socket.io-client";
 import ReadWrite from "../../components/ReadWrite";
 import CreateRoom from "../../components/CreateRoom";
 import {setFriends} from "../../store/userActions"
+import {setComponent} from "../../store/componentActions"
+import AddConnect from "../../components/AddConnect/index"
 
 let socket;
 
 export default function UserDash() {
   const dispatch = useDispatch();
+  
+  const component = useSelector(state => state.Store.Component.Rendered)
 
   useEffect(() => {
     dispatch(clearRoute());
@@ -50,11 +54,27 @@ export default function UserDash() {
     setAnchorEl(null);
   };
 
+  const componentSwitch = () => {
+    switch (component) {
+      case "ReadWrite":
+        return <ReadWrite/>
+      case "CreateRoom":
+        return <CreateRoom/>
+      case "AddConnect":
+        return <AddConnect/>
+      
+    }
+  }
+
+  const setCurrentComponent = (event) => {
+    dispatch(setComponent("CreateRoom"))
+  }
+
   return (
     <>
       <div id="navbar">
         <div id="newConvo" className="centerFlex">
-          <IconButton>
+          <IconButton onClick={setCurrentComponent}>
             <AddIcon />
           </IconButton>
         </div>
@@ -82,8 +102,8 @@ export default function UserDash() {
 
       <div id="dashBoard">
         <div id="roomColumn"></div>
-        {/* <ReadWrite/> */}
-        <CreateRoom />
+        {componentSwitch()}
+        
       </div>
     </>
   );
