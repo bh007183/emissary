@@ -10,24 +10,152 @@
     border-width: 1px; 
     border-color: rgb(63, 63, 63);
     border-style: solid;
-    display: grid;
-    grid-template-columns: repeat(12, 1fr);
+    display: flex;
+    
     
 }
 #searchFriendInput{
-   grid-column: 2/13;
    background-color: rgb(41, 37, 37);
    border: none;
+   font-size: 1.5em;
+   width: 80%;
+   max-width: 80%;
 }
 #findFriendTextBlock{
     position: absolute;
     top: 75%;
     left: 50%;
     transform: translate(-50%, -50%);
-
+}
+#selecties{
+    max-width: 70%;
+    overflow: scroll;
+    display: flex;
+    align-items: center;
+}
+.selected{
+    border-width: 1px; 
+    border-color: rgb(100, 100, 100);
+    border-style: solid;
+    margin-left: 7px;
+    border-radius: 5px;
+    height: 60%;
 }
 
-#searchForFriendButton{
-    background-color: rgb(41, 37, 37);
+
+
+#dropDownContainer{
+    position: absolute;
+    top: 58px;
+    right: 20px;
+    width: 90%;
+    max-height: 40vh;
+    overflow: hidden;
+    background-color: rgb(70, 70, 70);
+    border-radius: 10px;
+   
+   
+}
+.selectPerson{
+    width: 100%;
+    background-color: rgb(70, 70, 70);
+    height: 40px;
+    text-align: left;
     
 }
+
+
+    /* Button Glow on hover */
+    .glow-on-hover {
+        width: 220px;
+        height: 50px;
+        border: none;
+        outline: none;
+        color: #fff;
+        background: #111;
+        cursor: pointer;
+        position: relative;
+        z-index: 0;
+        border-radius: 10px;
+    }
+    
+    .glow-on-hover:before {
+        content: '';
+        background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
+        position: absolute;
+        top: -2px;
+        left:-2px;
+        background-size: 400%;
+        z-index: -1;
+        filter: blur(5px);
+        width: calc(100% + 4px);
+        height: calc(100% + 4px);
+        animation: glowing 20s linear infinite;
+        opacity: 0;
+        transition: opacity .3s ease-in-out;
+        border-radius: 10px;
+    }
+    
+    .glow-on-hover:active {
+        color: #000
+    }
+    
+    .glow-on-hover:active:after {
+        background: transparent;
+    }
+    
+    .glow-on-hover:hover:before {
+        opacity: 1;
+    }
+    
+    .glow-on-hover:after {
+        z-index: -1;
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: #111;
+        left: 0;
+        top: 0;
+        border-radius: 10px;
+    }
+    
+    @keyframes glowing {
+        0% { background-position: 0 0; }
+        50% { background-position: 400% 0; }
+        100% { background-position: 0 0; }
+    }
+    /* select button on click*/
+    .selectPerson {
+        
+        background-color: rgb(58, 58, 58);
+        border: none;
+        font-size: 20px;
+        color: #FFFFFF;
+        width: 100%;
+        text-align: center;
+        -webkit-transition-duration: 0.4s; /* Safari */
+        transition-duration: 0.4s;
+        overflow: hidden;
+        cursor: pointer;
+        padding: 10px;
+      }
+      
+      .selectPerson:after {
+        content: "";
+        background: #414141;
+        display: block;
+        padding-top: 300%;
+        padding-left: 350%; 
+        margin-top: -120%;
+        opacity: 0;
+        transition: all 0.8s
+      }
+      
+      .selectPerson:active:after {
+        padding: 0;
+        margin: 0;
+        opacity: 1;
+        transition: 0s
+      }
+      

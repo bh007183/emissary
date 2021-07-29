@@ -34,3 +34,9 @@ textarea:focus,
 input:focus {
     outline: none;
 }
+button{
+  border: none;
+}
+.removeSelected{
+  margin: 10px;
+}

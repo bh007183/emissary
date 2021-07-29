@@ -63,8 +63,8 @@ export default function UserDash() {
           <input id="searchInput" placeholder="Search Friends"></input>
         </div>
         <div id="profile" className="centerFlex">
-          <IconButton>
-            <AccountCircleIcon onClick={handleClick} />
+          <IconButton onClick={handleClick}>
+            <AccountCircleIcon  />
           </IconButton>
           <Menu
             // id="simple-menu"
