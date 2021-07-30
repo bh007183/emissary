@@ -13,6 +13,7 @@ import CreateRoom from "../../components/CreateRoom";
 import {setFriends} from "../../store/userActions"
 import {setComponent} from "../../store/componentActions"
 import AddConnect from "../../components/AddConnect/index"
+import {setRooms} from "../../store/socketActions"
 
 let socket;
 
@@ -20,6 +21,8 @@ export default function UserDash() {
   const dispatch = useDispatch();
   
   const component = useSelector(state => state.Store.Component.Rendered)
+  const Rooms = useSelector(state => state.Store.Socket.Rooms)
+  console.log(Rooms)
 // Socket Initiator and Listener
   useEffect(() => {
     dispatch(clearRoute());
@@ -46,7 +49,7 @@ export default function UserDash() {
       console.log(Err)
     })
     socket.on("SetRooms", function(Rooms){
-      console.log(Rooms)
+      dispatch(setRooms(Rooms))
     })
 
 
@@ -111,7 +114,16 @@ export default function UserDash() {
       </div>
 
       <div id="dashBoard">
-        <div id="roomColumn"></div>
+        <div id="roomColumn">
+         {Rooms.map(room => {
+           return <button id="roomButton" value={room.id} key={room.id}>
+             <div id="partNames">
+             {room.Users.map(user => user.firstName + " " + user.lastName)}
+             </div>
+
+           </button>
+         })}
+        </div>
         {componentSwitch()}
         
       </div>

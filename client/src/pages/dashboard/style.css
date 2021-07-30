@@ -10,6 +10,8 @@
     border-width: 0px 2px 0px 0px;
    
     border-style: solid;
+    max-height: 100vh;
+    overflow: scroll;
 }
 
 #navbar{
@@ -47,6 +49,21 @@
 }
 #searchInput{
     background-color: rgb(77, 77, 77);
+}
+/* Side Bar */
+#partNames{
+    display: flex;
+    overflow: hidden;
+}
+#roomButton{
+    width: 100%;
+    color: aliceblue;
+    background-color: rgb(56, 56, 56);
+    height: 60px;
+    border-color: rgb(85, 85, 85);
+    border-width: 1px 0px 1px 0px;
+   
+    border-style: solid;
 }
 
 
