@@ -1,7 +1,7 @@
 const db = require("../models")
 const nano = require("nanoid")
 const { verifyToken } = require("../authentication");
-const { Op, or } = require("sequelize");
+const { Op} = require("sequelize");
 
 module.exports = function(socket, next){
     const token = socket.handshake.auth.token;
@@ -9,37 +9,55 @@ module.exports = function(socket, next){
         try{
             // Verify Proper Authorization //
             const id = await verifyToken(token)
-            // Create Room?
+            // Create Room
             let roomCreated = await db.Room.create({
                 id: nano.nanoid()
+                // name: name optional
             })
             // Add Participents to Room
             let cloned = [{id: id}, ...data]
-           await cloned.forEach(function(person){
+           await Promise.all(cloned.map(async function(person){
                 try{
-                    roomCreated.addUser(person.id)
+                    await roomCreated.addUser(person.id)
                 }catch(err){
-                    console.log(err)
+                    socket.emit("Error", err.message)
                 }
                 
-            })
-            // Parsing Data to Usable format
+            }))
+            
+
+           // Retreaving room with Users and Parsing Data to Usable Response format
+            let parsedData = await db.Room.findOne({
+            attributes: ["id", "name"],
+            where:{
+              id: roomCreated.dataValues.id
+            },
+            include:[{
+              model: db.User,
+              attributes: ["firstName", "lastName", "id"],
+            through:{
+              attributes: []
+            }}]
+          }).catch(err => socket.emit("Error", err.message))
+   
+        
+            // Parsing Data for retrieving UsertoUserSOcketIds
             let maped = await data.map(function(persons){
                 return {FriendId: persons.id}
             })
-            // Getting List Of Friends BaseSocketIds
+            // Getting List Of Friends UsertoUserSocketIds
             let baseRoomIds = await db.UserToUser.findAll({
                 where:{
                     [Op.or]: maped
                 }
             })
-            console.log(data)
+            
             // Emitting Room Data and User Data to Users.
             baseRoomIds.forEach(person => {
-                socket.to(person.dataValues.socketId).emit("RoomCreated", {connections: data, room: roomCreated.dataValues})
+                socket.to(person.dataValues.socketId).emit("RoomCreated", parsedData)
             })
             // Emitting Room Data and User Data to Self.
-            socket.emit("RoomCreated", {connections: data, room: roomCreated.dataValues})
+            socket.emit("RoomCreated", parsedData)
 
            
             
