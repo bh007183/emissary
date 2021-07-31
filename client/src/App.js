@@ -14,13 +14,13 @@ function App() {
     <Provider store={store}>
       <Router>
         <Switch>
-          <Route exact path="/createAccount">
+          <Route path="/createAccount">
             <EntryPoint/>
           </Route>
           <Route exact path="/">
             <Login/>
           </Route>
-          <Route exact path="/userDashBoard">
+          <Route path="/userDashBoard">
             <UserDash/>
           </Route>
         </Switch>

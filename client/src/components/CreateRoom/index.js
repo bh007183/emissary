@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./style.css";
 import { useSelector, useDispatch } from "react-redux";
-import {setComponent} from "../../store/componentActions"
+import { Route, Link, useRouteMatch, Switch } from "react-router-dom";
 
 export default function CreateRoom(props) {
   const dispatch = useDispatch();
@@ -35,9 +35,7 @@ export default function CreateRoom(props) {
     );
   };
 
-  const setCurrentComponent = (event) => {
-    dispatch(setComponent("AddConnect"))
-  }
+
   const handleSelected = (event) => {
     let flag = false;
     for (let i = 0; i < selected.length; i++) {
@@ -63,6 +61,9 @@ export default function CreateRoom(props) {
   const handleRemoveSelected = (event) => {
     setSelected(selected.filter((friend) => friend.id !== event.target.value));
   };
+
+
+  let { path, url } = useRouteMatch();
 
   return (
     <div id="userController">
@@ -112,7 +113,9 @@ export default function CreateRoom(props) {
           Not seeing the right person?
         </p>
         <div className="centerFlex">
-          <button onClick={setCurrentComponent} className="glow-on-hover">Send Connection Request</button>
+         <Link to={`/userDashBoard/addContact`}>
+          <button className="glow-on-hover">Send Connection Request</button>
+          </Link>
         </div>
       </div>
     </div>

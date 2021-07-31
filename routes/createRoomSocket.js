@@ -51,6 +51,11 @@ module.exports = function(socket, next){
                     [Op.or]: maped
                 }
             })
+            console.log(parsedData.dataValues.id)
+
+            // need to join rooms 
+            // Not sure how to make others join at this time.
+            // socket.join(parsedData.dataValues.id)
             
             // Emitting Room Data and User Data to Users.
             baseRoomIds.forEach(person => {

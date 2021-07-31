@@ -10,20 +10,19 @@ import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import { io } from "socket.io-client";
 import ReadWrite from "../../components/ReadWrite";
 import CreateRoom from "../../components/CreateRoom";
-import {setFriends} from "../../store/userActions"
-import {setComponent} from "../../store/componentActions"
-import AddConnect from "../../components/AddConnect/index"
-import {setRooms} from "../../store/socketActions"
+import { setFriends } from "../../store/userActions";
+import AddConnect from "../../components/AddConnect/index";
+import { setRooms } from "../../store/socketActions";
+import { Route, Link, useRouteMatch, Switch } from "react-router-dom";
 
 let socket;
 
 export default function UserDash() {
   const dispatch = useDispatch();
-  
-  const component = useSelector(state => state.Store.Component.Rendered)
-  const Rooms = useSelector(state => state.Store.Socket.Rooms)
-  console.log(Rooms)
-// Socket Initiator and Listener
+
+  const Rooms = useSelector((state) => state.Store.Socket.Rooms);
+  console.log(Rooms);
+  // Socket Initiator and Listener
   useEffect(() => {
     dispatch(clearRoute());
     console.log("test");
@@ -34,25 +33,22 @@ export default function UserDash() {
     });
     socket.connect();
 
-
     socket.on("connect", (data) => {
       console.log("client Connected");
     });
 
-    socket.on("Friends", async(friends)=>{
-        dispatch(setFriends(friends))
-    })
-    socket.on("RoomCreated", function(NewRoom){
-      console.log(NewRoom)
-    })
-    socket.on("Error", function(Err){
-      console.log(Err)
-    })
-    socket.on("SetRooms", function(Rooms){
-      dispatch(setRooms(Rooms))
-    })
-
-
+    socket.on("Friends", async (friends) => {
+      dispatch(setFriends(friends));
+    });
+    socket.on("RoomCreated", function (NewRoom) {
+      console.log(NewRoom);
+    });
+    socket.on("Error", function (Err) {
+      console.log(Err);
+    });
+    socket.on("SetRooms", function (Rooms) {
+      dispatch(setRooms(Rooms));
+    });
   }, []);
 
   const [anchorEl, setAnchorEl] = useState(null);
@@ -66,30 +62,22 @@ export default function UserDash() {
     setAnchorEl(null);
   };
 
-  const componentSwitch = () => {
-    switch (component) {
-      case "ReadWrite":
-        return <ReadWrite socket={socket}/>
-      case "CreateRoom":
-        return <CreateRoom socket={socket}/>
-      case "AddConnect":
-        return <AddConnect/>
-      
-    }
-  }
+  // Component Handler
 
-  const setCurrentComponent = (event) => {
-    dispatch(setComponent("CreateRoom"))
-  }
-  
+  let { path, url } = useRouteMatch();
+
+
+
   return (
     <>
-    
       <div id="navbar">
         <div id="newConvo" className="centerFlex">
-          <IconButton onClick={setCurrentComponent}>
+        {/* onClick={setCurrentComponent} */}
+        <Link to={`${url}/createRoom`}>
+          <IconButton >
             <AddIcon />
           </IconButton>
+          </Link>
         </div>
 
         <div id="search" className="centerFlex">
@@ -97,7 +85,7 @@ export default function UserDash() {
         </div>
         <div id="profile" className="centerFlex">
           <IconButton onClick={handleClick}>
-            <AccountCircleIcon  />
+            <AccountCircleIcon />
           </IconButton>
           <Menu
             // id="simple-menu"
@@ -115,17 +103,32 @@ export default function UserDash() {
 
       <div id="dashBoard">
         <div id="roomColumn">
-         {Rooms.map(room => {
-           return <button id="roomButton" value={room.id} key={room.id}>
-             <div id="partNames">
-             {room.Users.map(user => user.firstName + " " + user.lastName)}
-             </div>
-
-           </button>
-         })}
+          {Rooms.map((room) => {
+            return (
+              <Link to={`${url}/cli/${room.id}`}>
+                <button id="roomButton" value={room.id} key={room.id}>
+                  <div id="partNames">
+                    {room.Users.map(
+                      (user) => user.firstName + " " + user.lastName
+                    )}
+                  </div>
+                </button>
+              </Link>
+            );
+          })}
         </div>
-        {componentSwitch()}
-        
+        <Switch>
+        <Route exact path={`${path}/cli/:id`}>
+           <ReadWrite socket={socket} />
+        </Route>
+        <Route exact path={`${path}/createRoom`}>
+           <CreateRoom socket={socket} />
+        </Route>
+        <Route exact path={`${path}/addContact`}>
+            <AddConnect />
+        </Route>
+        </Switch>
+        {/* {componentSwitch()} */}
       </div>
     </>
   );
