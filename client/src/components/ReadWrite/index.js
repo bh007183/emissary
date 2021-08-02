@@ -35,13 +35,26 @@ export default function ReadWrite(props) {
 
     return (
         <div id="messageController">
+          <div id="messageCardContainer">
           {messages.map(item => 
-          <div className="message">
-            <p>{item.message}</p>
+          <div className="messageCard">
+            <div className="imageContain">
+              purple
+
+            </div>
+            <div className="textBlock">
+              <p style={{color: "wheat"}}>name</p>
+              <p className="white">{item.message}</p>
+            </div>
+            
 
           </div>
             
             )}
+            </div>
+            <div style={{height: "150px"}}>
+
+            </div>
           
           <div id="formContainer">
             <form onSubmit={handleSubmit} id="messageForm">

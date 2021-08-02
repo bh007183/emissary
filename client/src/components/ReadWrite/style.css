@@ -33,19 +33,44 @@
     align-items: center;
     
     
+    
 }
 #messageController{
     grid-column: 2/4;
     background-color: rgb(48, 44, 44);
     position: relative;
+    overflow: hidden;
+
+    
+}
+#messageCardContainer{ 
+   
+    /* position: absolute;
+    top: 0;
+    left: 0; */
+    overflow: scroll !important;
+    height: 100%;
+   
+   
+  
     
 }
 
-.message{
+/* MessageCard */
+
+.messageCard{
     
-    width: 400px;
-    background-color: "purple";
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    
+  
 }
+.imageContain{
+    grid-column: 1;
+}
+.textBlock{
+    grid-column: 2/6;
+} 
 
 
 
