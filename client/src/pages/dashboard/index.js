@@ -14,6 +14,7 @@ import { setFriends } from "../../store/userActions";
 import AddConnect from "../../components/AddConnect/index";
 import { setRooms } from "../../store/socketActions";
 import { Route, Link, useRouteMatch, Switch } from "react-router-dom";
+import {setMessagesNEW} from "../../store/messageActions"
 
 let socket;
 
@@ -49,6 +50,10 @@ export default function UserDash() {
     socket.on("SetRooms", function (Rooms) {
       dispatch(setRooms(Rooms));
     });
+
+    socket.on("messageTransmit", function(data){
+      dispatch(setMessagesNEW(data))
+    })
   }, []);
 
   const [anchorEl, setAnchorEl] = useState(null);
@@ -119,7 +124,7 @@ export default function UserDash() {
         </div>
         <Switch>
         <Route exact path={`${path}/cli/:id`}>
-           <ReadWrite socket={socket} />
+           <ReadWrite socket={socket}/>
         </Route>
         <Route exact path={`${path}/createRoom`}>
            <CreateRoom socket={socket} />

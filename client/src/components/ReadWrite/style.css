@@ -38,6 +38,13 @@
     grid-column: 2/4;
     background-color: rgb(48, 44, 44);
     position: relative;
+    
+}
+
+.message{
+    
+    width: 400px;
+    background-color: "purple";
 }
 
 

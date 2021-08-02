@@ -24,6 +24,7 @@ app.use(express.urlencoded({extended: true}))
    
 io.use(require("./routes/initialSocketConnection"))
 io.use(require("./routes/createRoomSocket"))
+io.use(require("./routes/socketSendMessages"))
 
 io.on("disconnect", (reason) => {
     console.log(reason)
@@ -34,6 +35,7 @@ io.on("disconnect", (reason) => {
 
 
 app.use(require("./routes/apiUserRoutes"))
+app.use(require("./routes/apiGetMessages"))
 
 
 db.sequelize.sync({force: false}).then(function(){
