@@ -1,10 +1,11 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useState, useRef} from 'react'
 import SendIcon from "@material-ui/icons/Send";
 import IconButton from "@material-ui/core/IconButton";
 import {getMessages} from "../../store/messageActions"
 import {useDispatch, useSelector} from "react-redux"
 import "./style.css"
 export default function ReadWrite(props) {
+  const scrollRef = useRef(null)
   const dispatch = useDispatch()
   const messages = useSelector(state => state.Store.Message.Messages)
 
@@ -16,13 +17,18 @@ export default function ReadWrite(props) {
         roomId: "",
         message: ""
       })
-
+      useEffect(() => {
+        scrollRef.current.scrollIntoView({ behavior: "smooth" });
+   
+      }, [messages])
       
 
      useEffect(() => {
+      
        setMessage({...message, roomId: window.location.pathname.split("/")[3]})
 
        dispatch(getMessages(window.location.pathname.split("/")[3]))
+       
 
      }, [window.location.pathname])
     
@@ -31,6 +37,7 @@ export default function ReadWrite(props) {
        event.preventDefault()
  
        props.socket.emit("sendMessage", message)
+       
      }
 
     return (
@@ -51,10 +58,19 @@ export default function ReadWrite(props) {
           </div>
             
             )}
+            <br></br>
+            <br></br>
+            <br></br>
+            <br></br>
+            <br></br>
+            <br></br>
+            <br></br>
+            <br></br>
+            <br ref={scrollRef}></br>
+          
+            
             </div>
-            <div style={{height: "150px"}}>
-
-            </div>
+            
           
           <div id="formContainer">
             <form onSubmit={handleSubmit} id="messageForm">

@@ -19,7 +19,7 @@ const slice = createSlice({
              Message.Messages = action.payload.Messages
         },
         setMessagesNEW: (Message, action)=>{
-            Message.Messages = [action.payload, ...Message.Messages]
+            Message.Messages = [...Message.Messages, action.payload]
         }
     }
 })

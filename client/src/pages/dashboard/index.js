@@ -22,7 +22,7 @@ export default function UserDash() {
   const dispatch = useDispatch();
 
   const Rooms = useSelector((state) => state.Store.Socket.Rooms);
-  console.log(Rooms);
+
   // Socket Initiator and Listener
   useEffect(() => {
     dispatch(clearRoute());
