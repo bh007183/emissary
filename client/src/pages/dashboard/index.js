@@ -123,13 +123,13 @@ export default function UserDash() {
           {Rooms.map((room) => {
             return (
               <Link key={room.id} to={`${url}/cli/${room.id}`}>
-                <button id="roomButton" value={room.id} >
+                <button id="roomButton" ref={roomRef} value={room.id} >
                   <div id="partNames">
                     {room.Users.map(
                       (user) => user.firstName + " " + user.lastName
                     )}
                   </div>
-                  <div ref={roomRef} className="messageIndicator"></div>
+                  <div  className="messageIndicator"></div>
                 </button>
               </Link>
             );
