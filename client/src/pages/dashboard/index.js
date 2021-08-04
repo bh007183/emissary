@@ -28,7 +28,6 @@ export default function UserDash() {
   // Socket Initiator and Listener
   useEffect(() => {
     dispatch(clearRoute());
-    console.log("test");
     socket = io("https://foreign-emissary.herokuapp.com", {
       path:"/socket",
       auth: {
@@ -58,9 +57,9 @@ export default function UserDash() {
       dispatch(setMessagesNEW(data))
       console.log(data.RoomId)
      
-      if(data.RoomId !== window.location.pathname.split("/")[3]){
+      // if(data.RoomId !== window.location.pathname.split("/")[3]){
         roomRef.current.classList.add("newMessage")
-      }
+      // }
       
 
     })
