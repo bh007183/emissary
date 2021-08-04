@@ -8,14 +8,14 @@ module.exports = function(socket, next){
     socket.on("create", async function(data){
         try{
             // Verify Proper Authorization //
-            const id = await verifyToken(token)
+            const {userId} = await verifyToken(token)
             // Create Room
             let roomCreated = await db.Room.create({
                 id: nano.nanoid()
                 // name: name optional
             })
             // Add Participents to Room
-            let cloned = [{id: id}, ...data]
+            let cloned = [{id: userId}, ...data]
            await Promise.all(cloned.map(async function(person){
                 try{
                     await roomCreated.addUser(person.id)

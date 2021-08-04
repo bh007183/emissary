@@ -8,7 +8,7 @@ module.exports = async function (socket, next) {
   const token = socket.handshake.auth.token;
   try {
     // Verify Token And Get User ID
-    let userId = await verifyToken(token);
+    let {userId} = await verifyToken(token);
     // Get User 
     let userResponse = await db.User.findOne({
       where: {

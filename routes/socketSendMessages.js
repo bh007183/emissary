@@ -4,7 +4,7 @@ module.exports = async function(socket, next){
 
     const token = socket.handshake.auth.token;
     try{
-        let userId = await verifyToken(token)
+        let {userId, name} = await verifyToken(token)
         
         socket.on("sendMessage", async function(data){
             
@@ -16,10 +16,12 @@ module.exports = async function(socket, next){
                     }
                 })
                if(user){
+                   console.log(user)
                    let stuff = await db.Message.create({
                        message: data.message,
                        UserId: userId,
-                       RoomId: data.roomId
+                       RoomId: data.roomId,
+                       author: name
                    })
                    socket.to(data.roomId).emit("messageTransmit", stuff)
                    socket.emit("messageTransmit", stuff)

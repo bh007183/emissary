@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { clearRoute } from "../../store/userActions";
 import "./style.css";
@@ -22,12 +22,14 @@ export default function UserDash() {
   const dispatch = useDispatch();
 
   const Rooms = useSelector((state) => state.Store.Socket.Rooms);
+  const roomRef = useRef(null)
+ 
 
   // Socket Initiator and Listener
   useEffect(() => {
     dispatch(clearRoute());
     console.log("test");
-    socket = io("http://localhost:8080", {
+    socket = io("https://foreign-emissary.herokuapp.com", {
       auth: {
         token: localStorage.getItem("token"),
       },
@@ -53,6 +55,13 @@ export default function UserDash() {
 
     socket.on("messageTransmit", function(data){
       dispatch(setMessagesNEW(data))
+      console.log(data.RoomId)
+     
+      if(data.RoomId !== window.location.pathname.split("/")[3]){
+        roomRef.current.classList.add("newMessage")
+      }
+      
+
     })
   }, []);
 
@@ -71,13 +80,15 @@ export default function UserDash() {
 
   let { path, url } = useRouteMatch();
 
+  
+
 
 
   return (
     <>
       <div id="navbar">
         <div id="newConvo" className="centerFlex">
-        {/* onClick={setCurrentComponent} */}
+       
         <Link to={`${url}/createRoom`}>
           <IconButton >
             <AddIcon />
@@ -110,13 +121,14 @@ export default function UserDash() {
         <div id="roomColumn">
           {Rooms.map((room) => {
             return (
-              <Link to={`${url}/cli/${room.id}`}>
-                <button id="roomButton" value={room.id} key={room.id}>
+              <Link key={room.id} to={`${url}/cli/${room.id}`}>
+                <button id="roomButton" value={room.id} >
                   <div id="partNames">
                     {room.Users.map(
                       (user) => user.firstName + " " + user.lastName
                     )}
                   </div>
+                  <div ref={roomRef} className="messageIndicator"></div>
                 </button>
               </Link>
             );
@@ -133,7 +145,7 @@ export default function UserDash() {
             <AddConnect />
         </Route>
         </Switch>
-        {/* {componentSwitch()} */}
+        
       </div>
     </>
   );

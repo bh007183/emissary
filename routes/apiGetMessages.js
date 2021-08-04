@@ -12,8 +12,10 @@ router.get("/api/getMessages/:roomId", async function (req, res){
             where: {
                 RoomId: req.params.roomId,
                 UserId: userId
-            }
+            },
+            
         })
+        
        if(user){
            let stuff = await db.Room.findOne({
                where:{id: req.params.roomId},

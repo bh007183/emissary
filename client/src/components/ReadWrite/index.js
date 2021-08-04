@@ -26,8 +26,8 @@ export default function ReadWrite(props) {
      useEffect(() => {
       
        setMessage({...message, roomId: window.location.pathname.split("/")[3]})
-
        dispatch(getMessages(window.location.pathname.split("/")[3]))
+       props.socket.emit("joinRoom", window.location.pathname.split("/")[3])
        
 
      }, [window.location.pathname])
@@ -44,13 +44,13 @@ export default function ReadWrite(props) {
         <div id="messageController">
           <div id="messageCardContainer">
           {messages.map(item => 
-          <div className="messageCard">
+          <div key={item.id} className="messageCard">
             <div className="imageContain">
               purple
 
             </div>
             <div className="textBlock">
-              <p style={{color: "wheat"}}>name</p>
+          <p style={{color: "wheat"}}>{item.author}</p>
               <p className="white">{item.message}</p>
             </div>
             
