@@ -28,7 +28,7 @@ export default function UserDash() {
   // Socket Initiator and Listener
   useEffect(() => {
     dispatch(clearRoute());
-    socket = io("http://localhost:8080", {
+    socket = io("https://foreign-emissary.herokuapp.com", {
       path:"/socket",
       auth: {
         token: localStorage.getItem("token"),
