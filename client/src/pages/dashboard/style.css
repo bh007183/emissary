@@ -55,7 +55,7 @@
     display: flex;
     overflow: hidden;
 }
-#roomButton{
+.roomButton{
     width: 100%;
     color: aliceblue;
     background-color: rgb(56, 56, 56);
@@ -68,7 +68,7 @@
 /* Indicator */
 
 .newMessage{
-    background-color: greenyellow;
+    background-color: rgb(62, 104, 0) !important;
 }
 .MessageIndicator{
     width: 10px;

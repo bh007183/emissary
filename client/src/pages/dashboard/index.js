@@ -22,13 +22,13 @@ export default function UserDash() {
   const dispatch = useDispatch();
 
   const Rooms = useSelector((state) => state.Store.Socket.Rooms);
-  const roomRef = useRef(null)
+  const roomRef = useRef({})
  
 
   // Socket Initiator and Listener
   useEffect(() => {
     dispatch(clearRoute());
-    socket = io("https://foreign-emissary.herokuapp.com", {
+    socket = io("http://localhost:8080", {
       path:"/socket",
       auth: {
         token: localStorage.getItem("token"),
@@ -57,15 +57,18 @@ export default function UserDash() {
       if(data.RoomId === window.location.pathname.split("/")[3]){
         dispatch(setMessagesNEW(data))
       }
+      let roomId = data.RoomId
       
-      console.log(data.RoomId)
+      
+       
      
       if(data.RoomId !== window.location.pathname.split("/")[3]){
-        roomRef.current.classList.add("newMessage")
+        roomRef.current[roomId].classList.add("newMessage")
       }
       
 
     })
+    console.log(roomRef)
   }, []);
 
   const [anchorEl, setAnchorEl] = useState(null);
@@ -82,6 +85,14 @@ export default function UserDash() {
   // Component Handler
 
   let { path, url } = useRouteMatch();
+
+  const removeNewMessageDisplay = (event) => {
+// newMessage
+    if(event.currentTarget.classList.contains("test")){
+      event.currentTarget.classList.remove("test")
+    }
+
+  }
 
   
 
@@ -122,10 +133,10 @@ export default function UserDash() {
 
       <div id="dashBoard">
         <div id="roomColumn">
-          {Rooms.map((room) => {
+          {Rooms.map((room, index) => {
             return (
               <Link key={room.id} to={`${url}/cli/${room.id}`}>
-                <button id="roomButton" ref={roomRef} value={room.id} >
+                <button onClick={removeNewMessageDisplay}className="roomButton test" ref={(element)=> roomRef.current[room.id] = element } value={room.id} >
                   <div id="partNames">
                     {room.Users.map(
                       (user) => user.firstName + " " + user.lastName
