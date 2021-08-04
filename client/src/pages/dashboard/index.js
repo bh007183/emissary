@@ -28,7 +28,7 @@ export default function UserDash() {
   // Socket Initiator and Listener
   useEffect(() => {
     dispatch(clearRoute());
-    socket = io("https://foreign-emissary.herokuapp.com", {
+    socket = io("http://localhost:8080", {
       path:"/socket",
       auth: {
         token: localStorage.getItem("token"),
@@ -54,12 +54,15 @@ export default function UserDash() {
     });
 
     socket.on("messageTransmit", function(data){
-      dispatch(setMessagesNEW(data))
+      if(data.RoomId === window.location.pathname.split("/")[3]){
+        dispatch(setMessagesNEW(data))
+      }
+      
       console.log(data.RoomId)
      
-      // if(data.RoomId !== window.location.pathname.split("/")[3]){
+      if(data.RoomId !== window.location.pathname.split("/")[3]){
         roomRef.current.classList.add("newMessage")
-      // }
+      }
       
 
     })
