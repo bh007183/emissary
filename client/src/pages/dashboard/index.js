@@ -29,7 +29,8 @@ export default function UserDash() {
   useEffect(() => {
     dispatch(clearRoute());
     console.log("test");
-    socket = io("wss://foreign-emissary.herokuapp.com", {
+    socket = io("https://foreign-emissary.herokuapp.com", {
+      path:"/socket",
       auth: {
         token: localStorage.getItem("token"),
       },
