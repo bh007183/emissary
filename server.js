@@ -2,6 +2,7 @@ const express = require("express");
 const nano = require("nanoid");
 const app = express();
 const db = require("./models");
+const path = require("path")
 const cors = require("cors");
 require("dotenv").config();
 
