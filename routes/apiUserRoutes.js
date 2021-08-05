@@ -105,5 +105,25 @@ router.get("/api/findConnection/:name", async (req, res)=> {
     
 
 })
+router.put("/api/rejectConnection", async (req, res, next)=> {
+    console.log(req.body.connectionRequestid)
+    try{
+        const userId = await RestVerifyToken(req);
+        await db.UserToUser.destroy({
+            where: {
+                UserId: userId,
+                FriendId: req.body.connectionRequestid
+            }
+        
+        })
+
+       res.status(200).json({id:req.body.connectionRequestid})
+    }catch(err){
+        console.log(err)
+        res.status(404).send(err.message)   
+    }
+
+})
+
 
 module.exports = router
