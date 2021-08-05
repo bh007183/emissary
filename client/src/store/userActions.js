@@ -52,7 +52,7 @@ export const {setName, apiCallSuccess, apiCallError, clearError, clearSuccess, l
 export default slice.reducer
 
 export const createUser = (user) => apiStart({
-    url: "https://foreign-emissary.herokuapp.com/api/createUser",
+    url: "http://localhost:8080/api/createUser",
     method: "POST",
     data: user,
     onSuccess: apiCallSuccess.type,
@@ -60,7 +60,7 @@ export const createUser = (user) => apiStart({
 
 })
 export const loginApi = (login) => apiStart({
-    url: "https://foreign-emissary.herokuapp.com/api/login",
+    url: "http://localhost:8080/api/login",
     method: "POST",
     data: login,
     onSuccess: loginSuccess.type,
@@ -69,7 +69,7 @@ export const loginApi = (login) => apiStart({
 })
 
 export const findConnection = (connection) => apiStart({
-    url: "https://foreign-emissary.herokuapp.com/api/findConnection/" + connection,
+    url: "http://localhost:8080/api/findConnection/" + connection,
     headers: {
         authorization: `Bearer ${localStorage.getItem("token")}`
     },
@@ -79,7 +79,7 @@ export const findConnection = (connection) => apiStart({
 })
 
 // export const addFriend = (id) => apiStart({
-//     url: "https://foreign-emissary.herokuapp.com/api/addFriend",
+//     url: "http://localhost:8080/api/addFriend",
 //     headers: {
 //         authorization: `Bearer ${localStorage.getItem("token")}`
 //     },

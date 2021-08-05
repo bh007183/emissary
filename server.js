@@ -51,6 +51,6 @@ app.get("*", (req, res) => {
 
 db.sequelize.sync({ force: false }).then(function () {
   httpServer.listen(PORT, function () {
-    console.log("app listening on https://foreign-emissary.herokuapp.com");
+    console.log("app listening on http://localhost:8080");
   });
 });
