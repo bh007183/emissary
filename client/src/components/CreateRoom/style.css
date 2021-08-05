@@ -169,3 +169,15 @@
          
 
       }
+.MuiList-root{
+    background-color: rgb(49, 49, 49);
+    color: rgb(163, 163, 163);
+    
+    
+}
+.MuiMenuItem-root{
+    
+    border-width: 1px !important;
+    border-style: solid !important;
+    border-color: rgb(80, 80, 80) !important;
+}

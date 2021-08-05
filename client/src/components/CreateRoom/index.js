@@ -109,7 +109,7 @@ export default function CreateRoom(props) {
       </div>
 
       <div id="findFriendTextBlock">
-        <p className="white" id="">
+        <p className="white" style={{textAlign: "center"}}>
           Not seeing the right person?
         </p>
         <div className="centerFlex">

@@ -92,7 +92,7 @@ export default function UserDash() {
   let { path, url } = useRouteMatch();
 
 
-  // Removes newMessage class once clicked if newMessage exists
+  // Removes newMessage or newNotification class once clicked if newMessage or newNotification exists
   const removeNewMessageDisplay = (event) => {
     if (event.currentTarget.classList.contains("newMessage")) {
       event.currentTarget.classList.remove("newMessage");
@@ -118,18 +118,19 @@ export default function UserDash() {
         <div id="search" className="centerFlex">
           
         </div>
-        <div id="notifications">
-          <Link to={`${url}/handleNotifications`}>
-          <IconButton onClick={removeNewNotificationDisplay} ref={notificationRef}>
+        <div className="centerAndAlignFlex" id="notifications">
+          <Link  to={`${url}/handleNotifications`}>
+          <IconButton  onClick={removeNewNotificationDisplay} ref={notificationRef}>
             <NotificationsActiveIcon />
           </IconButton>
           </Link>
         </div>
-        <div id="profile" className="centerFlex">
+        <div id="profile" className="centerAndAlignFlex" >
           <IconButton onClick={manageProfileDropdown}>
             <AccountCircleIcon />
           </IconButton>
           <Menu
+          
             // id="simple-menu"
             anchorEl={anchorEl}
             keepMounted
