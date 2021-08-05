@@ -107,12 +107,13 @@ router.get("/api/findConnection/:name", async (req, res)=> {
 })
 router.put("/api/rejectConnection", async (req, res, next)=> {
     console.log(req.body.connectionRequestid)
+    // flipped userId and req.body.connectionRequestid as this is reseaver response
     try{
         const userId = await RestVerifyToken(req);
         await db.UserToUser.destroy({
             where: {
-                UserId: userId,
-                FriendId: req.body.connectionRequestid
+                UserId: req.body.connectionRequestid,
+                FriendId: userId
             }
         
         })

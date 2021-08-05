@@ -1,16 +1,21 @@
 import React, {useEffect} from 'react'
 import "./style.css"
 import {useDispatch, useSelector} from "react-redux"
-import {rejectFriendRequest } from "../../store/socketActions"
+import {rejectFriendRequest, removeNotification } from "../../store/socketActions"
 
-export default function Notifications() {
+export default function Notifications(props) {
     const dispatch = useDispatch()
     const notifications = useSelector(state => state.Store.Socket.Notifications)
     const handleAccept = (event) =>{
+        props.socket.emit("acceptedConnection", event.target.value)
 
     }
     const handleReject = (event) => {
         dispatch(rejectFriendRequest({connectionRequestid: event.target.value}))
+
+    }
+    const handleDismiss = (event) => {
+        dispatch(removeNotification({id: event.target.value}))
 
     }
 
@@ -19,6 +24,9 @@ export default function Notifications() {
             
 
             {notifications.map(note => 
+            
+           <>
+           <br></br>
            
             <div key={note.friendId} value={note.type} className="notificationHandler">
                 <div className="notificationTextContainer">
@@ -32,13 +40,14 @@ export default function Notifications() {
                     <button value={note.friendId} onClick={handleAccept}id="acceptButton" className="notificationHandlerButton white">Accept</button>
                     <button value={note.friendId} onClick={handleReject}id="rejectButton" className="notificationHandlerButton white">Reject</button>
                     </>
-                     : note.type === "CONNECTION_ACCEPTED" ? (<button id="acceptButton" className="notificationHandlerButton white">Dismiss</button>): <></>
+                     : note.type === "CONNECTION_ACCEPTED" ? (<button onClick={handleDismiss} value={note.friendId} id="dismissButton" className="notificationHandlerDismissButton white">Dismiss</button>): <></>
                 }
                     
 
                 </div>
 
             </div>
+            </>
             )}
             
             

@@ -25,11 +25,12 @@ export default function UserDash() {
 
   const Rooms = useSelector((state) => state.Store.Socket.Rooms);
   const roomRef = useRef({});
+  const notificationRef = useRef()
 
   // Socket Initiator and Listener
   useEffect(() => {
     dispatch(clearRoute());
-    socket = io("http://localhost:8080", {
+    socket = io("https://foreign-emissary.herokuapp.com", {
       path: "/socket",
       auth: {
         token: localStorage.getItem("token"),
@@ -47,6 +48,8 @@ export default function UserDash() {
     });
     socket.on("Notification", async (notification) => {
       dispatch(setNotifications(notification));
+      console.log(notificationRef.current)
+      notificationRef.current.classList.add("newNotification")
     });
     socket.on("RoomCreated", function (NewRoom) {
       console.log(NewRoom);
@@ -95,6 +98,11 @@ export default function UserDash() {
       event.currentTarget.classList.remove("newMessage");
     }
   };
+  const removeNewNotificationDisplay = (event) => {
+    if (event.currentTarget.classList.contains("newNotification")) {
+      event.currentTarget.classList.remove("newNotification");
+    }
+  };
 
   return (
     <>
@@ -112,8 +120,8 @@ export default function UserDash() {
         </div>
         <div id="notifications">
           <Link to={`${url}/handleNotifications`}>
-          <IconButton>
-            <NotificationsActiveIcon/>
+          <IconButton onClick={removeNewNotificationDisplay} ref={notificationRef}>
+            <NotificationsActiveIcon />
           </IconButton>
           </Link>
         </div>

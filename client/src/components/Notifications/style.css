@@ -1,18 +1,18 @@
 #notificationContainer{
     background-color: rgb(48, 44, 44);
     grid-column: 2/4;
-    display: flex;
-    justify-content: center;
+    
 }
 
 .notificationHandler{
+    
+    
     height: 60px;
-    width: 300px;
     background-color: rgb(15, 13, 13);
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     width: 70%;
-    margin-top: 15px;
+    margin: 0 auto;
     border-radius: 10px;
 }
 .notificationButtonContainer{
@@ -29,9 +29,14 @@
 .notificationHandlerButton{
     width: 100%;
     height: 50%;
-    margin-left: 10px;
+    
 
 }
+.notificationHandlerDismissButton{
+    width: 100%;
+    height: 100%;
+}
+
 #acceptButton{
     background-color: rgb(1, 22, 1);
     border-top-right-radius: 10px;
@@ -40,4 +45,9 @@
     background-color: rgb(71, 0, 0);
     
     border-bottom-right-radius: 10px;
+}
+#dismissButton{
+    border-bottom-right-radius: 10px;
+    border-top-right-radius: 10px;
+    background-color: rgb(0, 0, 34);
 }
