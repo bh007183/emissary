@@ -21,8 +21,11 @@
 }
 #searchButton {
   background-color: #414141;
-
-  width: 100px;
+margin-left: auto;
+color: white;
+background-color: rgb(46, 136, 10);
+border-radius: 3px;
+  width: 100px; 
 }
 #dropDownContainer2 {
   position: absolute;

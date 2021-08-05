@@ -137,8 +137,9 @@ export default function UserDash() {
             open={Boolean(anchorEl)}
             onClose={handleClose}
           >
-            <MenuItem onClick={handleClose}>Profile</MenuItem>
-            <MenuItem onClick={handleClose}>My account</MenuItem>
+            
+            <MenuItem onClick={handleClose}>Manage account</MenuItem>
+            <MenuItem onClick={handleClose}>Manage Connections</MenuItem>
             <MenuItem onClick={handleClose}>Logout</MenuItem>
           </Menu>
         </div>
