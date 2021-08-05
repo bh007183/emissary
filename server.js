@@ -31,6 +31,7 @@ io.use(require("./routes/initialSocketConnection"));
 io.use(require("./routes/createRoomSocket"));
 io.use(require("./routes/socketSendMessages"));
 io.use(require("./routes/joinSocketRoomAfterLogin"));
+io.use(require("./routes/addConnectionSoccet"));
 
 io.on("disconnect", (reason) => {
   console.log(reason);

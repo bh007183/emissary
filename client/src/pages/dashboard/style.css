@@ -32,6 +32,9 @@
     border-color: black;
     
 }
+#notifications{
+    grid-column: 11;
+}
 #profile{
     grid-column: 12;
     display: flex;

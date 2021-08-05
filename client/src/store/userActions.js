@@ -10,7 +10,8 @@ const slice = createSlice({
         Error: "",
         Route: null,
         Friends: [],
-        ConnectionSearchResults: []
+        ConnectionSearchResults: [],
+        Notifications: []
     },
     reducers: {
         setName: (User, action) => {
@@ -41,7 +42,8 @@ const slice = createSlice({
         },
         setConnectionSearchResults: (User, action)=>{
             User.ConnectionSearchResults = action.payload
-        }
+        },
+        
 
     },
     
@@ -76,14 +78,14 @@ export const findConnection = (connection) => apiStart({
 
 })
 
-export const addFriend = (id) => apiStart({
-    url: "http://localhost:8080/api/addFriend",
-    headers: {
-        authorization: `Bearer ${localStorage.getItem("token")}`
-    },
-    method: "put",
-    data: {friendId: id},
-    onSuccess: apiCallSuccess.type,
-    onError: apiCallError.type
+// export const addFriend = (id) => apiStart({
+//     url: "http://localhost:8080/api/addFriend",
+//     headers: {
+//         authorization: `Bearer ${localStorage.getItem("token")}`
+//     },
+//     method: "put",
+//     data: {friendId: id},
+//     onSuccess: apiCallSuccess.type,
+//     onError: apiCallError.type
 
-})
+// })

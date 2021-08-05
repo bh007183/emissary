@@ -5,7 +5,14 @@ const {login, RestVerifyToken} = require("../authentication")
 const { Op } = require("sequelize");
 router.post("/api/createUser", async (req, res)=> {
     try{
-        await db.User.create(req.body)
+        await db.User.create({
+            firstName: req.body.firstName,
+            lastName: req.body.lastName,
+            email: req.body.email,
+            password: req.body.password,
+            socketId: nano.nanoid()
+
+        })
         res.status(200).send("Account Created!")
     }catch(err){
         res.status(400).send(err.message)
@@ -24,23 +31,6 @@ router.post("/api/login", async (req, res)=> {
 
 })
 
-router.put("/api/addFriend", async (req, res)=> {
-    
-    const socketId = nano.nanoid()
-    try{
-        const userId = await RestVerifyToken(req);
-        await db.UserToUser.create({
-            socketId: socketId,
-            UserId: userId,
-            FriendId: req.body.friendId,
-          })
-          res.status(200).send("Connection request sent!")
-    }catch(err){
-        console.log(err)
-        res.status(404).send(err.message)
-    }
-
-})
 router.get("/api/findConnection/:name", async (req, res)=> {
     let inspect = req.params.name.split(" ").filter(item => item !== "")
     let firstName = inspect[0]

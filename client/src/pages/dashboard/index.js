@@ -12,9 +12,11 @@ import ReadWrite from "../../components/ReadWrite";
 import CreateRoom from "../../components/CreateRoom";
 import { setFriends } from "../../store/userActions";
 import AddConnect from "../../components/AddConnect/index";
-import { setRooms } from "../../store/socketActions";
+import { setRooms, setNotifications } from "../../store/socketActions";
 import { Route, Link, useRouteMatch, Switch } from "react-router-dom";
-import {setMessagesNEW} from "../../store/messageActions"
+import { setMessagesNEW } from "../../store/messageActions";
+import NotificationsActiveIcon from '@material-ui/icons/NotificationsActive';
+import Notifications from "../../components/Notifications";
 
 let socket;
 
@@ -22,14 +24,13 @@ export default function UserDash() {
   const dispatch = useDispatch();
 
   const Rooms = useSelector((state) => state.Store.Socket.Rooms);
-  const roomRef = useRef({})
- 
+  const roomRef = useRef({});
 
   // Socket Initiator and Listener
   useEffect(() => {
     dispatch(clearRoute());
     socket = io("http://localhost:8080", {
-      path:"/socket",
+      path: "/socket",
       auth: {
         token: localStorage.getItem("token"),
       },
@@ -41,7 +42,11 @@ export default function UserDash() {
     });
 
     socket.on("Friends", async (friends) => {
+      console.log(friends)
       dispatch(setFriends(friends));
+    });
+    socket.on("Notification", async (notification) => {
+      dispatch(setNotifications(notification));
     });
     socket.on("RoomCreated", function (NewRoom) {
       console.log(NewRoom);
@@ -49,32 +54,29 @@ export default function UserDash() {
     socket.on("Error", function (Err) {
       console.log(Err);
     });
+    socket.on("Success", function (data) {
+      alert(data);
+    });
     socket.on("SetRooms", function (Rooms) {
       dispatch(setRooms(Rooms));
     });
 
-    socket.on("messageTransmit", function(data){
-      if(data.RoomId === window.location.pathname.split("/")[3]){
-        dispatch(setMessagesNEW(data))
+    socket.on("messageTransmit", function (data) {
+      if (data.RoomId === window.location.pathname.split("/")[3]) {
+        dispatch(setMessagesNEW(data));
       }
-      let roomId = data.RoomId
-      
-      
-       
-     
-      if(data.RoomId !== window.location.pathname.split("/")[3]){
-        roomRef.current[roomId].classList.add("newMessage")
-      }
-      
+      let roomId = data.RoomId;
 
-    })
-    console.log(roomRef)
+      if (data.RoomId !== window.location.pathname.split("/")[3]) {
+        roomRef.current[roomId].classList.add("newMessage");
+      }
+    });
+    console.log("Dashboard useEffect fireing");
   }, []);
 
   const [anchorEl, setAnchorEl] = useState(null);
 
-  const handleClick = (event) => {
-    console.log(event.currentTarget);
+  const manageProfileDropdown = (event) => {
     setAnchorEl(event.currentTarget);
   };
 
@@ -86,35 +88,37 @@ export default function UserDash() {
 
   let { path, url } = useRouteMatch();
 
+
+  // Removes newMessage class once clicked if newMessage exists
   const removeNewMessageDisplay = (event) => {
-// newMessage
-    if(event.currentTarget.classList.contains("test")){
-      event.currentTarget.classList.remove("test")
+    if (event.currentTarget.classList.contains("newMessage")) {
+      event.currentTarget.classList.remove("newMessage");
     }
-
-  }
-
-  
-
-
+  };
 
   return (
     <>
       <div id="navbar">
         <div id="newConvo" className="centerFlex">
-       
-        <Link to={`${url}/createRoom`}>
-          <IconButton >
-            <AddIcon />
-          </IconButton>
+          <Link to={`${url}/createRoom`}>
+            <IconButton>
+              <AddIcon />
+            </IconButton>
           </Link>
         </div>
 
         <div id="search" className="centerFlex">
-          <input id="searchInput" placeholder="Search Friends"></input>
+          
+        </div>
+        <div id="notifications">
+          <Link to={`${url}/handleNotifications`}>
+          <IconButton>
+            <NotificationsActiveIcon/>
+          </IconButton>
+          </Link>
         </div>
         <div id="profile" className="centerFlex">
-          <IconButton onClick={handleClick}>
+          <IconButton onClick={manageProfileDropdown}>
             <AccountCircleIcon />
           </IconButton>
           <Menu
@@ -136,30 +140,37 @@ export default function UserDash() {
           {Rooms.map((room, index) => {
             return (
               <Link key={room.id} to={`${url}/cli/${room.id}`}>
-                <button onClick={removeNewMessageDisplay}className="roomButton test" ref={(element)=> roomRef.current[room.id] = element } value={room.id} >
+                <button
+                  onClick={removeNewMessageDisplay}
+                  className="roomButton"
+                  ref={(element) => (roomRef.current[room.id] = element)}
+                  value={room.id}
+                >
                   <div id="partNames">
                     {room.Users.map(
                       (user) => user.firstName + " " + user.lastName
                     )}
                   </div>
-                  <div  className="messageIndicator"></div>
+                  <div className="messageIndicator"></div>
                 </button>
               </Link>
             );
           })}
         </div>
         <Switch>
-        <Route exact path={`${path}/cli/:id`}>
-           <ReadWrite socket={socket}/>
-        </Route>
-        <Route exact path={`${path}/createRoom`}>
-           <CreateRoom socket={socket} />
-        </Route>
-        <Route exact path={`${path}/addContact`}>
-            <AddConnect />
-        </Route>
+          <Route exact path={`${path}/cli/:id`}>
+            <ReadWrite socket={socket} />
+          </Route>
+          <Route exact path={`${path}/createRoom`}>
+            <CreateRoom socket={socket} />
+          </Route>
+          <Route exact path={`${path}/addContact`}>
+            <AddConnect socket={socket} />
+          </Route>
+          <Route exact path={`${path}/handleNotifications`}>
+            <Notifications socket={socket} />
+          </Route>
         </Switch>
-        
       </div>
     </>
   );

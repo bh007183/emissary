@@ -9,6 +9,7 @@ module.exports = async function (socket, next) {
   try {
     // Verify Token And Get User ID
     let {userId} = await verifyToken(token);
+    
     // Get User 
     let userResponse = await db.User.findOne({
       where: {
@@ -16,11 +17,16 @@ module.exports = async function (socket, next) {
       },
       attributes: {
         exclude: ["password"],
-      },
+      }
+      
     }).catch((err) => {
-      socket.emit("Error", err)
+      throw new Error(err.message)
+      
     });
     
+    
+    
+    // might delete
     //Get List of Friends
     let friends = await userResponse.getFriends({
       attributes: {
@@ -32,24 +38,29 @@ module.exports = async function (socket, next) {
         ]
       }
     }).catch((err) => {
-      socket.emit("Error", err.message)
+      throw new Error(err.message)
+      
     });
+   
    
     //  If Has Friends, join Send list and Join Friends base Rooms
     if (friends.length) {
       socket.emit("Friends", friends)
-      let roomIds = await friends.filter((friend) => friend.socketId);
-      await socket.join(roomIds);
+      // Get Array of Friend sockets
+      let roomIds = await friends.map((friend) => friend.dataValues.socketId);
+      // Join own room as well as friends
+      await socket.join([userResponse.dataValues.socketId, ...roomIds]);
 
-      roomIds.forEach(function (id) {
-        ///check to see if how many in room?
-      });
+      // roomIds.forEach(function (id) {
+      //   ///check to see if how many in room?
+      // });
     } else {
-      socket.emit("Error", "HAHAHA YOU HAVE NO FRIENDS!!!!");
+      throw new Error("HAHAHA YOU HAVE NO FRIENDS!!!!")
+      
     }
     // Get actualRooms Accociated with User
     let rooms = await userResponse.getRooms().catch((err) => {
-      socket.emit("Error", err.message)
+      
     });
     // Send actualRooms with Accociated User Names
       
@@ -68,6 +79,7 @@ module.exports = async function (socket, next) {
       socket.join(parsedData.map(room => room.dataValues.id))
     socket.emit("SetRooms", parsedData)
   } catch (err) {
+    console.log(err.message)
     socket.emit("Error", err.message)
   }
   

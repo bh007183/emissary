@@ -44,6 +44,11 @@ module.exports = function(sequelize, DataTypes){
                 }
             }
 
+        },
+        socketId:{
+            type: DataTypes.STRING,
+            allowNull: false
+
         }
 
     })
