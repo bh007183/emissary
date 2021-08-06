@@ -1,19 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useRef} from "react";
 import "./style.css";
-import { useSelector, useDispatch } from "react-redux";
-import { Route, Link, useRouteMatch, Switch } from "react-router-dom";
+import { useSelector} from "react-redux";
+import { Link, useRouteMatch} from "react-router-dom";
 
 export default function CreateRoom(props) {
-  const dispatch = useDispatch();
+ 
 
   const [friends, setFriend] = useState([]);
   const [selected, setSelected] = useState([]);
   const friendArray = useSelector((state) => state.Store.User.Friends);
+  const inputVal = useRef(null)
 
-  useEffect(() => {
-    
-    
-  }, [])
+
 
   const handleSearch = async (event) => {
     let value = event.target.value;
@@ -49,6 +47,8 @@ export default function CreateRoom(props) {
         ...selected,
         { id: event.target.value, name: event.target.innerText },
       ]);
+      setFriend([])
+      inputVal.current.value = ''
     }
   };
 
@@ -75,7 +75,7 @@ export default function CreateRoom(props) {
         <div id="selecties">
           {selected.map((selected) => (
             <div key={selected.id}className="centerAndAlignFlex white selected">
-              <div>{selected.name}</div>
+              <div style={{whiteSpace: "nowrap"}}>{selected.name}</div>
               <button
                 onClick={handleRemoveSelected}
                 value={selected.id}
@@ -89,6 +89,7 @@ export default function CreateRoom(props) {
 
         <input
           onChange={handleSearch}
+          ref={inputVal}
           className="white"
           id="searchFriendInput"
           placeholder="Name"

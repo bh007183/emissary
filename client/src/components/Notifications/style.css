@@ -1,6 +1,7 @@
 #notificationContainer{
     background-color: rgb(48, 44, 44);
     grid-column: 2/4;
+    position: relative;
     
 }
 
@@ -50,4 +51,14 @@
     border-bottom-right-radius: 10px;
     border-top-right-radius: 10px;
     background-color: rgb(0, 0, 34);
+}
+#noNotifications{
+    font-family: 'Syne Tactile', cursive;
+    color: rgb(161, 161, 161);
+   font-size: 30px;
+   font-weight: bold;
+    position: absolute;
+    top:40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }

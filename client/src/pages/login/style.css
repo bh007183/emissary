@@ -5,7 +5,6 @@
         rgba(0,0,0, 0) 60%,
         #726a61
       ),url("../../images/createAccount.jpg");
-    /* background: url("../../images/createAccount.jpg"); */
     background-size: cover;
     height: 100vh;
     background-repeat:no-repeat ;

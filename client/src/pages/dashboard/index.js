@@ -133,9 +133,9 @@ export default function UserDash() {
         </div>
         <div className="centerAndAlignFlex" id="notifications">
           <Link  to={`${url}/handleNotifications`}>
-          <IconButton  onClick={removeNewNotificationDisplay} ref={notificationRef}>
+          <button  style={{background: "none"}} onClick={removeNewNotificationDisplay} ref={notificationRef}>
             <NotificationsActiveIcon />
-          </IconButton>
+          </button>
           </Link>
         </div>
         <div id="profile" className="centerAndAlignFlex" >
