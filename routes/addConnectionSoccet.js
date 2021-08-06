@@ -13,7 +13,7 @@ module.exports = async function(socket, next){
                 UserId: userId,
                 FriendId: data.friendId,
               })
-
+            console.log(data.friendSocket)
             socket.emit("Success", "Connection request sent.")
             socket.to(data.friendSocket).emit("Notification", {message: `${name} sent a connection request`, friendId: userId, recipeantSocketId: socketId, type: "CONNECTION_REQUEST"})
             // Below emit is Temporary to allow understanding of what im doing
