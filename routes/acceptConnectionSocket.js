@@ -19,7 +19,7 @@ module.exports = async function(socket, next){
               }})
 
             socket.emit("Success", "Connection request sent.")
-            socket.to(data.friendSocket).emit("Notification", {message: `${name} is now a connection`, friendId: data, type: "CONNECTION_ACCEPTED"})
+            socket.to(data.friendSocket).emit("Notification", {message: `${name} is now a connection`, friendId: userId, type: "CONNECTION_ACCEPTED"})
             // Below emit is Temporary to allow understanding of what im doing
             // socket.emit("Notification", {message: `${name} is now a connection`, friendId: data, type: "CONNECTION_ACCEPTED"})
 

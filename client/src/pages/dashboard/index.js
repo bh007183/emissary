@@ -30,7 +30,7 @@ export default function UserDash() {
   // Socket Initiator and Listener
   useEffect(() => {
     dispatch(clearRoute());
-    socket = io("http://localhost:8080", {
+    socket = io("https://foreign-emissary.herokuapp.com", {
       path: "/socket",
       auth: {
         token: localStorage.getItem("token"),
@@ -49,7 +49,11 @@ export default function UserDash() {
     socket.on("Notification", async (notification) => {
       dispatch(setNotifications(notification));
       console.log(notificationRef.current)
-      notificationRef.current.classList.add("newNotification")
+      if(window.location.pathname !== "/handleNotifications"){
+        notificationRef.current.classList.add("newNotification")
+
+      }
+      
     });
     socket.on("RoomCreated", function (NewRoom) {
       console.log(NewRoom);

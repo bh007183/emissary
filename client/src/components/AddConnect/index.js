@@ -22,6 +22,9 @@ export default function AddConnect(props) {
     setConnection(event.target.value);
   };
   const handleAddFriend = (event) => {
+    console.log(event.target.dataset.socketid)
+    console.log(event.target.value)
+    console.log(event.target.name)
     props.socket.emit("addConnection", {
       friendId: event.target.value,
       friendName: event.target.name,

@@ -49,7 +49,9 @@ module.exports = async function (socket, next) {
       // Get Array of Friend sockets
       let roomIds = await friends.map((friend) => friend.dataValues.socketId);
       // Join own room as well as friends
-      await socket.join([userResponse.dataValues.socketId, ...roomIds]);
+      let roomArray = [userResponse.dataValues.socketId, ...roomIds]
+      console.log([...new Set(roomArray)])
+      await socket.join([...new Set(roomArray)]);
 
       // roomIds.forEach(function (id) {
       //   ///check to see if how many in room?
