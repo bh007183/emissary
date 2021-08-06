@@ -6,9 +6,11 @@ import {rejectFriendRequest, removeNotification } from "../../store/socketAction
 export default function Notifications(props) {
     const dispatch = useDispatch()
     const notifications = useSelector(state => state.Store.Socket.Notifications)
+    console.log(notifications)
     const handleAccept = (event) =>{
         console.log(event.target.dataset.rsocketid)
         props.socket.emit("acceptedConnection", {id: event.target.value, friendSocket: event.target.dataset.rsocketid})
+        dispatch(removeNotification({id: event.target.value}))
 
     }
     const handleReject = (event) => {
@@ -16,6 +18,8 @@ export default function Notifications(props) {
 
     }
     const handleDismiss = (event) => {
+        
+        
         dispatch(removeNotification({id: event.target.value}))
 
     }

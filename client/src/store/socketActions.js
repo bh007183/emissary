@@ -16,6 +16,8 @@ const slice = createSlice({
             Socket.Notifications = [action.payload, ...Socket.Notifications]
         },
         removeNotification: function(Socket, action){
+            console.log(Socket.Notifications)
+            console.log(action.payload.id)
             Socket.Notifications = Socket.Notifications.filter(item => item.friendId !== action.payload.id)
         }
     }
