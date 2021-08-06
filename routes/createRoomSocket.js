@@ -15,15 +15,9 @@ module.exports = function(socket, next){
                 // name: name optional
             })
             // Add Participents to Room
-            let cloned = [{id: userId}, ...data]
-           await Promise.all(cloned.map(async function(person){
-                try{
-                    await roomCreated.addUser(person.id)
-                }catch(err){
-                    socket.emit("Error", err.message)
-                }
-                
-            }))
+            
+            let cloned = [userId, ...data.map(person => person.id)]
+            await roomCreated.addUsers(cloned)
             
 
            // Retreaving room with Users and Parsing Data to Usable Response format
@@ -34,40 +28,21 @@ module.exports = function(socket, next){
             },
             include:[{
               model: db.User,
-              attributes: ["firstName", "lastName", "id"],
+              attributes: ["firstName", "lastName", "id", "socketId"],
             through:{
               attributes: []
             }}]
           }).catch(err => socket.emit("Error", err.message))
-   
-        
-            // Parsing Data for retrieving UsertoUserSOcketIds
-            let maped = await data.map(function(persons){
-                return {FriendId: persons.id}
-            })
-            // Getting List Of Friends UsertoUserSocketIds
-            let baseRoomIds = await db.UserToUser.findAll({
-                where:{
-                    [Op.or]: maped
-                }
-            })
-            console.log(parsedData.dataValues.id)
-
-            // need to join rooms 
-            // Not sure how to make others join at this time.
-            // socket.join(parsedData.dataValues.id)
             
             // Emitting Room Data and User Data to Users.
-            baseRoomIds.forEach(person => {
-                socket.to(person.dataValues.socketId).emit("RoomCreated", parsedData)
-            })
-            // Emitting Room Data and User Data to Self.
-            socket.emit("RoomCreated", parsedData)
+          await parsedData.dataValues.Users.map(User => socket.to(User.dataValues.socketId).emit("RoomCreated", parsedData))
+          socket.emit("RoomCreated", parsedData)
+            
 
            
             
         }catch(err){
-            console.log(err)
+            console.log(err.message)
             socket.emit("Error", err.message)
         }
 

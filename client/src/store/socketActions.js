@@ -12,6 +12,9 @@ const slice = createSlice({
         setRooms: function(Socket, action){
             Socket.Rooms = action.payload
         },
+        unshiftRooms: function(Socket, action){
+            Socket.Rooms = [action.payload, ...Socket.Rooms]
+        },
         setNotifications: function(Socket, action){
             Socket.Notifications = [action.payload, ...Socket.Notifications]
         },
@@ -23,7 +26,7 @@ const slice = createSlice({
     }
 
 })
-export const {setRooms, setNotifications, removeNotification} = slice.actions
+export const {setRooms, setNotifications, removeNotification, unshiftRooms} = slice.actions
 export default slice.reducer
 
 export const rejectFriendRequest = (rejectedId) => apiStart({

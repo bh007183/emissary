@@ -40,6 +40,9 @@ const slice = createSlice({
         setFriends: (User, action) => {
             User.Friends = action.payload
         },
+        addNewFriends: (User, action) => {
+            User.Friends = [action.payload, ...User.Friends]
+        },
         setConnectionSearchResults: (User, action)=>{
             User.ConnectionSearchResults = action.payload
         },
@@ -48,7 +51,7 @@ const slice = createSlice({
     },
     
 })
-export const {setName, apiCallSuccess, apiCallError, clearError, clearSuccess, loginSuccess, clearRoute, setFriends, setConnectionSearchResults} = slice.actions
+export const {setName, apiCallSuccess, apiCallError, clearError, clearSuccess, loginSuccess, clearRoute, setFriends, setConnectionSearchResults, addNewFriends} = slice.actions
 export default slice.reducer
 
 export const createUser = (user) => apiStart({

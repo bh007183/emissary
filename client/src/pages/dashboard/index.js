@@ -10,9 +10,9 @@ import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import { io } from "socket.io-client";
 import ReadWrite from "../../components/ReadWrite";
 import CreateRoom from "../../components/CreateRoom";
-import { setFriends } from "../../store/userActions";
+import { setFriends, addNewFriends } from "../../store/userActions";
 import AddConnect from "../../components/AddConnect/index";
-import { setRooms, setNotifications } from "../../store/socketActions";
+import { setRooms, setNotifications, unshiftRooms } from "../../store/socketActions";
 import { Route, Link, useRouteMatch, Switch } from "react-router-dom";
 import { setMessagesNEW } from "../../store/messageActions";
 import NotificationsActiveIcon from '@material-ui/icons/NotificationsActive';
@@ -56,8 +56,14 @@ export default function UserDash() {
       
     });
     socket.on("RoomCreated", function (NewRoom) {
-      console.log(NewRoom);
+        dispatch(unshiftRooms(NewRoom))
+        let roomId = NewRoom.id;
+
+      if (NewRoom.id !== window.location.pathname.split("/")[3]) {
+        roomRef.current[roomId].classList.add("newMessage");
+      }
     });
+
     socket.on("Error", function (Err) {
       console.log(Err);
     });
@@ -66,6 +72,9 @@ export default function UserDash() {
     });
     socket.on("SetRooms", function (Rooms) {
       dispatch(setRooms(Rooms));
+    });
+    socket.on("UnshiftFriend", function (friend) {
+      dispatch(addNewFriends(friend));
     });
 
     socket.on("messageTransmit", function (data) {

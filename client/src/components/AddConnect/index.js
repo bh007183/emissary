@@ -1,10 +1,8 @@
 import React, { useState } from "react";
 import "./style.css";
-
-import { findConnection, clearSuccess } from "../../store/userActions";
+import { findConnection} from "../../store/userActions";
 import { useDispatch, useSelector } from "react-redux";
-import Error from "../ErrorAlert/Error";
-import Success from "../SuccessAlert";
+
 
 export default function AddConnect(props) {
   const [connection, setConnection] = useState(null);
@@ -12,26 +10,22 @@ export default function AddConnect(props) {
   const results = useSelector(
     (state) => state.Store.User.ConnectionSearchResults
   );
-  const success = useSelector((state) => state.Store.User.Success);
-  const error = useSelector((state) => state.Store.User.Error);
+
   const handleSearch = (event) => {
-    console.log(connection);
     dispatch(findConnection(connection));
   };
   const handleChange = (event) => {
     setConnection(event.target.value);
   };
   const handleAddFriend = (event) => {
-    console.log(event.target.dataset.socketid)
-    console.log(event.target.value)
-    console.log(event.target.name)
     props.socket.emit("addConnection", {
       friendId: event.target.value,
       friendName: event.target.name,
       friendSocket: event.target.dataset.socketid,
     });
   };
-  console.log(results);
+  console.log("AddConnect Component");
+
   return (
     <div id="AddFriendContainer">
       <div id="addConnectionSearch">
@@ -64,16 +58,6 @@ export default function AddConnect(props) {
               {person.firstName + " " + person.lastName}
             </button>
           ))
-        )}
-      </div>
-
-      <div id="messageContainer">
-        {success ? (
-          <Success message={success} />
-        ) : error ? (
-          <Error message={error} />
-        ) : (
-          <></>
         )}
       </div>
     </div>
