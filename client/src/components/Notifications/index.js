@@ -7,7 +7,7 @@ export default function Notifications(props) {
     const dispatch = useDispatch()
     const notifications = useSelector(state => state.Store.Socket.Notifications)
     const handleAccept = (event) =>{
-        props.socket.emit("acceptedConnection", {id: event.target.value, friendSocket: event.target.dataset.rsocketId})
+        props.socket.emit("acceptedConnection", {id: event.target.value, friendSocket: event.target.dataset.rsocketid})
 
     }
     const handleReject = (event) => {
