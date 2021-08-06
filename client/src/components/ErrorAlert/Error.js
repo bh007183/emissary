@@ -1,6 +1,6 @@
 import React from 'react'
 import "./style.css"
-import {useDispatch, useSelector} from "react-redux"
+import {useDispatch} from "react-redux"
 import {clearError} from "../../store/userActions"
 export default function Error(props) {
     const dispatch = useDispatch()
