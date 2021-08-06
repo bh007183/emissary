@@ -21,7 +21,7 @@ module.exports = {
                 const match = await bcrypt.compare(password, data.password)
                 if(match){
                     try{
-                        let resData = await jwt.sign({email: data.email, userId: data.id, name: `${data.firstName} ${data.lastName}`}, process.env.JSON_RIO, {expiresIn: '1h'})
+                        let resData = await jwt.sign({email: data.email, userId: data.id, name: `${data.firstName} ${data.lastName}`, socketId: data.socketId}, process.env.JSON_RIO, {expiresIn: '1h'})
                         return {
                             token: resData,
                             user: data.firstName
