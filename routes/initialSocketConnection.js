@@ -42,27 +42,18 @@ module.exports = async function (socket, next) {
       
     });
    
-   
-    //  If Has Friends, join Send list and Join Friends base Rooms
+    socket.join(userResponse.dataValues.socketId);
+
+    //  If Has Friends, Send Array of friends
     if (friends.length) {
       socket.emit("Friends", friends)
-      // Get Array of Friend sockets
-      let roomIds = await friends.map((friend) => friend.dataValues.socketId);
-      // Join own room as well as friends
-      let roomArray = [userResponse.dataValues.socketId, ...roomIds]
-      console.log([...new Set(roomArray)])
-      await socket.join([...new Set(roomArray)]);
-
-      // roomIds.forEach(function (id) {
-      //   ///check to see if how many in room?
-      // });
     } else {
       throw new Error("HAHAHA YOU HAVE NO FRIENDS!!!!")
       
     }
     // Get actualRooms Accociated with User
     let rooms = await userResponse.getRooms().catch((err) => {
-      
+      throw new Error(err.message)
     });
     // Send actualRooms with Accociated User Names
       

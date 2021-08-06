@@ -27,7 +27,7 @@ export const {setRooms, setNotifications, removeNotification} = slice.actions
 export default slice.reducer
 
 export const rejectFriendRequest = (rejectedId) => apiStart({
-    url: "https://foreign-emissary.herokuapp.com/api/rejectConnection",
+    url: "http://localhost:8080/api/rejectConnection",
     headers:{
         authorization: `Bearer ${localStorage.getItem("token")}`
     },
