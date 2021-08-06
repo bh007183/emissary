@@ -19,7 +19,7 @@ const io = require("socket.io")(httpServer, {
 var corsOptions = {
   origin: "https://foreign-emissary.herokuapp.com",
 };
-// corsOptions
+
 
 const PORT = process.env.PORT || 8080;
 
