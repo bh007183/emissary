@@ -12,20 +12,29 @@ import ReadWrite from "../../components/ReadWrite";
 import CreateRoom from "../../components/CreateRoom";
 import { setFriends, addNewFriends } from "../../store/userActions";
 import AddConnect from "../../components/AddConnect/index";
-import { setRooms, setNotifications, unshiftRooms } from "../../store/socketActions";
+
+import {
+  setRooms,
+  setNotifications,
+  unshiftRooms,
+} from "../../store/socketActions";
 import { Route, Link, useRouteMatch, Switch } from "react-router-dom";
 import { setMessagesNEW } from "../../store/messageActions";
-import NotificationsActiveIcon from '@material-ui/icons/NotificationsActive';
+import NotificationsActiveIcon from "@material-ui/icons/NotificationsActive";
 import Notifications from "../../components/Notifications";
+//
+
+import Fade from "@material-ui/core/Fade";
 
 let socket;
 
 export default function UserDash() {
+ 
   const dispatch = useDispatch();
 
   const Rooms = useSelector((state) => state.Store.Socket.Rooms);
   const roomRef = useRef({});
-  const notificationRef = useRef()
+  const notificationRef = useRef();
 
   // Socket Initiator and Listener
   useEffect(() => {
@@ -43,21 +52,19 @@ export default function UserDash() {
     });
 
     socket.on("Friends", async (friends) => {
-      console.log(friends)
+      console.log(friends);
       dispatch(setFriends(friends));
     });
     socket.on("Notification", async (notification) => {
       dispatch(setNotifications(notification));
-      console.log(notificationRef.current)
-      if(window.location.pathname !== "/userDashBoard/handleNotifications"){
-        notificationRef.current.classList.add("newNotification")
-
+      console.log(notificationRef.current);
+      if (window.location.pathname !== "/userDashBoard/handleNotifications") {
+        notificationRef.current.classList.add("newNotification");
       }
-      
     });
     socket.on("RoomCreated", function (NewRoom) {
-        dispatch(unshiftRooms(NewRoom))
-        let roomId = NewRoom.id;
+      dispatch(unshiftRooms(NewRoom));
+      let roomId = NewRoom.id;
 
       if (NewRoom.id !== window.location.pathname.split("/")[3]) {
         roomRef.current[roomId].classList.add("newMessage");
@@ -104,7 +111,6 @@ export default function UserDash() {
 
   let { path, url } = useRouteMatch();
 
-
   // Removes newMessage or newNotification class once clicked if newMessage or newNotification exists
   const removeNewMessageDisplay = (event) => {
     if (event.currentTarget.classList.contains("newMessage")) {
@@ -128,29 +134,29 @@ export default function UserDash() {
           </Link>
         </div>
 
-        <div id="search" className="centerFlex">
-          
-        </div>
+        <div id="search" className="centerFlex"></div>
         <div className="centerAndAlignFlex" id="notifications">
-          <Link  to={`${url}/handleNotifications`}>
-          <button  style={{background: "none"}} onClick={removeNewNotificationDisplay} ref={notificationRef}>
-            <NotificationsActiveIcon />
-          </button>
+          <Link to={`${url}/handleNotifications`}>
+            <button
+              style={{ background: "none" }}
+              onClick={removeNewNotificationDisplay}
+              ref={notificationRef}
+            >
+              <NotificationsActiveIcon />
+            </button>
           </Link>
         </div>
-        <div id="profile" className="centerAndAlignFlex" >
+        <div id="profile" className="centerAndAlignFlex">
           <IconButton onClick={manageProfileDropdown}>
             <AccountCircleIcon />
           </IconButton>
           <Menu
-          
             // id="simple-menu"
             anchorEl={anchorEl}
             keepMounted
             open={Boolean(anchorEl)}
             onClose={handleClose}
           >
-            
             <MenuItem onClick={handleClose}>Manage account</MenuItem>
             <MenuItem onClick={handleClose}>Manage Connections</MenuItem>
             <MenuItem onClick={handleClose}>Logout</MenuItem>
@@ -162,21 +168,24 @@ export default function UserDash() {
         <div id="roomColumn">
           {Rooms.map((room, index) => {
             return (
-              <Link key={room.id} to={`${url}/cli/${room.id}`}>
-                <button
-                  onClick={removeNewMessageDisplay}
-                  className="roomButton"
-                  ref={(element) => (roomRef.current[room.id] = element)}
-                  value={room.id}
-                >
-                  <div id="partNames">
-                    {room.Users.map(
-                      (user) => user.firstName + " " + user.lastName
-                    )}
+              <div className="roomButtonContain">
+                <Link class="link" key={room.id} to={`${url}/cli/${room.id}`}>
+                  <div
+                    onClick={removeNewMessageDisplay}
+                    className="roomButton"
+                    ref={(element) => (roomRef.current[room.id] = element)}
+                    value={room.id}
+                  >
+                    <div id="partNamesRow">
+                      {room.Users.map((user) => (
+                        <p className="partName">
+                          {user.firstName + " " + user.lastName}
+                        </p>
+                      ))}
+                    </div>
                   </div>
-                  <div className="messageIndicator"></div>
-                </button>
-              </Link>
+                </Link>
+              </div>
             );
           })}
         </div>

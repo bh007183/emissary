@@ -63,8 +63,6 @@ export default function CreateRoom(props) {
   };
 
 
-  let { path, url } = useRouteMatch();
-
   return (
     <div id="userController">
       <div id="friendSearch">

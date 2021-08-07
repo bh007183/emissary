@@ -54,20 +54,48 @@
     background-color: rgb(77, 77, 77);
 }
 /* Side Bar */
-#partNames{
-    display: flex;
-    overflow: hidden;
-}
-.roomButton{
-    width: 100%;
-    color: aliceblue;
-    background-color: rgb(56, 56, 56);
-    height: 60px;
-    border-color: rgb(85, 85, 85);
-    border-width: 1px 0px 1px 0px;
-   
+.roomButtonContain{
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    border-top: 1px;
+    border-bottom: 1px;
     border-style: solid;
+    border-color: rgb(49, 49, 49);
+    height: 60px;
 }
+.link{
+    grid-column: 1/8;
+    color: #FFFFFF;
+  text-decoration: none;
+}
+
+.roomButton{
+    height: 60px;
+    width: 100%;
+    display: grid;
+    grid-template-rows: repeat(3, 1fr);
+    
+}
+#partNamesRow{
+    grid-row: 1;
+    display: flex;
+}
+
+.partName{
+    margin: 0px 0px 0px 5px
+    
+}
+
+
+.deleteToggle{
+    justify-content: center;
+    display: flex;
+    grid-column: 8; 
+    align-items: center;
+   
+    color: rgb(255, 0, 0);
+}
+
 /* Indicator */
 
 .newMessage{
@@ -77,12 +105,9 @@
 }
 
 
-.MessageIndicator{
-    width: 10px;
-    height: 10px;
-    border-radius:100%;
-    
-}
+
+
+
 .newNotification{
   color: aliceblue;
   background-color: black;
