@@ -59,7 +59,7 @@
 }
 /* Indicator */
 .newMessage{
-    background: linear-gradient(to right, rgb(82, 150, 43) 50%, #333333);
+    background: linear-gradient(to right, rgb(82, 150, 43) 40%,  rgb(70, 66, 66));
     
 
 
