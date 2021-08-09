@@ -13,11 +13,11 @@ import CreateRoom from "../../components/CreateRoom";
 import { setFriends, addNewFriends } from "../../store/userActions";
 import AddConnect from "../../components/AddConnect/index";
 import MoreVertIcon from '@material-ui/icons/MoreVert';
-
 import {
   setRooms,
   setNotifications,
   unshiftRooms,
+  setRoomsAfterDelete
 } from "../../store/socketActions";
 import { Route, Link, useRouteMatch, Switch } from "react-router-dom";
 import { setMessagesNEW } from "../../store/messageActions";
@@ -38,6 +38,7 @@ export default function UserDash() {
   const deleteRef = useRef({});
   const deleteToggleRef = useRef({});
   const notificationRef = useRef();
+  
 
   // Socket Initiator and Listener
   useEffect(() => {
@@ -120,7 +121,9 @@ export default function UserDash() {
 
   };
   const deleteRoom = event => {
-    console.log("delete")
+    dispatch(setRoomsAfterDelete(event.currentTarget.dataset.id))
+    socket.emit("DELETE_ROOM", event.currentTarget.dataset.id)
+    
   }
   const closeDeleteReference = (event) => {
 
@@ -215,7 +218,7 @@ export default function UserDash() {
                   style={{ display: "block"}}
                   ref={(element) => (deleteToggleRef.current[room.id] = element)}
                 >
-                <MoreVertIcon style={{marginTop: "50%", marginRight: "10px", marginLeft: "10px"}}/>
+                <MoreVertIcon style={{marginTop: "40%", marginRight: "10px", marginLeft: "10px"}}/>
                 </div>
                 <div
                 onClick={deleteRoom }
@@ -234,7 +237,7 @@ export default function UserDash() {
                   style={{ display: "none"}}
                   ref={(element) => (closeDeleteRef.current[room.id] = element)}
                 >
-                  <MoreVertIcon style={{marginTop: "50%", marginRight: "10px", marginLeft: "10px"}} />
+                  <MoreVertIcon style={{marginTop: "40%", marginRight: "10px", marginLeft: "10px"}} />
                   
                 </div>
               </div>

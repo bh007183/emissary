@@ -19,14 +19,16 @@ const slice = createSlice({
             Socket.Notifications = [action.payload, ...Socket.Notifications]
         },
         removeNotification: function(Socket, action){
-            console.log(Socket.Notifications)
-            console.log(action.payload.id)
             Socket.Notifications = Socket.Notifications.filter(item => item.friendId !== action.payload.id)
+        },
+        setRoomsAfterDelete: function(Socket, action){
+            Socket.Rooms = Socket.Rooms.filter(room => room.id !== action.payload)
+
         }
     }
 
 })
-export const {setRooms, setNotifications, removeNotification, unshiftRooms} = slice.actions
+export const {setRooms, setNotifications, removeNotification, unshiftRooms, setRoomsAfterDelete} = slice.actions
 export default slice.reducer
 
 export const rejectFriendRequest = (rejectedId) => apiStart({

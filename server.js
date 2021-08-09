@@ -28,6 +28,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 io.use(require("./routes/initialSocketConnection"));
+io.use(require("./routes/deleteRoomSocket"));
 io.use(require("./routes/acceptConnectionSocket"));
 io.use(require("./routes/createRoomSocket"));
 io.use(require("./routes/socketSendMessages"));
