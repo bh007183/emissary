@@ -77,7 +77,7 @@ export default function RoomButtons(props) {
                   style={{ display: "none"}}
                   ref={(element) => (deleteRef.current[props.room.id] = element)}
                 >
-                 <p style={{margin: 0}}>Delete</p> 
+                 <p style={{margin: "0", fontSize: "24px", color: "white", marginLeft: "30%", marginTop: "15px"}}>Delete</p> 
                   
                 </div>
                 <div
