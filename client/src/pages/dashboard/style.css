@@ -53,74 +53,10 @@
 #searchInput{
     background-color: rgb(77, 77, 77);
 }
-/* Side Bar */
-.roomButtonContain{
-    position: relative;
-    display: grid;
-    grid-template-columns: repeat(8, 1fr);
-    border-top: 1px;
-    border-bottom: 1px;
-    border-style: solid;
-    border-color: rgb(49, 49, 49);
-    height: 60px;
-}
-.link{
-    grid-column: 1/8;
-    color: #FFFFFF;
-  text-decoration: none;
-}
 
-.roomButton{
-    height: 60px;
-    width: 100%;
-    display: grid;
-    grid-template-rows: repeat(3, 1fr);
-    
-}
-#partNamesRow{
-    grid-row: 1;
-    display: flex;
-}
-
-.partName{
-    margin: 0px 0px 0px 5px
-    
-}
-
-.deleteToggleOpen{
-    position: absolute;
-    left: 0;
-    top:0;
-    height: 100%;
-    width: 100%;
-    background-color: red;
-    grid-column: 1/9; 
-}
-.closeDelete{
-    grid-column: 9; 
-    background-color: purple;
-    height: 100%;
-    width: 100%;
-    display: flex;
-    align-items: center;
-}
-
-.deleteToggle{
-    /* visibility: hidden; */
-    grid-column: 9;
-    width: 100%;
-    height: 100%;
-}
 
 
 /* Indicator */
-
-.newMessage{
-    background-color: rgb(62, 104, 0) !important;
-
-
-}
-
 
 
 

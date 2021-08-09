@@ -12,12 +12,12 @@ import ReadWrite from "../../components/ReadWrite";
 import CreateRoom from "../../components/CreateRoom";
 import { setFriends, addNewFriends } from "../../store/userActions";
 import AddConnect from "../../components/AddConnect/index";
-import MoreVertIcon from '@material-ui/icons/MoreVert';
+// import MoreVertIcon from '@material-ui/icons/MoreVert';
 import {
   setRooms,
   setNotifications,
   unshiftRooms,
-  setRoomsAfterDelete
+  // setRoomsAfterDelete
 } from "../../store/socketActions";
 import { Route, Link, useRouteMatch, Switch } from "react-router-dom";
 import { setMessagesNEW } from "../../store/messageActions";
@@ -25,7 +25,7 @@ import NotificationsActiveIcon from "@material-ui/icons/NotificationsActive";
 import Notifications from "../../components/Notifications";
 //
 
-import Fade from "@material-ui/core/Fade";
+import RoomButtons from "../../components/RoomButtons"
 
 let socket;
 
@@ -34,9 +34,9 @@ export default function UserDash() {
 
   const Rooms = useSelector((state) => state.Store.Socket.Rooms);
   const roomRef = useRef({});
-  const closeDeleteRef = useRef({});
-  const deleteRef = useRef({});
-  const deleteToggleRef = useRef({});
+  // const closeDeleteRef = useRef({});
+  // const deleteRef = useRef({});
+  // const deleteToggleRef = useRef({});
   const notificationRef = useRef();
   
 
@@ -113,36 +113,36 @@ export default function UserDash() {
 
   // DOM
 
-  const handleDeleteVisibility = (event) => {
+  // const handleDeleteVisibility = (event) => {
     
-    deleteToggleRef.current[event.currentTarget.dataset.id].style.display = "none"
-      deleteRef.current[event.currentTarget.dataset.id].style.display = "block"
-      closeDeleteRef.current[event.currentTarget.dataset.id].style.display = "block"
+  //   deleteToggleRef.current[event.currentTarget.dataset.id].style.display = "none"
+  //     deleteRef.current[event.currentTarget.dataset.id].style.display = "block"
+  //     closeDeleteRef.current[event.currentTarget.dataset.id].style.display = "block"
 
-  };
-  const deleteRoom = event => {
-    dispatch(setRoomsAfterDelete(event.currentTarget.dataset.id))
-    socket.emit("DELETE_ROOM", event.currentTarget.dataset.id)
+  // };
+  // const deleteRoom = event => {
+  //   dispatch(setRoomsAfterDelete(event.currentTarget.dataset.id))
+  //   socket.emit("DELETE_ROOM", event.currentTarget.dataset.id)
     
-  }
-  const closeDeleteReference = (event) => {
+  // }
+  // const closeDeleteReference = (event) => {
 
-    deleteToggleRef.current[event.currentTarget.dataset.id].style.display = "block"
-      deleteRef.current[event.currentTarget.dataset.id].style.display = "none"
-      closeDeleteRef.current[event.currentTarget.dataset.id].style.display = "none"
+  //   deleteToggleRef.current[event.currentTarget.dataset.id].style.display = "block"
+  //     deleteRef.current[event.currentTarget.dataset.id].style.display = "none"
+  //     closeDeleteRef.current[event.currentTarget.dataset.id].style.display = "none"
 
-  };
+  // };
 
   // Component Handler
 
   let { path, url } = useRouteMatch();
 
-  // Removes newMessage or newNotification class once clicked if newMessage or newNotification exists
-  const removeNewMessageDisplay = (event) => {
-    if (event.currentTarget.classList.contains("newMessage")) {
-      event.currentTarget.classList.remove("newMessage");
-    }
-  };
+  // // Removes newMessage or newNotification class once clicked if newMessage or newNotification exists
+  // const removeNewMessageDisplay = (event) => {
+  //   if (event.currentTarget.classList.contains("newMessage")) {
+  //     event.currentTarget.classList.remove("newMessage");
+  //   }
+  // };
   const removeNewNotificationDisplay = (event) => {
     if (event.currentTarget.classList.contains("newNotification")) {
       event.currentTarget.classList.remove("newNotification");
@@ -193,55 +193,7 @@ export default function UserDash() {
       <div id="dashBoard">
         <div id="roomColumn">
           {Rooms.map((room, index) => {
-            return (
-              <div key={room.id} className="roomButtonContain">
-                <Link className="link"  to={`${url}/cli/${room.id}`}>
-                  <div
-                    onClick={removeNewMessageDisplay}
-                    className="roomButton"
-                    ref={(element) => (roomRef.current[room.id] = element)}
-                    value={room.id}
-                  >
-                    <div id="partNamesRow">
-                      {room.Users.map((user) => (
-                        <p className="partName">
-                          {user.firstName + " " + user.lastName}
-                        </p>
-                      ))}
-                    </div>
-                  </div>
-                </Link>
-                <div
-                  className="deleteToggle"
-                  data-id={room.id}
-                  onClick={handleDeleteVisibility}
-                  style={{ display: "block"}}
-                  ref={(element) => (deleteToggleRef.current[room.id] = element)}
-                >
-                <MoreVertIcon style={{marginTop: "40%", marginRight: "10px", marginLeft: "10px"}}/>
-                </div>
-                <div
-                onClick={deleteRoom }
-                data-id={room.id}
-                  className="deleteToggleOpen"
-                  style={{ display: "none"}}
-                  ref={(element) => (deleteRef.current[room.id] = element)}
-                >
-                 <p style={{margin: 0}}>Delete</p> 
-                  
-                </div>
-                <div
-                data-id={room.id}
-                onClick={closeDeleteReference }
-                  className="closeDelete"
-                  style={{ display: "none"}}
-                  ref={(element) => (closeDeleteRef.current[room.id] = element)}
-                >
-                  <MoreVertIcon style={{marginTop: "40%", marginRight: "10px", marginLeft: "10px"}} />
-                  
-                </div>
-              </div>
-            );
+            return <RoomButtons key={index} room={room} socket={socket} roomRef={roomRef}/>
           })}
         </div>
         <Switch>
