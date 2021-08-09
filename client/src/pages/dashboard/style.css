@@ -55,6 +55,7 @@
 }
 /* Side Bar */
 .roomButtonContain{
+    position: relative;
     display: grid;
     grid-template-columns: repeat(8, 1fr);
     border-top: 1px;
@@ -86,15 +87,31 @@
     
 }
 
+.deleteToggleOpen{
+    position: absolute;
+    left: 0;
+    top:0;
+    height: 100%;
+    width: 100%;
+    background-color: red;
+    grid-column: 1/9; 
+}
+.closeDelete{
+    grid-column: 9; 
+    background-color: purple;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
 
 .deleteToggle{
-    justify-content: center;
-    display: flex;
-    grid-column: 8; 
-    align-items: center;
-   
-    color: rgb(255, 0, 0);
+    /* visibility: hidden; */
+    grid-column: 9;
+    width: 100%;
+    height: 100%;
 }
+
 
 /* Indicator */
 

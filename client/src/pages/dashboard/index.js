@@ -12,6 +12,7 @@ import ReadWrite from "../../components/ReadWrite";
 import CreateRoom from "../../components/CreateRoom";
 import { setFriends, addNewFriends } from "../../store/userActions";
 import AddConnect from "../../components/AddConnect/index";
+import MoreVertIcon from '@material-ui/icons/MoreVert';
 
 import {
   setRooms,
@@ -29,11 +30,13 @@ import Fade from "@material-ui/core/Fade";
 let socket;
 
 export default function UserDash() {
- 
   const dispatch = useDispatch();
 
   const Rooms = useSelector((state) => state.Store.Socket.Rooms);
   const roomRef = useRef({});
+  const closeDeleteRef = useRef({});
+  const deleteRef = useRef({});
+  const deleteToggleRef = useRef({});
   const notificationRef = useRef();
 
   // Socket Initiator and Listener
@@ -107,6 +110,26 @@ export default function UserDash() {
     setAnchorEl(null);
   };
 
+  // DOM
+
+  const handleDeleteVisibility = (event) => {
+    
+    deleteToggleRef.current[event.currentTarget.dataset.id].style.display = "none"
+      deleteRef.current[event.currentTarget.dataset.id].style.display = "block"
+      closeDeleteRef.current[event.currentTarget.dataset.id].style.display = "block"
+
+  };
+  const deleteRoom = event => {
+    console.log("delete")
+  }
+  const closeDeleteReference = (event) => {
+
+    deleteToggleRef.current[event.currentTarget.dataset.id].style.display = "block"
+      deleteRef.current[event.currentTarget.dataset.id].style.display = "none"
+      closeDeleteRef.current[event.currentTarget.dataset.id].style.display = "none"
+
+  };
+
   // Component Handler
 
   let { path, url } = useRouteMatch();
@@ -168,8 +191,8 @@ export default function UserDash() {
         <div id="roomColumn">
           {Rooms.map((room, index) => {
             return (
-              <div className="roomButtonContain">
-                <Link class="link" key={room.id} to={`${url}/cli/${room.id}`}>
+              <div key={room.id} className="roomButtonContain">
+                <Link className="link"  to={`${url}/cli/${room.id}`}>
                   <div
                     onClick={removeNewMessageDisplay}
                     className="roomButton"
@@ -185,6 +208,35 @@ export default function UserDash() {
                     </div>
                   </div>
                 </Link>
+                <div
+                  className="deleteToggle"
+                  data-id={room.id}
+                  onClick={handleDeleteVisibility}
+                  style={{ display: "block"}}
+                  ref={(element) => (deleteToggleRef.current[room.id] = element)}
+                >
+                <MoreVertIcon style={{marginTop: "50%", marginRight: "10px", marginLeft: "10px"}}/>
+                </div>
+                <div
+                onClick={deleteRoom }
+                data-id={room.id}
+                  className="deleteToggleOpen"
+                  style={{ display: "none"}}
+                  ref={(element) => (deleteRef.current[room.id] = element)}
+                >
+                 <p style={{margin: 0}}>Delete</p> 
+                  
+                </div>
+                <div
+                data-id={room.id}
+                onClick={closeDeleteReference }
+                  className="closeDelete"
+                  style={{ display: "none"}}
+                  ref={(element) => (closeDeleteRef.current[room.id] = element)}
+                >
+                  <MoreVertIcon style={{marginTop: "50%", marginRight: "10px", marginLeft: "10px"}} />
+                  
+                </div>
               </div>
             );
           })}
