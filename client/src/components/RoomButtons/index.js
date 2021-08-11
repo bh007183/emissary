@@ -53,8 +53,8 @@ export default function RoomButtons(props) {
                     value={props.room.id}
                   >
                     <div id="partNamesRow">
-                      {props.room.Users.map((user) => (
-                        <p className="partName">
+                      {props.room.Users.map((user, index) => (
+                        <p key={index} className="partName">
                           {user.firstName + " " + user.lastName}
                         </p>
                       ))}

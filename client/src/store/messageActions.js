@@ -20,10 +20,13 @@ const slice = createSlice({
         },
         setMessagesNEW: (Message, action)=>{
             Message.Messages = [...Message.Messages, action.payload]
-        }
+        },
+        setMessagesAfterDelete: (Message, action)=>{
+            Message.Messages = Message.Messages.filter(message => message.id !== action.payload.messageId)
+        },
     }
 })
-export const {setMessagesNEW, getMessagesAPI} = slice.actions
+export const {setMessagesNEW, getMessagesAPI, setMessagesAfterDelete} = slice.actions
 export default slice.reducer
 
 export const getMessages = (roomId) => apiStart({

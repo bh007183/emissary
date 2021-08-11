@@ -27,6 +27,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+io.use(require("./routes/deleteMessageSocket"));
 io.use(require("./routes/initialSocketConnection"));
 io.use(require("./routes/deleteRoomSocket"));
 io.use(require("./routes/acceptConnectionSocket"));

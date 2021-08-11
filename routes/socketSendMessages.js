@@ -16,12 +16,13 @@ module.exports = async function(socket, next){
                     }
                 })
                if(user){
-                   console.log(user)
+                   
                    let stuff = await db.Message.create({
                        message: data.message,
                        UserId: userId,
                        RoomId: data.roomId,
-                       author: name
+                       author: name,
+                       
                    })
                    socket.to(data.roomId).emit("messageTransmit", stuff)
                    socket.emit("messageTransmit", stuff)

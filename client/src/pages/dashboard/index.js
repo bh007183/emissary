@@ -12,12 +12,12 @@ import ReadWrite from "../../components/ReadWrite";
 import CreateRoom from "../../components/CreateRoom";
 import { setFriends, addNewFriends } from "../../store/userActions";
 import AddConnect from "../../components/AddConnect/index";
-// import MoreVertIcon from '@material-ui/icons/MoreVert';
+import {setMessagesAfterDelete} from "../../store/messageActions"
+
 import {
   setRooms,
   setNotifications,
   unshiftRooms,
-  // setRoomsAfterDelete
 } from "../../store/socketActions";
 import { Route, Link, useRouteMatch, Switch } from "react-router-dom";
 import { setMessagesNEW } from "../../store/messageActions";
@@ -34,9 +34,6 @@ export default function UserDash() {
 
   const Rooms = useSelector((state) => state.Store.Socket.Rooms);
   const roomRef = useRef({});
-  // const closeDeleteRef = useRef({});
-  // const deleteRef = useRef({});
-  // const deleteToggleRef = useRef({});
   const notificationRef = useRef();
   
 
@@ -87,6 +84,14 @@ export default function UserDash() {
     socket.on("UnshiftFriend", function (friend) {
       dispatch(addNewFriends(friend));
     });
+    socket.on("REMOVE_DELETED_MESSAGE", function(data){
+      if (data.roomId === window.location.pathname.split("/")[3]){
+        dispatch(setMessagesAfterDelete(data))
+        console.log("noodel")
+        
+      }
+      console.log(data)
+    });
 
     socket.on("messageTransmit", function (data) {
       if (data.RoomId === window.location.pathname.split("/")[3]) {
@@ -113,36 +118,12 @@ export default function UserDash() {
 
   // DOM
 
-  // const handleDeleteVisibility = (event) => {
-    
-  //   deleteToggleRef.current[event.currentTarget.dataset.id].style.display = "none"
-  //     deleteRef.current[event.currentTarget.dataset.id].style.display = "block"
-  //     closeDeleteRef.current[event.currentTarget.dataset.id].style.display = "block"
-
-  // };
-  // const deleteRoom = event => {
-  //   dispatch(setRoomsAfterDelete(event.currentTarget.dataset.id))
-  //   socket.emit("DELETE_ROOM", event.currentTarget.dataset.id)
-    
-  // }
-  // const closeDeleteReference = (event) => {
-
-  //   deleteToggleRef.current[event.currentTarget.dataset.id].style.display = "block"
-  //     deleteRef.current[event.currentTarget.dataset.id].style.display = "none"
-  //     closeDeleteRef.current[event.currentTarget.dataset.id].style.display = "none"
-
-  // };
 
   // Component Handler
 
   let { path, url } = useRouteMatch();
 
-  // // Removes newMessage or newNotification class once clicked if newMessage or newNotification exists
-  // const removeNewMessageDisplay = (event) => {
-  //   if (event.currentTarget.classList.contains("newMessage")) {
-  //     event.currentTarget.classList.remove("newMessage");
-  //   }
-  // };
+
   const removeNewNotificationDisplay = (event) => {
     if (event.currentTarget.classList.contains("newNotification")) {
       event.currentTarget.classList.remove("newNotification");

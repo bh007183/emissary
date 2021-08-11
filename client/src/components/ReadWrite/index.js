@@ -3,6 +3,7 @@ import SendIcon from "@material-ui/icons/Send";
 import IconButton from "@material-ui/core/IconButton";
 import {getMessages} from "../../store/messageActions"
 import {useDispatch, useSelector} from "react-redux"
+import Messages from "../Messages"
 import "./style.css"
 export default function ReadWrite(props) {
   const scrollRef = useRef(null)
@@ -44,18 +45,7 @@ export default function ReadWrite(props) {
         <div id="messageController">
           <div id="messageCardContainer">
           {messages.map(item => 
-          <div key={item.id} className="messageCard">
-            <div className="imageContain">
-              purple
-
-            </div>
-            <div className="textBlock">
-          <p style={{color: "wheat"}}>{item.author}</p>
-              <p className="white">{item.message}</p>
-            </div>
-            
-
-          </div>
+          <Messages socket={props.socket} item={item}/>
             
             )}
             <br></br>

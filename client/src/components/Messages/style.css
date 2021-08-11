@@ -1,0 +1,16 @@
+/* MessageCard */
+
+.messageCard {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+  }
+  .imageContain {
+    grid-column: 1;
+  }
+  .textBlock {
+    grid-column: 2/6;
+    word-wrap: break-word;
+  }
+  .editMessage{
+      grid-column: 6;
+  }
