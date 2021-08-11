@@ -30,10 +30,10 @@ export default function ReadWrite(props) {
        dispatch(getMessages(window.location.pathname.split("/")[3]))
        props.socket.emit("joinRoom", window.location.pathname.split("/")[3])
        
-
+       
      }, [window.location.pathname])
     
-
+     console.log(messages)
      const handleSubmit = (event) => {
        event.preventDefault()
  
@@ -45,7 +45,8 @@ export default function ReadWrite(props) {
         <div id="messageController">
           <div id="messageCardContainer">
           {messages.map(item => 
-          <Messages socket={props.socket} item={item}/>
+          
+          <Messages key={item.id} socket={props.socket} item={item}/>
             
             )}
             <br></br>

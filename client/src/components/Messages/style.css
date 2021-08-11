@@ -14,3 +14,32 @@
   .editMessage{
       grid-column: 6;
   }
+
+  .editMessageTextarea{
+    overflow: auto;
+    resize: none;
+    background-color: rgb(77, 77, 77);
+    border: none;
+    color: white; 
+    width: 97%;
+    border-radius: 10px;
+
+  }
+  .editTextAreaContain{
+    overflow: auto;
+    background-color: rgb(77, 77, 77);
+    border: none;
+    width: 100%;
+    border-radius: 10px;
+
+  }
+  .normalButton{
+    background-color: rgb(59, 59, 59);
+    margin-left: 10px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgb(128, 128, 128);
+    border-radius: 5px;
+    color: rgb(125, 209, 0);
+  }
+  

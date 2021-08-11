@@ -12,7 +12,7 @@ import ReadWrite from "../../components/ReadWrite";
 import CreateRoom from "../../components/CreateRoom";
 import { setFriends, addNewFriends } from "../../store/userActions";
 import AddConnect from "../../components/AddConnect/index";
-import {setMessagesAfterDelete} from "../../store/messageActions"
+import {setMessagesAfterDelete, setMessagesAfterEdit} from "../../store/messageActions"
 
 import {
   setRooms,
@@ -87,6 +87,14 @@ export default function UserDash() {
     socket.on("REMOVE_DELETED_MESSAGE", function(data){
       if (data.roomId === window.location.pathname.split("/")[3]){
         dispatch(setMessagesAfterDelete(data))
+        console.log("noodel")
+        
+      }
+      console.log(data)
+    });
+    socket.on("INSERT_EDITED_MESSAGE", function(data){
+      if (data.roomId === window.location.pathname.split("/")[3]){
+        dispatch(setMessagesAfterEdit(data))
         console.log("noodel")
         
       }

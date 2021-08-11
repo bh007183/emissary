@@ -24,9 +24,20 @@ const slice = createSlice({
         setMessagesAfterDelete: (Message, action)=>{
             Message.Messages = Message.Messages.filter(message => message.id !== action.payload.messageId)
         },
+        setMessagesAfterEdit: (Message, action)=>{
+            console.log(action.payload)
+            Message.Messages = Message.Messages.map(item => {
+                if(item.id === action.payload.messageId){
+                    item.message = action.payload.message
+                    return item
+                }else{
+                    return item
+                }
+            })
+        },
     }
 })
-export const {setMessagesNEW, getMessagesAPI, setMessagesAfterDelete} = slice.actions
+export const {setMessagesNEW, getMessagesAPI, setMessagesAfterDelete, setMessagesAfterEdit} = slice.actions
 export default slice.reducer
 
 export const getMessages = (roomId) => apiStart({
