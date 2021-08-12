@@ -5,6 +5,7 @@ import {apiStart} from "./apiActions"
 const slice = createSlice({
     name: "User",
     initialState: {
+        UserId: "",
         FirstName: "",
         Success:"",
         Error: "",
@@ -14,9 +15,11 @@ const slice = createSlice({
         Notifications: []
     },
     reducers: {
-        setName: (User, action) => {
-           User.FirstName = action.payload
+        setUserId: (User, action) => {
+            User.UserId = action.payload
+
         },
+      
         apiCallSuccess: (User, action) => {
             User.Success = action.payload
         },
@@ -37,6 +40,7 @@ const slice = createSlice({
             User.Route = true
             User.FirstName = action.payload.user
         },
+
         setFriends: (User, action) => {
             User.Friends = action.payload
         },
@@ -51,7 +55,7 @@ const slice = createSlice({
     },
     
 })
-export const {setName, apiCallSuccess, apiCallError, clearError, clearSuccess, loginSuccess, clearRoute, setFriends, setConnectionSearchResults, addNewFriends} = slice.actions
+export const {setName, apiCallSuccess, apiCallError, clearError, clearSuccess, loginSuccess, clearRoute, setFriends, setConnectionSearchResults, addNewFriends, setUserId} = slice.actions
 export default slice.reducer
 
 export const createUser = (user) => apiStart({

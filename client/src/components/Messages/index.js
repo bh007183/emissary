@@ -4,8 +4,10 @@ import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import IconButton from "@material-ui/core/IconButton";
 import EditIcon from "@material-ui/icons/Edit";
+import {useSelector} from "react-redux"
 
 export default function Messages(props) {
+  const UserId = useSelector(state => state.Store.User.UserId)
   const [anchorEl, setAnchorEl] = useState(null);
   const [edit, setEdit] = useState(null);
 
@@ -63,31 +65,34 @@ export default function Messages(props) {
         )}
       </div>
       <div className="editMessage">
-        <IconButton onClick={manageProfileDropdown}>
-          <EditIcon />
-        </IconButton>
-        <Menu
-          anchorEl={anchorEl}
-          keepMounted
-          open={Boolean(anchorEl)}
-          onClose={handleClose}
-        >
-          <MenuItem
-            value={props.item.id}
-            data-roomid={props.item.RoomId}
-            style={{ color: "red" }}
-            onClick={handleDeleteMessage}
-          >
-            Delete Message
-          </MenuItem>
-          <MenuItem
-            value={props.item.id}
-            data-roomid={props.item.RoomId}
-            onClick={handleEditopen}
-          >
-            Edit Message
-          </MenuItem>
-        </Menu>
+        {UserId === props.item.UserId ? 
+        <>
+         <IconButton onClick={manageProfileDropdown}>
+         <EditIcon />
+       </IconButton>
+       <Menu
+         anchorEl={anchorEl}
+         keepMounted
+         open={Boolean(anchorEl)}
+         onClose={handleClose}
+       >
+         <MenuItem
+           value={props.item.id}
+           data-roomid={props.item.RoomId}
+           style={{ color: "red" }}
+           onClick={handleDeleteMessage}
+         >
+           Delete Message
+         </MenuItem>
+         <MenuItem
+           value={props.item.id}
+           data-roomid={props.item.RoomId}
+           onClick={handleEditopen}
+         >
+           Edit Message
+         </MenuItem>
+       </Menu></>: <></>}
+       
       </div>
     </div>
   );

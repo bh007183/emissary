@@ -70,7 +70,7 @@ module.exports = async function (socket, next) {
         }}]
       }).catch(err => socket.emit("Error", err.message))
       socket.join(parsedData.map(room => room.dataValues.id))
-    socket.emit("SetRooms", parsedData)
+    socket.emit("SetRooms", {rooms: parsedData, userId: userId})
   } catch (err) {
     console.log(err.message)
     socket.emit("Error", err.message)

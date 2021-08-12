@@ -10,9 +10,12 @@ import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import { io } from "socket.io-client";
 import ReadWrite from "../../components/ReadWrite";
 import CreateRoom from "../../components/CreateRoom";
-import { setFriends, addNewFriends } from "../../store/userActions";
+import { setFriends, addNewFriends, setUserId } from "../../store/userActions";
 import AddConnect from "../../components/AddConnect/index";
-import {setMessagesAfterDelete, setMessagesAfterEdit} from "../../store/messageActions"
+import {
+  setMessagesAfterDelete,
+  setMessagesAfterEdit,
+} from "../../store/messageActions";
 
 import {
   setRooms,
@@ -23,34 +26,25 @@ import { Route, Link, useRouteMatch, Switch } from "react-router-dom";
 import { setMessagesNEW } from "../../store/messageActions";
 import NotificationsActiveIcon from "@material-ui/icons/NotificationsActive";
 import Notifications from "../../components/Notifications";
+import {useSocketContext} from "../../context/socketContext"
 //
 
-import RoomButtons from "../../components/RoomButtons"
+import RoomButtons from "../../components/RoomButtons";
 
-let socket;
+// let socket;
 
 export default function UserDash() {
   const dispatch = useDispatch();
 
   const Rooms = useSelector((state) => state.Store.Socket.Rooms);
+  // const socket = useSelector((state) => state.Store.Socket.Connection);
+  const socket = useSocketContext()
+  console.log(socket);
   const roomRef = useRef({});
   const notificationRef = useRef();
-  
 
-  // Socket Initiator and Listener
   useEffect(() => {
     dispatch(clearRoute());
-    socket = io("http://localhost:8080", {
-      path: "/socket",
-      auth: {
-        token: localStorage.getItem("token"),
-      },
-    });
-    socket.connect();
-
-    socket.on("connect", (data) => {
-      console.log("client Connected");
-    });
 
     socket.on("Friends", async (friends) => {
       console.log(friends);
@@ -78,27 +72,23 @@ export default function UserDash() {
     socket.on("Success", function (data) {
       alert(data);
     });
-    socket.on("SetRooms", function (Rooms) {
-      dispatch(setRooms(Rooms));
+    socket.on("SetRooms", function (data) {
+      console.log(data);
+      dispatch(setRooms(data.rooms));
+      dispatch(setUserId(data.userId));
     });
     socket.on("UnshiftFriend", function (friend) {
       dispatch(addNewFriends(friend));
     });
-    socket.on("REMOVE_DELETED_MESSAGE", function(data){
-      if (data.roomId === window.location.pathname.split("/")[3]){
-        dispatch(setMessagesAfterDelete(data))
-        console.log("noodel")
-        
+    socket.on("REMOVE_DELETED_MESSAGE", function (data) {
+      if (data.roomId === window.location.pathname.split("/")[3]) {
+        dispatch(setMessagesAfterDelete(data));
       }
-      console.log(data)
     });
-    socket.on("INSERT_EDITED_MESSAGE", function(data){
-      if (data.roomId === window.location.pathname.split("/")[3]){
-        dispatch(setMessagesAfterEdit(data))
-        console.log("noodel")
-        
+    socket.on("INSERT_EDITED_MESSAGE", function (data) {
+      if (data.roomId === window.location.pathname.split("/")[3]) {
+        dispatch(setMessagesAfterEdit(data));
       }
-      console.log(data)
     });
 
     socket.on("messageTransmit", function (data) {
@@ -126,11 +116,9 @@ export default function UserDash() {
 
   // DOM
 
-
   // Component Handler
 
   let { path, url } = useRouteMatch();
-
 
   const removeNewNotificationDisplay = (event) => {
     if (event.currentTarget.classList.contains("newNotification")) {
@@ -182,7 +170,14 @@ export default function UserDash() {
       <div id="dashBoard">
         <div id="roomColumn">
           {Rooms.map((room, index) => {
-            return <RoomButtons key={index} room={room} socket={socket} roomRef={roomRef}/>
+            return (
+              <RoomButtons
+                key={index}
+                room={room}
+                socket={socket}
+                roomRef={roomRef}
+              />
+            );
           })}
         </div>
         <Switch>

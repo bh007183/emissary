@@ -5,6 +5,7 @@ import Login from "./pages/login"
 import UserDash from "./pages/dashboard"
 import configureStore from "./store/configureStore"
 import { BrowserRouter as Router, Route, Switch} from "react-router-dom";
+import {SocketProvider} from "./context/socketContext"
 
 import {Provider} from "react-redux"
 
@@ -12,6 +13,7 @@ function App() {
   const store = configureStore()
   return (
     <Provider store={store}>
+      <SocketProvider>
       <Router>
         <Switch>
           <Route path="/createAccount">
@@ -24,8 +26,8 @@ function App() {
             <UserDash/>
           </Route>
         </Switch>
-
       </Router>
+      </SocketProvider>
     
     </Provider>
   );
