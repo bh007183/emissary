@@ -10,7 +10,6 @@ import {Link, Redirect} from "react-router-dom"
 export default function Login() {
     const dispatch = useDispatch()
     const apiError = useSelector(state => state.Store.User.Error)
-    const route = useSelector(state => state.Store.User.Route)
     const [login, setLogin] = useState({
         email: "",
         password: "",
@@ -21,7 +20,6 @@ export default function Login() {
     }
     return (
         <main id="loginMain">
-            {route ? <Redirect push to="/userDashBoard"/> : <></>}
         {apiError ? <Error message={apiError}/> : <></>}
         
       <header id="entryHeader">

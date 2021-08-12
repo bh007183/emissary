@@ -2,14 +2,16 @@ import React, { useState, useRef} from "react";
 import "./style.css";
 import { useSelector} from "react-redux";
 import { Link, useRouteMatch} from "react-router-dom";
+import {useSocketContext} from "../../context/socketContext"
 
-export default function CreateRoom(props) {
+export default function CreateRoom() {
  
 
   const [friends, setFriend] = useState([]);
   const [selected, setSelected] = useState([]);
   const friendArray = useSelector((state) => state.Store.User.Friends);
   const inputVal = useRef(null)
+  const {socket} = useSocketContext()
 
 
 
@@ -54,7 +56,7 @@ export default function CreateRoom(props) {
 
   const handleCreateRoom = (event) => {
     
-    props.socket.emit("create",selected)
+    socket.emit("create",selected)
     
   }
 

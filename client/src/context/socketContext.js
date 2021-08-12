@@ -1,13 +1,15 @@
 import * as React from "react"
 import { io } from "socket.io-client";
 
+const socket = io("http://localhost:8080", {
+    path: "/socket",
+    auth: {
+      token: localStorage.getItem("token"),
+    },
+  })
+
 const SocketContext = React.createContext({
-    socket: io("http://localhost:8080", {
-        path: "/socket",
-        auth: {
-          token: localStorage.getItem("token"),
-        },
-      }),
+    socket: socket.connect()
     
 })
 
@@ -24,9 +26,8 @@ function socketReducer(state, action){
 }
 
 function SocketProvider({children}){
-    const [state, dispatch] = React.useReducer(socketReducer, {test1: "", test2: []})
-    const value = {state, dispatch}
-return <SocketContext.Provider value={value}>{children}</SocketContext.Provider>
+    const [state] = React.useReducer(socketReducer, {socket: socket.connect()})
+return <SocketContext.Provider value={state}>{children}</SocketContext.Provider>
 }
 
 function useSocketContext(){

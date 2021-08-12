@@ -4,12 +4,13 @@ import IconButton from "@material-ui/core/IconButton";
 import {getMessages} from "../../store/messageActions"
 import {useDispatch, useSelector} from "react-redux"
 import Messages from "../Messages"
+import {useSocketContext} from "../../context/socketContext"
 import "./style.css"
-export default function ReadWrite(props) {
+export default function ReadWrite() {
   const scrollRef = useRef(null)
   const dispatch = useDispatch()
   const messages = useSelector(state => state.Store.Message.Messages)
-  
+  const {socket} = useSocketContext()
 
     const handleKeyDown = (e) => {
         e.target.style.height = "inherit";
@@ -29,16 +30,17 @@ export default function ReadWrite(props) {
       
        setMessage({...message, roomId: window.location.pathname.split("/")[3]})
        dispatch(getMessages(window.location.pathname.split("/")[3]))
-       props.socket.emit("joinRoom", window.location.pathname.split("/")[3])
+       socket.emit("joinRoom", window.location.pathname.split("/")[3])
        
        
      }, [window.location.pathname])
-    
+
+  
      console.log(messages)
      const handleSubmit = (event) => {
        event.preventDefault()
  
-       props.socket.emit("sendMessage", message)
+       socket.emit("sendMessage", message)
        
      }
 
@@ -47,7 +49,7 @@ export default function ReadWrite(props) {
           <div id="messageCardContainer">
           {messages.map(item => 
           
-          <Messages key={item.id} socket={props.socket} item={item}/>
+          <Messages key={item.id} socket={socket} item={item}/>
             
             )}
             <br></br>

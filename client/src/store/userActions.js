@@ -37,8 +37,8 @@ const slice = createSlice({
         },
         loginSuccess: (User, action) => {
             localStorage.setItem("token", action.payload.token)
-            User.Route = true
-            User.FirstName = action.payload.user
+            window.location.href = "/userDashBoard"
+
         },
 
         setFriends: (User, action) => {

@@ -1,34 +1,22 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { clearRoute } from "../../store/userActions";
 import "./style.css";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import IconButton from "@material-ui/core/IconButton";
 import AddIcon from "@material-ui/icons/Add";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
-import { io } from "socket.io-client";
 import ReadWrite from "../../components/ReadWrite";
 import CreateRoom from "../../components/CreateRoom";
 import { setFriends, addNewFriends, setUserId } from "../../store/userActions";
 import AddConnect from "../../components/AddConnect/index";
-import {
-  setMessagesAfterDelete,
-  setMessagesAfterEdit,
-} from "../../store/messageActions";
-
-import {
-  setRooms,
-  setNotifications,
-  unshiftRooms,
-} from "../../store/socketActions";
+import {setMessagesAfterDelete,setMessagesAfterEdit,} from "../../store/messageActions";
+import {setRooms,setNotifications,unshiftRooms} from "../../store/socketActions";
 import { Route, Link, useRouteMatch, Switch } from "react-router-dom";
 import { setMessagesNEW } from "../../store/messageActions";
 import NotificationsActiveIcon from "@material-ui/icons/NotificationsActive";
 import Notifications from "../../components/Notifications";
 import {useSocketContext} from "../../context/socketContext"
-//
-
 import RoomButtons from "../../components/RoomButtons";
 
 // let socket;
@@ -37,17 +25,18 @@ export default function UserDash() {
   const dispatch = useDispatch();
 
   const Rooms = useSelector((state) => state.Store.Socket.Rooms);
-  // const socket = useSelector((state) => state.Store.Socket.Connection);
-  const socket = useSocketContext()
-  console.log(socket);
+  
+  
+  
   const roomRef = useRef({});
   const notificationRef = useRef();
+  const {socket} = useSocketContext()
+ 
 
   useEffect(() => {
-    dispatch(clearRoute());
+   
 
     socket.on("Friends", async (friends) => {
-      console.log(friends);
       dispatch(setFriends(friends));
     });
     socket.on("Notification", async (notification) => {
@@ -73,7 +62,6 @@ export default function UserDash() {
       alert(data);
     });
     socket.on("SetRooms", function (data) {
-      console.log(data);
       dispatch(setRooms(data.rooms));
       dispatch(setUserId(data.userId));
     });
@@ -174,7 +162,6 @@ export default function UserDash() {
               <RoomButtons
                 key={index}
                 room={room}
-                socket={socket}
                 roomRef={roomRef}
               />
             );
@@ -182,16 +169,16 @@ export default function UserDash() {
         </div>
         <Switch>
           <Route exact path={`${path}/cli/:id`}>
-            <ReadWrite socket={socket} />
+            <ReadWrite />
           </Route>
           <Route exact path={`${path}/createRoom`}>
-            <CreateRoom socket={socket} />
+            <CreateRoom />
           </Route>
           <Route exact path={`${path}/addContact`}>
-            <AddConnect socket={socket} />
+            <AddConnect/>
           </Route>
           <Route exact path={`${path}/handleNotifications`}>
-            <Notifications socket={socket} />
+            <Notifications />
           </Route>
         </Switch>
       </div>

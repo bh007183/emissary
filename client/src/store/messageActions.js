@@ -9,9 +9,7 @@ const slice = createSlice({
         Messages: []
     },
     reducers: {
-        // setRoomId: (Message, action)=>{
-        //     Message.roomId = action.payload
-        // },
+        
         getMessagesAPI: (Message, action)=> {
      
             console.log(action.payload)

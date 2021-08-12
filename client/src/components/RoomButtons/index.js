@@ -6,6 +6,7 @@ import {Link, useRouteMatch} from "react-router-dom";
 import {
     setRoomsAfterDelete
   } from "../../store/socketActions";
+  import {useSocketContext} from "../../context/socketContext"
 
 export default function RoomButtons(props) {
     const dispatch = useDispatch()
@@ -13,6 +14,7 @@ export default function RoomButtons(props) {
     const closeDeleteRef = useRef({});
     const deleteRef = useRef({});
     const deleteToggleRef = useRef({});
+    const {socket} = useSocketContext()
 
     //DOM
 
@@ -25,7 +27,7 @@ export default function RoomButtons(props) {
       };
       const deleteRoom = event => {
         dispatch(setRoomsAfterDelete(event.currentTarget.dataset.id))
-        props.socket.emit("DELETE_ROOM", event.currentTarget.dataset.id)
+        socket.emit("DELETE_ROOM", event.currentTarget.dataset.id)
         
       }
       const closeDeleteReference = (event) => {

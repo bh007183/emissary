@@ -5,15 +5,17 @@ import {
   rejectFriendRequest,
   removeNotification,
 } from "../../store/socketActions";
+import {useSocketContext} from "../../context/socketContext"
 
-export default function Notifications(props) {
+export default function Notifications() {
   const dispatch = useDispatch();
   const notifications = useSelector(
     (state) => state.Store.Socket.Notifications
   );
   console.log(notifications);
+  const {socket} = useSocketContext()
   const handleAccept = (event) => {
-    props.socket.emit("acceptedConnection", {
+    socket.emit("acceptedConnection", {
       id: event.target.value,
       friendSocket: event.target.dataset.rsocketid,
     });
