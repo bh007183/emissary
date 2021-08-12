@@ -19,7 +19,6 @@ import Notifications from "../../components/Notifications";
 import {useSocketContext} from "../../context/socketContext"
 import RoomButtons from "../../components/RoomButtons";
 
-// let socket;
 
 export default function UserDash() {
   const dispatch = useDispatch();
