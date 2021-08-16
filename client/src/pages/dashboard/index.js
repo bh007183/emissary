@@ -104,6 +104,11 @@ export default function UserDash() {
   const handleClose = () => {
     setAnchorEl(null);
   };
+  const handleLogout = () => {
+    localStorage.clear()
+    window.location.href = "/"
+    handleClose()
+  }
 
   // DOM
 
@@ -152,10 +157,16 @@ export default function UserDash() {
             onClose={handleClose}
           >
             <MenuItem onClick={handleClose}>Manage account</MenuItem>
-            <Link to="/userDashBoard/manageConnections">
-            <MenuItem onClick={handleClose}>Manage Connections</MenuItem>
+            <Link className="white" style={{textDecoration: "none"}}to="/userDashBoard/manageConnections">
+            <MenuItem onClick={handleClose}>Delete Connections</MenuItem>
             </Link>
-            <MenuItem onClick={handleClose}>Logout</MenuItem>
+            <Link className="white" style={{textDecoration: "none"}}to="/userDashBoard/addContact">
+            <MenuItem onClick={handleClose}>Add Connections</MenuItem>
+            </Link>
+            <Link className="white" style={{textDecoration: "none"}}to="/userDashBoard/createRoom">
+            <MenuItem onClick={handleClose}>Start Conversation</MenuItem>
+            </Link>
+            <MenuItem onClick={handleLogout}>Logout</MenuItem>
           </Menu>
         </div>
       </div>

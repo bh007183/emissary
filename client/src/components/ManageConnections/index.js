@@ -30,7 +30,7 @@ export default function ManageConnections() {
         socket.emit("DISCONNECT", event.target.value)
 
     }
-      console.log(connections)
+      
     return (
         <div id="searchConnectionsContain">
             <div id="searchConnections">
