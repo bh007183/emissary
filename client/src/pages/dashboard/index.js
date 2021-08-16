@@ -8,7 +8,7 @@ import AddIcon from "@material-ui/icons/Add";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import ReadWrite from "../../components/ReadWrite";
 import CreateRoom from "../../components/CreateRoom";
-import { setFriends, addNewFriends, setUserId } from "../../store/userActions";
+import { setFriends, addNewFriends, setUserId, removedFriend } from "../../store/userActions";
 import AddConnect from "../../components/AddConnect/index";
 import {setMessagesAfterDelete,setMessagesAfterEdit,} from "../../store/messageActions";
 import {setRooms,setNotifications,unshiftRooms} from "../../store/socketActions";
@@ -18,6 +18,7 @@ import NotificationsActiveIcon from "@material-ui/icons/NotificationsActive";
 import Notifications from "../../components/Notifications";
 import {useSocketContext} from "../../context/socketContext"
 import RoomButtons from "../../components/RoomButtons";
+import ManageConnections from "../../components/ManageConnections"
 
 
 export default function UserDash() {
@@ -76,6 +77,9 @@ export default function UserDash() {
       if (data.roomId === window.location.pathname.split("/")[3]) {
         dispatch(setMessagesAfterEdit(data));
       }
+    });
+    socket.on("DISCONNECT_SUCCESS", function (data) {
+      dispatch(removedFriend(data))
     });
 
     socket.on("messageTransmit", function (data) {
@@ -148,7 +152,9 @@ export default function UserDash() {
             onClose={handleClose}
           >
             <MenuItem onClick={handleClose}>Manage account</MenuItem>
+            <Link to="/userDashBoard/manageConnections">
             <MenuItem onClick={handleClose}>Manage Connections</MenuItem>
+            </Link>
             <MenuItem onClick={handleClose}>Logout</MenuItem>
           </Menu>
         </div>
@@ -178,6 +184,9 @@ export default function UserDash() {
           </Route>
           <Route exact path={`${path}/handleNotifications`}>
             <Notifications />
+          </Route>
+          <Route exact path={`${path}/manageConnections`}>
+            <ManageConnections />
           </Route>
         </Switch>
       </div>

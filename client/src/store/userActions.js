@@ -9,7 +9,6 @@ const slice = createSlice({
         FirstName: "",
         Success:"",
         Error: "",
-        Route: null,
         Friends: [],
         ConnectionSearchResults: [],
         Notifications: []
@@ -32,15 +31,12 @@ const slice = createSlice({
         clearSuccess: (User) => {
             User.Success = ""
         },
-        clearRoute: (User) => {
-            User.Route = null
-        },
+        
         loginSuccess: (User, action) => {
             localStorage.setItem("token", action.payload.token)
             window.location.href = "/userDashBoard"
 
         },
-
         setFriends: (User, action) => {
             User.Friends = action.payload
         },
@@ -50,12 +46,17 @@ const slice = createSlice({
         setConnectionSearchResults: (User, action)=>{
             User.ConnectionSearchResults = action.payload
         },
+        removedFriend: (User, action) => {
+            console.log(User.Friends.filter(friend => friend.id !== action.payload))
+            User.Friends = User.Friends.filter(friend => friend.id !== parseInt(action.payload))
+            console.log(User.Friends.filter(friend => friend.id !== action.payload))
+        }
         
 
     },
     
 })
-export const {setName, apiCallSuccess, apiCallError, clearError, clearSuccess, loginSuccess, clearRoute, setFriends, setConnectionSearchResults, addNewFriends, setUserId} = slice.actions
+export const {setName, apiCallSuccess, apiCallError, clearError, clearSuccess, loginSuccess, clearRoute, setFriends, setConnectionSearchResults, addNewFriends, setUserId,removedFriend} = slice.actions
 export default slice.reducer
 
 export const createUser = (user) => apiStart({
@@ -85,14 +86,3 @@ export const findConnection = (connection) => apiStart({
 
 })
 
-// export const addFriend = (id) => apiStart({
-//     url: "http://localhost:8080/api/addFriend",
-//     headers: {
-//         authorization: `Bearer ${localStorage.getItem("token")}`
-//     },
-//     method: "put",
-//     data: {friendId: id},
-//     onSuccess: apiCallSuccess.type,
-//     onError: apiCallError.type
-
-// })
