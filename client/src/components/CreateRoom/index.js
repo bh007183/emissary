@@ -17,8 +17,8 @@ export default function CreateRoom() {
 
   const handleSearch = async (event) => {
     let value = event.target.value;
-    // await setSearch(value)
-    console.log(value);
+  
+  
     await setFriend(
       await friendArray.filter(function (friend) {
         if (value === "") {
