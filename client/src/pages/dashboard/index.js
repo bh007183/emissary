@@ -8,7 +8,7 @@ import AddIcon from "@material-ui/icons/Add";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import ReadWrite from "../../components/ReadWrite";
 import CreateRoom from "../../components/CreateRoom";
-import { setFriends, addNewFriends, setUserId, removedFriend } from "../../store/userActions";
+import { setFriends, addNewFriends, setUserId, removedFriend, getUser } from "../../store/userActions";
 import AddConnect from "../../components/AddConnect/index";
 import {setMessagesAfterDelete,setMessagesAfterEdit,} from "../../store/messageActions";
 import {setRooms,setNotifications,unshiftRooms} from "../../store/socketActions";
@@ -19,6 +19,7 @@ import Notifications from "../../components/Notifications";
 import {useSocketContext} from "../../context/socketContext"
 import RoomButtons from "../../components/RoomButtons";
 import ManageConnections from "../../components/ManageConnections"
+import ManageAccount from "../../components/manageAccount";
 
 
 export default function UserDash() {
@@ -156,7 +157,9 @@ export default function UserDash() {
             open={Boolean(anchorEl)}
             onClose={handleClose}
           >
+            <Link className="white" style={{textDecoration: "none"}}to="/userDashBoard/manageaccount">
             <MenuItem onClick={handleClose}>Manage account</MenuItem>
+            </Link>
             <Link className="white" style={{textDecoration: "none"}}to="/userDashBoard/manageConnections">
             <MenuItem onClick={handleClose}>Delete Connections</MenuItem>
             </Link>
@@ -198,6 +201,9 @@ export default function UserDash() {
           </Route>
           <Route exact path={`${path}/manageConnections`}>
             <ManageConnections />
+          </Route>
+          <Route exact path={`${path}/manageaccount`}>
+            <ManageAccount />
           </Route>
         </Switch>
       </div>

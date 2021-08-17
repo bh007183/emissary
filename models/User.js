@@ -39,7 +39,7 @@ module.exports = function(sequelize, DataTypes){
             type: DataTypes.STRING,
             validate:{
                 len: {
-                    args: [2,10],
+                    args: [2,100],
                     msg: "Length must be longer than 2 and less than 10"
                 }
             }
@@ -53,6 +53,12 @@ module.exports = function(sequelize, DataTypes){
 
     })
     User.beforeCreate(async (user) => {
+        const hashed = await bcrypt.hashSync(user.password, salt)
+        
+        user.password = hashed
+        
+    })
+    User.beforeUpdate(async (user) => {
         const hashed = await bcrypt.hashSync(user.password, salt)
         
         user.password = hashed

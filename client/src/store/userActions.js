@@ -11,7 +11,9 @@ const slice = createSlice({
         Error: "",
         Friends: [],
         ConnectionSearchResults: [],
-        Notifications: []
+        Notifications: [],
+        EditAccount: {
+        }
     },
     reducers: {
         setUserId: (User, action) => {
@@ -50,13 +52,20 @@ const slice = createSlice({
             console.log(User.Friends.filter(friend => friend.id !== action.payload))
             User.Friends = User.Friends.filter(friend => friend.id !== parseInt(action.payload))
             console.log(User.Friends.filter(friend => friend.id !== action.payload))
+        },
+        setInputEditAccount: (User, action) => {
+            User.EditAccount[action.payload.key] = action.payload.value
+        },
+        setEditAccount: (User, action) => {
+            User.EditAccount = action.payload
         }
+
         
 
     },
     
 })
-export const {setName, apiCallSuccess, apiCallError, clearError, clearSuccess, loginSuccess, clearRoute, setFriends, setConnectionSearchResults, addNewFriends, setUserId,removedFriend} = slice.actions
+export const {setName, apiCallSuccess, apiCallError, clearError, clearSuccess, loginSuccess, clearRoute, setFriends, setConnectionSearchResults, addNewFriends, setUserId,removedFriend, setEditAccount, setInputEditAccount} = slice.actions
 export default slice.reducer
 
 export const createUser = (user) => apiStart({
@@ -82,6 +91,26 @@ export const findConnection = (connection) => apiStart({
         authorization: `Bearer ${localStorage.getItem("token")}`
     },
     onSuccess: setConnectionSearchResults.type,
+    onError: apiCallError.type
+
+})
+export const getUser = () => apiStart({
+    url: "http://localhost:8080/api/getuser",
+    headers: {
+        authorization: `Bearer ${localStorage.getItem("token")}`
+    },
+    onSuccess: setEditAccount.type,
+    onError: apiCallError.type
+
+})
+export const editUser = (data) => apiStart({
+    url: "http://localhost:8080/api/edituser",
+    headers: {
+        authorization: `Bearer ${localStorage.getItem("token")}`
+    },
+    method: "PUT",
+    data: data,
+    onSuccess: setEditAccount.type,
     onError: apiCallError.type
 
 })

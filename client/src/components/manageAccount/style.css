@@ -1,0 +1,60 @@
+#manageAccountContain{
+    grid-column: 2/4;
+    position: relative;
+    
+}
+#editContain{
+    position: absolute;
+    top: 15%;
+    left: 15%;
+    transform: translate(-50, -50);
+    width: 70%;
+    height: 70%;
+    background-color: rgb(66, 62, 55);
+    border-radius: 20px;
+}
+.editAccountInput{
+    margin-top: 15px;
+}
+.editAccountInput input{
+    width: 50%;
+    
+}
+#saveChangesButton{
+    width: 100%;
+   
+    background-color: rgb(88, 13, 88);
+    height: 40px;
+    border-radius: 20px;
+    display: block;
+    margin-top: 60px;
+}
+#modalContain{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: black;
+    width: 300px;
+    height: 300px;
+    border-radius: 10px;
+}
+#modalContain p{
+    font-size: 20px;
+    color: lime;
+    text-align: center;
+   
+}
+#confirmEditInput{
+    margin-top: 90px;
+}
+#confirmEditButton{
+    margin-top: 90px;
+}
+#confirmEditButton button{
+    background-color: greenyellow;
+    
+    height: 40px;
+    width: 70px;
+    border-radius: 5px;
+}
