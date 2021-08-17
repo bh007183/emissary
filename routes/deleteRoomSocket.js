@@ -11,8 +11,6 @@ module.exports = async function(socket, next){
                     id: userId
                 }
             })
-            console.log(await user.getRooms())
-            console.log(roomid)
             if(user){
                 await user.removeRoom(roomid)
             }else{
@@ -23,7 +21,6 @@ module.exports = async function(socket, next){
     
 
     }catch(err){
-        console.log(err.message)
         socket.emit("Error", err.message)
     }
     next()

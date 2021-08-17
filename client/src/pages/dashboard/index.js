@@ -42,7 +42,6 @@ export default function UserDash() {
     });
     socket.on("Notification", async (notification) => {
       dispatch(setNotifications(notification));
-      console.log(notificationRef.current);
       if (window.location.pathname !== "/userDashBoard/handleNotifications") {
         notificationRef.current.classList.add("newNotification");
       }

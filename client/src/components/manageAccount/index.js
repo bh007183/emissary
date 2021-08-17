@@ -24,7 +24,7 @@ export default function ManageAccount() {
   const handleClose = () => {
     setOpen(false);
   };
- console.log(user)
+
  const handleChange = (event) => {
      
      dispatch(setInputEditAccount({key: event.target.dataset.id, value: event.target.value}))
@@ -49,8 +49,6 @@ export default function ManageAccount() {
       }else{
         fn.current.disabled = true
       }
-      
-    //   console.log(fn.current.disabled)
   }
   const editLN = () => {
     if(ln.current.disabled === true){
@@ -58,8 +56,6 @@ export default function ManageAccount() {
       }else{
         ln.current.disabled = true
       }
-      
-    //   console.log(fn.current.disabled)
   }
   const editEM = () => {
     if(em.current.disabled === true){
@@ -67,8 +63,6 @@ export default function ManageAccount() {
       }else{
         em.current.disabled = true
       }
-      
-    //   console.log(fn.current.disabled)
   }
   const editPW = () => {
     if(pw.current.disabled === true){
@@ -76,8 +70,6 @@ export default function ManageAccount() {
       }else{
         pw.current.disabled = true
       }
-      
-    //   console.log(fn.current.disabled)
   }
 
   const submitEdit = () => {

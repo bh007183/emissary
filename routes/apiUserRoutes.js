@@ -21,11 +21,8 @@ router.post("/api/createUser", async (req, res) => {
 router.post("/api/login", async (req, res) => {
   try {
     let data = await login(req.body);
-    console.log(data);
     res.status(200).json(data);
   } catch (err) {
-    console.log(err);
-    console.log(err.message);
     res.status(404).send(err.message);
   }
 });
@@ -52,20 +49,16 @@ router.get("/api/findConnection/:name", async (req, res) => {
         },
       });
       if (data.length) {
-        console.log(data);
         res.status(200).json(data);
       } else {
-        console.log(data);
         res.status(200).json(["No Matching Results."]);
       }
     } catch (err) {
-      console.log(err);
       res.status(404).send(err.message);
     }
   } else {
     try {
       const userId = await RestVerifyToken(req);
-      console.log(userId);
       const data = await db.User.findAll({
         where: {
           firstName: {
@@ -77,20 +70,16 @@ router.get("/api/findConnection/:name", async (req, res) => {
         },
       });
       if (data.length) {
-        console.log(data);
         res.status(200).json(data);
       } else {
-        console.log(data);
         res.status(200).json(["No Matching Results."]);
       }
     } catch (err) {
-      console.log(err);
       res.status(404).send(err.message);
     }
   }
 });
 router.put("/api/rejectConnection", async (req, res, next) => {
-  console.log(req.body.connectionRequestid);
   // flipped userId and req.body.connectionRequestid as this is reseaver response
   try {
     const userId = await RestVerifyToken(req);
@@ -103,12 +92,10 @@ router.put("/api/rejectConnection", async (req, res, next) => {
 
     res.status(200).json({ id: req.body.connectionRequestid });
   } catch (err) {
-    console.log(err);
     res.status(404).send(err.message);
   }
 });
 router.get("/api/getuser", async (req, res, next) => {
-  console.log("test");
   // flipped userId and req.body.connectionRequestid as this is reseaver response
   try {
     const userId = await RestVerifyToken(req);
@@ -120,17 +107,12 @@ router.get("/api/getuser", async (req, res, next) => {
         exclude: ["password", "socketId", "id", "createdAt", "updatedAt"],
       },
     });
-    console.log(data);
     res.status(200).json(data);
   } catch (err) {
-    console.log(err);
     res.status(404).send(err.message);
   }
 });
 router.put("/api/edituser", async (req, res, next) => {
-  console.log("test");
-  console.log(req.body.password);
-  console.log(req.body.newdata);
   // flipped userId and req.body.connectionRequestid as this is reseaver response
   try {
     const userId = await RestVerifyToken(req);
@@ -139,51 +121,42 @@ router.put("/api/edituser", async (req, res, next) => {
       where: {
         id: userId,
       },
-    }).then(async function(user){
-        const match = await bcrypt.compare(req.body.password, user.password);
-    if (!match) {
-      throw new Error("Incorrect password");
-    }else{
+    }).then(async function (user) {
+      const match = await bcrypt.compare(req.body.password, user.password);
+      if (!match) {
+        throw new Error("Incorrect password");
+      } else {
         if (req.body.newdata.newPassword) {
-            let up = await user.update(
-              {
-                firstName: req.body.newdata.firstName,
-                lastName: req.body.newdata.lastName,
-                email: req.body.newdata.email,
-                password: req.body.newdata.newPassword,
+          let up = await user.update(
+            {
+              firstName: req.body.newdata.firstName,
+              lastName: req.body.newdata.lastName,
+              email: req.body.newdata.email,
+              password: req.body.newdata.newPassword,
+            },
+            {
+              where: {
+                id: userId,
               },
-              {
-                where: {
-                  id: userId,
-                },
-              }
-            );
-            console.log(up);
-          } else {
-            let up = await user.update(
-              {
-                firstName: req.body.newdata.firstName,
-                lastName: req.body.newdata.lastName,
-                email: req.body.newdata.email,
+            }
+          );
+        } else {
+          let up = await user.update(
+            {
+              firstName: req.body.newdata.firstName,
+              lastName: req.body.newdata.lastName,
+              email: req.body.newdata.email,
+            },
+            {
+              where: {
+                id: userId,
               },
-              {
-                where: {
-                  id: userId,
-                },
-              }
-            );
-            console.log(up);
-          }
-
-    }
-        
-
+            }
+          );
+        }
+      }
     });
-   
-   
-
   } catch (err) {
-    console.log(err);
     res.status(404).send(err.message);
   }
 });

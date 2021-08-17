@@ -72,7 +72,6 @@ module.exports = async function (socket, next) {
       socket.join(parsedData.map(room => room.dataValues.id))
     socket.emit("SetRooms", {rooms: parsedData, userId: userId})
   } catch (err) {
-    console.log(err.message)
     socket.emit("Error", err.message)
   }
   

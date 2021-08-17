@@ -24,7 +24,6 @@ module.exports = async function(socket, next){
         })
 
     }catch(err){
-        console.log(err.message)
         socket.emit("Error", err.message)
     }
 
