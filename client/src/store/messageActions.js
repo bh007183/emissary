@@ -14,6 +14,7 @@ const slice = createSlice({
       Message.Messages = action.payload.Messages;
     },
     setMessagesNEW: (Message, action) => {
+      console.log(action.payload)
       Message.Messages = [...Message.Messages, action.payload];
     },
     setMessagesAfterDelete: (Message, action) => {

@@ -19,6 +19,7 @@ module.exports = async function (socket, next) {
           RoomId: data.roomId,
           author: name,
         });
+        console.log(data.roomId)
         socket.to(data.roomId).emit("messageTransmit", stuff);
         socket.emit("messageTransmit", stuff);
       }
