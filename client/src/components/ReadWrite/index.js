@@ -10,6 +10,8 @@ export default function ReadWrite() {
   const scrollRef = useRef(null);
   const dispatch = useDispatch();
   const messages = useSelector((state) => state.Store.Message.Messages);
+  console.log(messages)
+  console.log("logs messages that should be visible")
   const { socket } = useSocketContext();
 
   const handleKeyDown = (e) => {

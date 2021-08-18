@@ -14,7 +14,10 @@ module.exports = async function(socket, next){
                     RoomId: roomId
                 }
             })
+            console.log(data)
+            console.log("this is where individuals join room")
             if(data){
+              
                 socket.join(roomId)
 
             }else{
