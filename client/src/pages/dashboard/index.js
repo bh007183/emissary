@@ -66,6 +66,7 @@ export default function UserDash() {
       dispatch(setUserId(data.userId));
     });
     socket.on("UnshiftFriend", function (friend) {
+      console.log(friend)
       dispatch(addNewFriends(friend));
     });
     socket.on("REMOVE_DELETED_MESSAGE", function (data) {

@@ -41,20 +41,18 @@ module.exports = async function (socket, next) {
           exclude: ["password", "UserToUser", "createdAt", "updatedAt"],
         },
       });
-
-      socket.emit("Success", "Connection request sent.");
-    // 
-    socket.emit("UnshiftFriend", initiator)
-    socket.to(data.friendSocket).emit("UnshiftFriend", recipient)
-    //   send notification to initiator
-      socket
-        .to(data.friendSocket)
-        .emit("Notification", {
-          message: `${name} is now a connection`,
-          friendId: toString(userId),
-          type: "CONNECTION_ACCEPTED",
-        });
-      socket.emit("Notification", {message: `${name} is now a connection`, friendId: toString(userId), type: "CONNECTION_ACCEPTED"})
+      console.log(initiator)
+      console.log(recipient)
+      //
+      socket.emit("UnshiftFriend", initiator);
+      socket.to(data.friendSocket).emit("UnshiftFriend", recipient);
+      //   send notification to initiator
+      socket.to(data.friendSocket).emit("Notification", {
+        message: `${name} is now a connection`,
+        friendId: toString(userId),
+        type: "CONNECTION_ACCEPTED",
+      });
+      // socket.emit("Notification", {message: `${name} is now a connection`, friendId: toString(userId), type: "CONNECTION_ACCEPTED"})
     } catch (err) {
       socket.emit("Error", err.message);
     }
