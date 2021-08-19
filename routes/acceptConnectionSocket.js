@@ -33,6 +33,7 @@ module.exports = async function (socket, next) {
       });
 
       // send to recipient
+      console.log(data.id)
       let initiator = await db.User.findOne({
         where: {
           id: data.id,
@@ -42,7 +43,7 @@ module.exports = async function (socket, next) {
         },
       });
       console.log(initiator)
-      console.log(recipient)
+      
       //
       socket.emit("UnshiftFriend", initiator);
       socket.to(data.friendSocket).emit("UnshiftFriend", recipient);
