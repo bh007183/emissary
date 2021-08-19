@@ -12,7 +12,8 @@ module.exports = async function (socket, next) {
         UserId: userId,
         FriendId: data.friendId,
       });
-
+      console.log(userId)
+      console.log(toString(userId))
       socket.emit("Success", "Connection request sent.");
       socket
         .to(data.friendSocket)
