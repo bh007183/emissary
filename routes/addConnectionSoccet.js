@@ -19,7 +19,7 @@ module.exports = async function (socket, next) {
         .to(data.friendSocket)
         .emit("Notification", {
           message: `${name} sent a connection request`,
-          friendId: toString(userId),
+          friendId: userId,
           recipeantSocketId: socketId,
           type: "CONNECTION_REQUEST",
         });
