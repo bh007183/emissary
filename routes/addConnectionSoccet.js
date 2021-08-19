@@ -13,12 +13,7 @@ module.exports = async function (socket, next) {
         FriendId: data.friendId,
       });
 
-      // Test below
-      await db.UserToUser.create({
-        UserId: data.friendId,
-        FriendId: userId,
-        
-      });
+     
       
       socket.emit("Success", "Connection request sent.");
       socket
