@@ -21,6 +21,19 @@ module.exports = async function (socket, next) {
           },
         }
       );
+      // test below
+      await db.UserToUser.update(
+        {
+          friendRequestAccepted: true,
+        },
+        {
+          where: {
+            UserId: userId,
+            FriendId: data.id,
+            
+          },
+        }
+      );
 
       // send to initiator
       let recipient = await db.User.findOne({
