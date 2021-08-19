@@ -14,6 +14,10 @@ export default function Notifications() {
   );
   const { socket } = useSocketContext();
   const handleAccept = (event) => {
+    console.log(notifications)
+    console.log(event.target.value)
+    console.log(event.currentTarget.value)
+    console.log(event.currentTarget)
     socket.emit("acceptedConnection", {
       id: event.target.value,
       friendSocket: event.target.dataset.rsocketid,
