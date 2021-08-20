@@ -1,6 +1,8 @@
 #formBar {
   width: 100%;
   border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
 }
 #messageForm {
   border-width: 1px 1px 1px 1px;
@@ -9,6 +11,20 @@
   background-color: rgb(77, 77, 77);
   width: 91%;
   border-radius: 10px;
+}
+#giff{
+  border-radius: 10px;
+  background-repeat:no-repeat ;
+  position: relative;
+  width: 200px;
+ 
+}
+#removeGiff{
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  border-radius: 100%;
+  background-color: navajowhite;
 }
 #input {
   overflow: auto;
@@ -47,3 +63,44 @@
     display: none;
   } */
 /* } */
+
+/* modal */
+#GifModal{
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 80%;
+  width: 80%;
+  background-color:purple;
+  border-radius: 10px;
+  
+}
+#gifInput{
+  background-color: rgb(41, 37, 37);
+  border: none;
+  font-size: 1.5em;
+  width: 80%;
+  max-width: 80%;
+}
+#gifInputContain{
+   position: absolute;
+   display: flex;
+   justify-content: center;
+   bottom: 20px;
+   width: 100%;
+}
+#gifResult{
+   position: absolute;
+   top: 20px;
+   background-color: black;
+   height: 80%;
+   width: 80%;
+   contain: content;
+   overflow: scroll;
+   display: flex;
+   flex-wrap: wrap;
+   justify-content: center;
+
+}
+

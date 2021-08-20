@@ -14,10 +14,12 @@ module.exports = async function (socket, next) {
       });
       if (user) {
         let stuff = await db.Message.create({
+
           message: data.message,
           UserId: userId,
           RoomId: data.roomId,
           author: name,
+          giff: data.giff
         });
         console.log(data.roomId)
         socket.to(data.roomId).emit("messageTransmit", stuff);

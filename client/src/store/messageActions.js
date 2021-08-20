@@ -26,6 +26,7 @@ const slice = createSlice({
       Message.Messages = Message.Messages.map((item) => {
         if (item.id === action.payload.messageId) {
           item.message = action.payload.message;
+          item.giff = action.payload.giff
           return item;
         } else {
           return item;

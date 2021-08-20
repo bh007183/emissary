@@ -7,8 +7,10 @@ module.exports = async function (socket, next) {
     const { userId, name } = await verifyToken(token);
 
     socket.on("EDIT_MESSAGE", async function (messageData) {
+      console.log(messageData)
       let data = await db.Message.update(
-        { message: messageData.message },
+        { message: messageData.message,
+        giff: messageData.giff },
         {
           where: {
             UserId: userId,
@@ -25,11 +27,13 @@ module.exports = async function (socket, next) {
             roomId: messageData.roomId,
             messageId: messageData.messageId,
             message: messageData.message,
+            giff: messageData.giff
           });
         socket.emit("INSERT_EDITED_MESSAGE", {
           roomId: messageData.roomId,
           messageId: messageData.messageId,
           message: messageData.message,
+          giff: messageData.giff
         });
       } else {
         throw new Error("Unauthorized to delete this message");

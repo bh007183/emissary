@@ -15,6 +15,7 @@ export default function Messages(props) {
     setAnchorEl(null);
   };
   const textareaRef = useRef(null)
+  const giffRef = useRef(null)
 
   const handleDeleteMessage = (event) => {
     let obj = {
@@ -29,7 +30,8 @@ export default function Messages(props) {
     setEdit({
         messageId: event.currentTarget.value,
         roomId: event.currentTarget.dataset.roomid,
-        message: textareaRef.current.textContent
+        message: textareaRef.current.textContent,
+        giff: giffRef.current.src
     });
     handleClose();
   };
@@ -54,14 +56,20 @@ export default function Messages(props) {
         <p style={{ color: "wheat" }}>{props.item.author}</p>
         {edit !== null ? (
           <div className="editTextAreaContain">
+          <img src={edit.giff}></img>
           <textarea onChange={handleEditChange} value={edit.message} className="editMessageTextarea">
           
           </textarea>
           <button className="normalButton" style={{color: "rgb(125, 209, 0)"}} onClick={handleEditMessage}>Save Changes</button>
           <button className="normalButton" style={{color: "red"}} onClick={()=> setEdit(null)}>Cancel</button>
+          <button className="normalButton" style={{color: "purple"}} onClick={() => setEdit({...edit, giff: ""})}>Delete Giff</button>
+          
           </div>
         ) : (
+          <>
+          <img ref={giffRef} style={{borderRadius: "10px"}} src={props.item.giff}></img>
           <p ref={textareaRef} className="white">{props.item.message}</p>
+          </>
         )}
       </div>
       <div className="editMessage">

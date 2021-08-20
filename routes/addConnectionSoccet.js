@@ -25,7 +25,7 @@ module.exports = async function (socket, next) {
           type: "CONNECTION_REQUEST",
         });
       // Below emit is Temporary to allow understanding of what im doing
-      // socket.emit("Notification", {message: `${data.friendName} sent a connection request`,recipeantSocketId: data.friendSocket, friendId: data.friendId, type: "CONNECTION_REQUEST"})
+      socket.emit("Notification", {message: `${data.friendName} sent a connection request`,recipeantSocketId: data.friendSocket, friendId: data.friendId, type: "CONNECTION_REQUEST"})
     } catch (err) {
       socket.emit("Error", err.message);
     }
