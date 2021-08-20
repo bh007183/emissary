@@ -18,14 +18,16 @@ const io = require("socket.io")(httpServer, {
 var corsOptions = {
   origin: "https://foreign-emissary.herokuapp.com",
 };
-///this stuff
+
 
 const PORT = process.env.PORT || 8080;
 
 app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
+io.on("connection", (socket) => {
+  console.log("connected")
+});
 io.use(require("./routes/deleteMessageSocket"));
 io.use(require("./routes/editMessageSocket"));
 io.use(require("./routes/initialSocketConnection"));

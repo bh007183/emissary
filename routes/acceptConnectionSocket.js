@@ -21,6 +21,18 @@ module.exports = async function (socket, next) {
           },
         }
       );
+      // testing frined join thery.....delet below if nothing changes
+      await db.UserToUser.update(
+        {
+          friendRequestAccepted: true,
+        },
+        {
+          where: {
+            UserId: userId,
+            FriendId: data.id,
+          },
+        }
+      );
       
 
       // send to initiator

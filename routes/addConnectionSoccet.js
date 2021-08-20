@@ -12,6 +12,12 @@ module.exports = async function (socket, next) {
         UserId: userId,
         FriendId: data.friendId,
       });
+      // testing frined join thery.....delet below if nothing changes
+      await db.UserToUser.create({
+        UserId: data.friendId,
+        FriendId: userId,
+        
+      });
 
      
       
