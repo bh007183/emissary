@@ -55,7 +55,7 @@ module.exports = async function (socket, next) {
         type: "CONNECTION_ACCEPTED",
       });
       // Below is for seeing what im doing
-      socket.emit("Notification", {message: `${name} is now a connection`, friendId: toString(userId), type: "CONNECTION_ACCEPTED"})
+      // socket.emit("Notification", {message: `${name} is now a connection`, friendId: toString(userId), type: "CONNECTION_ACCEPTED"})
     } catch (err) {
       socket.emit("Error", err.message);
     }
