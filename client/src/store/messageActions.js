@@ -45,7 +45,7 @@ export default slice.reducer;
 
 export const getMessages = (roomId) =>
   apiStart({
-    url: "http://localhost:8080/api/getMessages/" + roomId,
+    url: "https://foreign-emissary.herokuapp.com/api/getMessages/" + roomId,
     headers: {
       authorization: `Bearer ${localStorage.getItem("token")}`,
     },
