@@ -22,12 +22,13 @@ var corsOptions = {
 
 const PORT = process.env.PORT || 8080;
 
-app.use(cors(corsOptions));
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 io.on("connection", (socket) => {
   console.log("connected")
 });
+io.use(require("./routes/joinSocketRoomAfterLogin"))
 io.use(require("./routes/deleteMessageSocket"));
 io.use(require("./routes/editMessageSocket"));
 io.use(require("./routes/initialSocketConnection"));
@@ -55,6 +56,6 @@ app.get("*", (req, res) => {
 
 db.sequelize.sync({ force: false }).then(function () {
   httpServer.listen(PORT, function () {
-    console.log("app listening on https://foreign-emissary.herokuapp.com");
+    console.log("app listening on http://localhost:8080");
   });
 });

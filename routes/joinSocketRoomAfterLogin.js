@@ -6,7 +6,7 @@ module.exports = async function(socket, next){
     try{
         let {userId} = await verifyToken(token)
         socket.on("joinRoom", async function(roomId){
-          
+          console.log("yetioasdfoasodfhadfhaosfhaodifjoadjfoasdjifoajdfoaof2387493749273984729898479")
 
             let data = await db.RoomToUser.findOne({
                 where:{
