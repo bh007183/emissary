@@ -27,7 +27,8 @@
     height: 40px;
     border-radius: 20px;
     display: block;
-    margin-top: 60px;
+    position: absolute;
+    bottom: 1px;
 }
 #modalContain{
     position: fixed;

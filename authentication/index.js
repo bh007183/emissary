@@ -12,6 +12,7 @@ module.exports = {
                     email: email
                 }
             })
+            console.log(findEmail)
         }catch(err){
             throw new Error(`${err.message}`)
         }

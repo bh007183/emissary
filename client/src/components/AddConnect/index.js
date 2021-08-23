@@ -62,6 +62,10 @@ export default function AddConnect() {
           ))
         )}
       </div>
+      <section id="findFriendTextBlock">
+        <span className="white">Enter name above to find individual on Emissary.</span>
+        
+      </section>
     </div>
   );
 }

@@ -94,7 +94,7 @@ export default function CreateRoom() {
           id="searchFriendInput"
           placeholder="Name"
         ></input>
-        <button id="createRoom" onClick={handleCreateRoom}>CreateRoom</button>
+        <button id="createRoom" onClick={handleCreateRoom}>Create Room</button>
       </div>
       <div id="dropDownContainer">
         {friends.map((person) => (
@@ -107,6 +107,10 @@ export default function CreateRoom() {
             {person.firstName + " " + person.lastName}
           </button>
         ))}
+      </div>
+      <div id="searchFriendsText" className="centerFlex">
+        <span className="white">Search for your connections above</span>
+
       </div>
 
       <div id="findFriendTextBlock">

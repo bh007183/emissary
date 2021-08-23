@@ -27,6 +27,18 @@
     top: 75%;
     left: 50%;
     transform: translate(-50%, -50%);
+    
+}
+#searchFriendsText{
+    position: absolute;
+    top: 25%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Syne Tactile', cursive;
+    font-size: 20px;
+    font-weight: bold;
+    z-index: 0;
+
 }
 #selecties{
     max-width: 70%;
@@ -55,6 +67,7 @@
     overflow: hidden;
     background-color: rgb(70, 70, 70);
     border-radius: 10px;
+    z-index: 1;
    
    
 }

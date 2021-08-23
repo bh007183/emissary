@@ -79,11 +79,7 @@ export default function ManageAccount() {
   return (
     <div id="manageAccountContain">
       <div id="editContain">
-          <br></br>
-          <br></br>
-          <br></br>
-          <br></br>
-          <br></br>
+          
         <div className="centerFlex editAccountInput">
           <input onChange={handleChange} placeholder="First Name" data-id={"firstName"} ref={(element) => (fn.current = element)} disabled={true} value={user.firstName}></input>
           <IconButton onClick={editFN}><EditIcon/></IconButton>
