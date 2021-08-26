@@ -1,7 +1,7 @@
 import * as React from "react"
 import { io } from "socket.io-client";
 
-const socket = io("http://localhost:8080", {
+const socket = io("https://foreign-emissary.herokuapp.com", {
     path: "/socket",
     auth: {
       token: localStorage.getItem("token"),
