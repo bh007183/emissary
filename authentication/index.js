@@ -1,5 +1,5 @@
 const bcrypt = require("bcrypt")
-const jwt = require("jsonwebtoken")
+const jwt = require("jsonwebtoken");
 const db = require("../models")
 
 module.exports = {
@@ -21,11 +21,23 @@ module.exports = {
             try{
                 const match = await bcrypt.compare(password, data.password)
                 if(match){
+                    
                     try{
+                        let firstTimeFlag;
+                        if(findEmail.firsttime === true){
+                            firstTimeFlag = true
+                            db.User.update(
+                                {firsttime: false},
+                                {where:{
+                                    email: findEmail.email
+                                }}
+                            )
+                        }
                         let resData = await jwt.sign({email: data.email, userId: data.id, name: `${data.firstName} ${data.lastName}`, socketId: data.socketId}, process.env.JSON_RIO, {expiresIn: '1h'})
                         return {
                             token: resData,
-                            user: data.firstName
+                            user: data.firstName,
+                            firstTime: firstTimeFlag
                         }
                     }catch(err){
 

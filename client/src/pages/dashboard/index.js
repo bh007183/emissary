@@ -20,6 +20,7 @@ import {useSocketContext} from "../../context/socketContext"
 import RoomButtons from "../../components/RoomButtons";
 import ManageConnections from "../../components/ManageConnections"
 import ManageAccount from "../../components/manageAccount";
+import FirstTime from "../../components/FirstTime"
 
 
 export default function UserDash() {
@@ -125,6 +126,7 @@ export default function UserDash() {
 
   return (
     <>
+    {localStorage.getItem("status") === "true" ? <FirstTime/> : <></>}
       <div id="navbar">
         <div id="newConvo" className="centerFlex">
           <Link to={`${url}/createRoom`}>

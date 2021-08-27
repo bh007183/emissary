@@ -49,7 +49,12 @@ module.exports = function(sequelize, DataTypes){
             type: DataTypes.STRING,
             allowNull: false
 
-        }
+        },
+        firsttime: {
+            type: DataTypes.BOOLEAN,
+            allowNull: false,
+            defaultValue: true
+        },
 
     })
     User.beforeCreate(async (user) => {

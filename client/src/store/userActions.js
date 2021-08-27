@@ -34,6 +34,7 @@ const slice = createSlice({
 
     loginSuccess: (User, action) => {
       localStorage.setItem("token", action.payload.token);
+      localStorage.setItem("status", action.payload.firstTime)
       window.location.href = "/userDashBoard";
     },
     setFriends: (User, action) => {
@@ -78,7 +79,7 @@ export default slice.reducer;
 
 export const createUser = (user) =>
   apiStart({
-    url: "https://foreign-emissary.herokuapp.com/api/createUser",
+    url: "http://localhost:8080/api/createUser",
     method: "POST",
     data: user,
     onSuccess: apiCallSuccess.type,
@@ -86,7 +87,7 @@ export const createUser = (user) =>
   });
 export const loginApi = (login) =>
   apiStart({
-    url: "https://foreign-emissary.herokuapp.com/api/login",
+    url: "http://localhost:8080/api/login",
     method: "POST",
     data: login,
     onSuccess: loginSuccess.type,
@@ -95,7 +96,7 @@ export const loginApi = (login) =>
 
 export const findConnection = (connection) =>
   apiStart({
-    url: "https://foreign-emissary.herokuapp.com/api/findConnection/" + connection,
+    url: "http://localhost:8080/api/findConnection/" + connection,
     headers: {
       authorization: `Bearer ${localStorage.getItem("token")}`,
     },
@@ -104,7 +105,7 @@ export const findConnection = (connection) =>
   });
 export const getUser = () =>
   apiStart({
-    url: "https://foreign-emissary.herokuapp.com/api/getuser",
+    url: "http://localhost:8080/api/getuser",
     headers: {
       authorization: `Bearer ${localStorage.getItem("token")}`,
     },
@@ -113,7 +114,7 @@ export const getUser = () =>
   });
 export const editUser = (data) =>
   apiStart({
-    url: "https://foreign-emissary.herokuapp.com/api/edituser",
+    url: "http://localhost:8080/api/edituser",
     headers: {
       authorization: `Bearer ${localStorage.getItem("token")}`,
     },
