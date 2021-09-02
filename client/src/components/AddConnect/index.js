@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./style.css";
-import { findConnection} from "../../store/userActions";
+import { findConnection, setConnectionSearchResults} from "../../store/userActions";
 import { useDispatch, useSelector } from "react-redux";
 import {useSocketContext} from "../../context/socketContext"
 
@@ -15,6 +15,7 @@ export default function AddConnect() {
 
   const handleSearch = (event) => {
     dispatch(findConnection(connection));
+    setConnection("")
   };
   const handleChange = (event) => {
     setConnection(event.target.value);
@@ -25,6 +26,7 @@ export default function AddConnect() {
       friendName: event.target.name,
       friendSocket: event.target.dataset.socketid,
     });
+    dispatch(setConnectionSearchResults([]))
   };
   console.log("AddConnect Component");
 
@@ -39,6 +41,7 @@ export default function AddConnect() {
           className="white"
           id="searchConnectionInput"
           placeholder="Name"
+          value={connection}
         ></input>
         <button onClick={handleSearch} id="searchButton" className="white">
           Search

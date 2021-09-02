@@ -51,6 +51,9 @@ border-radius: 3px;
   overflow: hidden;
   cursor: pointer;
   padding: 10px;
+  border-top-style: solid;
+  border-width: 1px;
+  border-color: #666;
 }
 
 .selectPerson2:active {

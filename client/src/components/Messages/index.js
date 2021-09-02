@@ -50,7 +50,8 @@ export default function Messages(props) {
   };
   return (
     <div className="messageCard">
-      <div className="imageContain">purple</div>
+      <div className="imageContain"></div>
+      {/* icon or image would go in imageContain */}
 
       <div className="textBlock">
         <p style={{ color: "wheat" }}>{props.item.author}</p>

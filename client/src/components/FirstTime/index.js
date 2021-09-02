@@ -12,27 +12,25 @@ export default function FirstTime() {
   const [state, setState] = useState({
     index: 0,
     text: [
-      "Welcome New Emissary! Here is a run doun!",
-      "This side bar will display your conversations and you can click on them to access it.",
+      "Welcome New Emissary!",
+      "This side bar will display your conversations.",
       "Click here to start a conversation.",
-      "If you have a connection was accepted, this will let you know",
-      "This is where you can do most of your work. Edit account, send connection requests, etc.",
+      "This will alert you if you have a friend request",
+      "This is where you can do most of your work.",
     ],
   });
 
   const handleIndex = () => {
     let number = state.index;
     number++;
-    if (number === 4) {
+    if (number === 5) {
       localStorage.setItem("status", "false");
       firstLoginRef.current.setAttribute("style", "display: none");
     }
-    
     setState({
       ...state,
       index: number,
     });
-    console.log(state);
   };
 
   return (
@@ -43,14 +41,36 @@ export default function FirstTime() {
           <button onClick={handleIndex} id="next">
             Next
           </button>
-         
-          
         </div>
       </div>
-      <ArrowBackIcon ref={conversationRef} className="bounceAnimation"id="sideColumnPointer"/>
-      <ArrowUpwardIcon ref={createConversationRef}className="bounceAnimation" id="createConvoPointer"/>
-      <ArrowUpwardIcon ref={alertRef}className="bounceAnimation" id="alertPointer"/>
-      <ArrowUpwardIcon ref={dropDownRef} className="bounceAnimation" id="profilePointer"/>
+      {/* Mega Turnary */}
+      {state.index === 1 ? (
+        <ArrowBackIcon
+          ref={conversationRef}
+          className="bounceAnimation"
+          id="sideColumnPointer"
+        />
+      ) : state.index === 2 ? (
+        <ArrowUpwardIcon
+          ref={createConversationRef}
+          className="bounceAnimation"
+          id="createConvoPointer"
+        />
+      ) : state.index === 3 ? (
+        <ArrowUpwardIcon
+          ref={alertRef}
+          className="bounceAnimation"
+          id="alertPointer"
+        />
+      ) : state.index === 4 ? (
+        <ArrowUpwardIcon
+          ref={dropDownRef}
+          className="bounceAnimation"
+          id="profilePointer"
+        />
+      ) : (
+        <></>
+      )}
     </div>
   );
 }

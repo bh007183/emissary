@@ -3,6 +3,10 @@
 .messageCard {
     display: grid;
     grid-template-columns: repeat(6, 1fr);
+    border-top-width: 1px;
+    border-top-style: solid;
+    border-color: rgb(134, 134, 134);
+    
   }
   .imageContain {
     grid-column: 1;

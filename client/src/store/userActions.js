@@ -20,6 +20,7 @@ const slice = createSlice({
     },
 
     apiCallSuccess: (User, action) => {
+      console.log(action.payload)
       User.Success = action.payload;
     },
     apiCallError: (User, action) => {
@@ -120,6 +121,6 @@ export const editUser = (data) =>
     },
     method: "PUT",
     data: data,
-    onSuccess: setEditAccount.type,
+    onSuccess: apiCallSuccess.type,
     onError: apiCallError.type,
   });

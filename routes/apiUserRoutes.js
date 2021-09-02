@@ -114,7 +114,7 @@ router.get("/api/getuser", async (req, res, next) => {
   }
 });
 router.put("/api/edituser", async (req, res, next) => {
-  // flipped userId and req.body.connectionRequestid as this is reseaver response
+
   try {
     const userId = await RestVerifyToken(req);
 
@@ -123,11 +123,14 @@ router.put("/api/edituser", async (req, res, next) => {
         id: userId,
       },
     }).then(async function (user) {
+      
       const match = await bcrypt.compare(req.body.password, user.password);
+      console.log(match)
       if (!match) {
         throw new Error("Incorrect password");
       } else {
-        if (req.body.newdata.newPassword) {
+        if (req.body.newdata.newPassword !== undefined) {
+          console.log("this line 132")
           let up = await user.update(
             {
               firstName: req.body.newdata.firstName,
@@ -141,7 +144,11 @@ router.put("/api/edituser", async (req, res, next) => {
               },
             }
           );
+          if(up){
+            res.send(true)
+          }
         } else {
+          console.log("this line 150")
           let up = await user.update(
             {
               firstName: req.body.newdata.firstName,
@@ -152,12 +159,17 @@ router.put("/api/edituser", async (req, res, next) => {
               where: {
                 id: userId,
               },
+              hooks: false
             }
           );
+          if(up){
+            res.send(true)
+          }
         }
       }
     });
   } catch (err) {
+    console.log(err)
     res.status(404).send(err.message);
   }
 });

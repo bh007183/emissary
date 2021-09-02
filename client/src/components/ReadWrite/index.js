@@ -39,8 +39,10 @@ export default function ReadWrite() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-
     socket.emit("sendMessage", message);
+    setMessage({
+      ...message, message: "", giff: ""
+    })
   };
 
   const handleOpen = () => {

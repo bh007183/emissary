@@ -64,9 +64,13 @@ module.exports = function(sequelize, DataTypes){
         
     })
     User.beforeUpdate(async (user) => {
-        const hashed = await bcrypt.hashSync(user.password, salt)
+        console.log(user)
+           
+            const hashed = await bcrypt.hashSync(user.password, salt)
+            user.password = hashed
         
-        user.password = hashed
+        
+       
         
     })
     User.associate = function(models){
