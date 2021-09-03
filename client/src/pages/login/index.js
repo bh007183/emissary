@@ -44,7 +44,7 @@ export default function Login() {
       
 
       <section className="formContainerCenter2">
-        <form onSubmit={handleSubmit}>
+        <form id="loginForm" onSubmit={handleSubmit}>
           <div className="centerFlex">
             <input style={{marginTop: "50px"}} onChange={(event)=> handleChange(event, login, setLogin)} name="email" value={login.email} className="entryInput" placeholder="Email"></input>
           </div>
@@ -59,16 +59,14 @@ export default function Login() {
             ></input>
           </div>
           <div>
-            <button style={{
-              position: "absolute",
-              bottom: "50px",
-              left: "50%",
-              transform: "translate(-50%, -90%)",
-            }}>Login</button>
+            <div className="centerFlex">
+            <button id="loginButton">Login</button>
+            </div>
             <Link style={{
               position: "absolute",
               bottom: "0px",
               left: "5px",
+              color: "white"
               
             }}to="/createAccount">
                 <p style={{fontSize: "10px"}}>create account</p>

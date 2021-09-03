@@ -84,6 +84,7 @@ export default function ManageAccount() {
   return (
     <div id="manageAccountContain">
       <div id="editContain">
+        <div id="centerInputs">
         <div className="centerFlex editAccountInput">
           <input
             onChange={handleChange}
@@ -136,10 +137,11 @@ export default function ManageAccount() {
             <EditIcon />
           </IconButton>
         </div>
-
+        <div className="centerFlex">
         <button onClick={handleOpen} id="saveChangesButton">
           Save Changes
         </button>
+        </div>
         <Modal
           open={open}
           onClose={handleClose}
@@ -162,6 +164,7 @@ export default function ManageAccount() {
             </div>
           </div>
         </Modal>
+        </div>
       </div>
     </div>
   );

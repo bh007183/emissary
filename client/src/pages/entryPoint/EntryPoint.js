@@ -50,7 +50,7 @@ export default function EntryPoint() {
       
 
       <section className="formContainerCenter">
-        <form onSubmit={handleSubmit}>
+        <form id="createAccountForm" onSubmit={handleSubmit}>
           <div className="centerFlex">
             <input
             onChange={(event)=> handleChange(event, createAccount, setAccount)}
@@ -80,16 +80,15 @@ export default function EntryPoint() {
           <div
             
           >
-            <button style={{
-              position: "absolute",
-              bottom: "0",
-              left: "50%",
-              transform: "translate(-50%, -90%)",
-            }}>Create</button>
+            <div className="centerFlex">
+            <button id="creatAccountButton"
+            >Create</button>
+            </div>
             <Link style={{
               position: "absolute",
               bottom: "0px",
               left: "5px",
+              color: "white"
               
             }}to="/">
                 <p style={{fontSize: "10px"}}>back to login</p>

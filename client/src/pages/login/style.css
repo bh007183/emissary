@@ -26,10 +26,22 @@
 #entryHeader{
   font-family: 'Syne Tactile', cursive;
 }
+#loginForm{
+  margin-top: 15%;
+}
 .entryInput{
   margin-top: 15px ;
   width: 70%;
   border-radius: 4px;
+  font-size: 22px;
+}
+#loginButton{
+  width: 100px;
+  height: 25px;
+  margin-top: 10%;
+  border-radius: 20px;
+  background-color: greenyellow;
+  
 }
 @media only screen and (max-width: 1000px){
   .formContainerCenter2{

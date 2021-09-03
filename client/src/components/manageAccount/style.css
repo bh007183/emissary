@@ -4,7 +4,7 @@
     
 }
 #editContain{
-    position: absolute;
+    position: relative;
     top: 15%;
     left: 15%;
     transform: translate(-50, -50);
@@ -12,6 +12,14 @@
     height: 70%;
     background-color: rgb(66, 62, 55);
     border-radius: 20px;
+    
+}
+#centerInputs{
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    width: 100%;
+    transform: translate(-50%, -50%);
 }
 .editAccountInput{
     margin-top: 15px;
@@ -21,13 +29,14 @@
     
 }
 #saveChangesButton{
-    width: 100%;
+    width: 40%;
    
-    background-color: rgb(88, 13, 88);
+    background-color: rgb(75, 206, 0);
     height: 40px;
     border-radius: 20px;
     display: block;
-    position: absolute;
+    margin-right:45px ;
+    margin-top: 20px;
     bottom: 1px;
 }
 #modalContain{

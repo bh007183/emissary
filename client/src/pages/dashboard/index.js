@@ -131,7 +131,7 @@ export default function UserDash() {
         <div id="newConvo" className="centerFlex">
           <Link to={`${url}/createRoom`}>
             <IconButton>
-              <AddIcon />
+              <AddIcon style={{color: "black", fontSize: "30px"}} />
             </IconButton>
           </Link>
         </div>
@@ -150,7 +150,7 @@ export default function UserDash() {
         </div>
         <div id="profile" className="centerAndAlignFlex">
           <IconButton onClick={manageProfileDropdown}>
-            <AccountCircleIcon />
+            <AccountCircleIcon style={{color: "black"}} />
           </IconButton>
           <Menu
             // id="simple-menu"

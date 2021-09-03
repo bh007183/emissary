@@ -22,7 +22,9 @@
     border-radius: 10px;
     
 }
-
+#createAccountForm{
+    margin-top: 5%;
+}
 #entryHeader{
     font-family: 'Syne Tactile', cursive;
 }
@@ -30,6 +32,13 @@
     margin-top: 15px ;
     width: 70%;
     border-radius: 4px;
+}
+#creatAccountButton{
+    width: 100px;
+    height: 25px;
+    margin-top: 5%;
+    border-radius: 20px;
+    background-color: greenyellow;
 }
 
 
