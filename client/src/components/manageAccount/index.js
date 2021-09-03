@@ -78,6 +78,7 @@ export default function ManageAccount() {
 
   const submitEdit = () => {
     dispatch(editUser({ password: password, newdata: user }));
+    setOpen(false)
   };
  
 

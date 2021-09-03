@@ -61,6 +61,7 @@ export default function RoomButtons(props) {
                         </p>
                       ))}
                     </div>
+                    <div id="roomNameRow">{props.room.name}</div>
                   </div>
                 </Link>
                 <div
